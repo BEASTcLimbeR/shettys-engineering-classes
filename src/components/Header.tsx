@@ -30,6 +30,7 @@ const Header: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [activeSection, setActiveSection] = useState('home');
+  const [scrolled, setScrolled] = useState(false);
 
   // Smooth scroll to section
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
@@ -44,6 +45,8 @@ const Header: React.FC = () => {
   // Highlight active section on scroll
   useEffect(() => {
     const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 10);
       const sectionIds = navLinks.map(link => link.href.replace('#', ''));
       let current = 'home';
       for (const id of sectionIds) {
@@ -76,11 +79,12 @@ const Header: React.FC = () => {
       sx={{ 
         background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(10px)',
-        boxShadow: '0 2px 20px rgba(0, 0, 0, 0.1)',
+        boxShadow: scrolled ? '0 4px 24px rgba(25, 118, 210, 0.18)' : '0 2px 20px rgba(0, 0, 0, 0.1)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+        transition: 'all 0.3s cubic-bezier(.4,2,.3,1)',
       }}
     >
-      <Toolbar sx={{ minHeight: '70px' }}>
+      <Toolbar sx={{ minHeight: scrolled ? '56px' : '70px', transition: 'min-height 0.3s cubic-bezier(.4,2,.3,1)' }}>
         {/* Logo and Brand Name */}
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
           <Image src="/logo-icon.svg" alt="Shetty's Engineering Classes Logo" width={40} height={40} style={{ marginRight: 12 }} />

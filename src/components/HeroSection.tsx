@@ -3,6 +3,7 @@
 import React from 'react';
 import { Box, Typography, Button, Container, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
+import { Parallax } from 'react-scroll-parallax';
 
 const HeroSection: React.FC = () => {
   return (
@@ -19,30 +20,36 @@ const HeroSection: React.FC = () => {
       }}
     >
       {/* Background decorative elements */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '10%',
-          right: '10%',
-          width: '200px',
-          height: '200px',
-          borderRadius: '50%',
-          background: 'rgba(255, 165, 0, 0.1)',
-          filter: 'blur(40px)',
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '20%',
-          left: '5%',
-          width: '150px',
-          height: '150px',
-          borderRadius: '50%',
-          background: 'rgba(25, 118, 210, 0.1)',
-          filter: 'blur(30px)',
-        }}
-      />
+      <Parallax translateY={[-30, 30]}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '10%',
+            right: '10%',
+            width: '200px',
+            height: '200px',
+            borderRadius: '50%',
+            background: 'rgba(255, 165, 0, 0.1)',
+            filter: 'blur(40px)',
+            zIndex: 0,
+          }}
+        />
+      </Parallax>
+      <Parallax translateY={[30, -30]}>
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: '20%',
+            left: '5%',
+            width: '150px',
+            height: '150px',
+            borderRadius: '50%',
+            background: 'rgba(25, 118, 210, 0.1)',
+            filter: 'blur(30px)',
+            zIndex: 0,
+          }}
+        />
+      </Parallax>
 
       <Container maxWidth="lg">
         <Box
@@ -154,6 +161,8 @@ const HeroSection: React.FC = () => {
                   fontSize: '1.1rem',
                   fontWeight: 700,
                   borderRadius: '50px',
+                  minHeight: '52px',
+                  lineHeight: 1.5,
                   background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
                   boxShadow: '0 8px 25px rgba(255, 107, 53, 0.3)',
                   '&:hover': {
@@ -162,6 +171,11 @@ const HeroSection: React.FC = () => {
                     boxShadow: '0 12px 35px rgba(255, 107, 53, 0.4)',
                   },
                   transition: 'all 0.3s ease',
+                  outline: 'none',
+                  '&:focus': {
+                    outline: 'none',
+                    boxShadow: 'none',
+                  },
                 }}
               >
                 Book a Free Demo
@@ -175,8 +189,11 @@ const HeroSection: React.FC = () => {
                   fontSize: '1.1rem',
                   fontWeight: 600,
                   borderRadius: '50px',
+                  minHeight: '52px',
+                  lineHeight: 1.5,
                   border: '2px solid #1976d2',
                   color: '#1976d2',
+                  backgroundColor: 'transparent',
                   '&:hover': {
                     background: '#1976d2',
                     color: 'white',
@@ -184,6 +201,11 @@ const HeroSection: React.FC = () => {
                     boxShadow: '0 8px 25px rgba(25, 118, 210, 0.3)',
                   },
                   transition: 'all 0.3s ease',
+                  outline: 'none',
+                  '&:focus': {
+                    outline: 'none',
+                    boxShadow: 'none',
+                  },
                 }}
               >
                 Talk to a Counselor
@@ -201,6 +223,14 @@ const HeroSection: React.FC = () => {
               bottom: '40px',
               left: '50%',
               transform: 'translateX(-50%)',
+              cursor: 'pointer',
+              zIndex: 2,
+            }}
+            onClick={() => {
+              const nextSection = document.getElementById('about');
+              if (nextSection) {
+                nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
             }}
           >
             <Box
@@ -222,4 +252,4 @@ const HeroSection: React.FC = () => {
   );
 };
 
-export default HeroSection; 
+export default HeroSection;

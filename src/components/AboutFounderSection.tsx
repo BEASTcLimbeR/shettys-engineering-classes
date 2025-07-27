@@ -76,7 +76,7 @@ const AboutFounderSection: React.FC = () => {
               {/* Founder Photo */}
               <Avatar
                 sx={{ width: 120, height: 120, bgcolor: '#1976d2', fontSize: 60 }}
-                src={''} // Add real photo URL here if available
+                src={'/shetty-sir.svg'}
               >
                 <PersonIcon fontSize="inherit" />
               </Avatar>

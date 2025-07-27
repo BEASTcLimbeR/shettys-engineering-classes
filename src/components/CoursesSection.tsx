@@ -316,47 +316,63 @@ const CoursesSection: React.FC = () => {
               border: '1px solid rgba(255, 255, 255, 0.2)',
               borderRadius: 3,
               mb: 4,
+              position: 'relative',
+              overflow: 'visible',
             }}
           >
-            <Tabs
-              value={selectedTab}
-              onChange={handleTabChange}
-              variant="scrollable"
-              scrollButtons="auto"
-              sx={{
-                '& .MuiTab-root': {
-                  minHeight: '80px',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  textTransform: 'none',
-                  '&.Mui-selected': {
-                    color: branches[selectedTab]?.color || '#1976d2',
-                  },
-                },
-                '& .MuiTabs-indicator': {
-                  backgroundColor: branches[selectedTab]?.color || '#1976d2',
-                  height: '4px',
-                },
-              }}
-            >
-              {branches.map((branch, index) => (
-                <Tab
-                  key={index}
-                  label={
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      {branch.icon}
-                      <span>{branch.name}</span>
-                    </Box>
-                  }
-                  sx={{
-                    color: '#666',
+            <Box sx={{ position: 'relative' }}>
+              <Tabs
+                value={selectedTab}
+                onChange={handleTabChange}
+                variant="scrollable"
+                scrollButtons="auto"
+                TabIndicatorProps={{ style: { display: 'none' } }}  // Hide default MUI indicator
+                sx={{
+                  '& .MuiTab-root': {
+                    minHeight: '80px',
+                    fontSize: '1rem',
+                    fontWeight: 600,
+                    textTransform: 'none',
                     '&.Mui-selected': {
-                      color: branch.color,
+                      color: branches[selectedTab]?.color || '#1976d2',
                     },
-                  }}
-                />
-              ))}
-            </Tabs>
+                  },
+                }}
+              >
+                {branches.map((branch, index) => (
+                  <Tab
+                    key={index}
+                    label={
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        {branch.icon}
+                        <span>{branch.name}</span>
+                      </Box>
+                    }
+                    sx={{
+                      color: '#666',
+                      '&.Mui-selected': {
+                        color: branch.color,
+                      },
+                    }}
+                  />
+                ))}
+              </Tabs>
+              {/* Custom Animated Indicator */}
+              <motion.div
+                layout
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                style={{
+                  position: 'absolute',
+                  left: `${(selectedTab * 100) / (branches.length - 1)}%`,
+                  bottom: 0,
+                  width: `${100 / branches.length}%`,
+                  height: 4,
+                  background: branches[selectedTab]?.color || '#1976d2',
+                  borderRadius: 2,
+                  zIndex: 1,
+                }}
+              />
+            </Box>
           </Paper>
         </motion.div>
 

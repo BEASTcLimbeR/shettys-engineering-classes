@@ -4,55 +4,64 @@ import React from 'react';
 import { Box, Typography, Container, Paper, Avatar, Stack, Rating } from '@mui/material';
 import { motion, useAnimation, useInView } from 'framer-motion';
 
-const testimonials = [
+// ✅ Define type
+type Testimonial = {
+  name: string;
+  rating: number;
+  text: string;
+  avatar?: string; // Optional avatar field
+};
+
+// ✅ Updated testimonials with optional avatar
+const testimonials: Testimonial[] = [
   {
     name: 'Amit Sharma',
-    avatar: '',
     rating: 5,
     text: 'The best coaching experience I have ever had! The personal attention and regular tests helped me clear my backlogs and score distinction.',
+    avatar: '', // Optional: Add avatar URL or leave empty
   },
   {
     name: 'Priya Desai',
-    avatar: '',
     rating: 5,
     text: 'Shetty Sir explains every concept so clearly. The hybrid model made it easy to attend classes even when I was out of town.',
+    avatar: '',
   },
   {
     name: 'Rahul Patil',
-    avatar: '',
-    rating: 5,
+    rating: 4.5,
     text: 'I loved the doubt clinics and the support for repeater students. Highly recommend to anyone who wants to truly understand engineering subjects.',
+    avatar: '',
   },
   {
     name: 'Sneha Kulkarni',
-    avatar: '',
     rating: 5,
     text: 'The notes, PYQs, and regular feedback made a huge difference in my performance. Thank you, Shetty Sir!',
+    avatar: '',
   },
   {
     name: 'Vikas Joshi',
-    avatar: '',
-    rating: 5,
+    rating: 4.5,
     text: 'The faculty is very supportive and the teaching methods are excellent. I gained a lot of confidence in my subjects.',
+    avatar: '',
   },
   {
     name: 'Meera Nair',
-    avatar: '',
     rating: 5,
     text: 'The hybrid classes and regular assessments helped me stay on track. Highly recommended for engineering students!',
+    avatar: '',
   },
   {
     name: 'Siddharth Rao',
-    avatar: '',
-    rating: 5,
+    rating: 4.5,
     text: 'Best place for concept clarity and exam preparation. The environment is very motivating.',
+    avatar: '',
   },
 ];
 
-// Duplicate testimonials for seamless looping
+// Duplicate for seamless loop
 const loopedTestimonials = [...testimonials, ...testimonials];
 
-const SLIDE_WIDTH = 320; // px, adjust as needed
+const SLIDE_WIDTH = 320;
 
 const TestimonialsSection: React.FC = () => {
   const controls = useAnimation();
@@ -67,7 +76,7 @@ const TestimonialsSection: React.FC = () => {
           x: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: testimonials.length * 5, // SLOWER: increase multiplier for slower slide
+            duration: testimonials.length * 5,
             ease: "linear",
           },
         },
@@ -85,7 +94,7 @@ const TestimonialsSection: React.FC = () => {
         overflow: 'hidden',
       }}
     >
-      {/* Background decorative elements */}
+      {/* Background elements */}
       <Box
         sx={{
           position: 'absolute',
@@ -112,7 +121,7 @@ const TestimonialsSection: React.FC = () => {
       />
 
       <Container maxWidth="lg">
-        {/* Section Header */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -148,7 +157,7 @@ const TestimonialsSection: React.FC = () => {
           </Box>
         </motion.div>
 
-        {/* Testimonial Carousel */}
+        {/* Carousel */}
         <Box
           sx={{
             mt: 4,

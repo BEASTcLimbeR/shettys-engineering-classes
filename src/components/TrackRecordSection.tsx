@@ -7,6 +7,8 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import StarIcon from '@mui/icons-material/Star';
 import SchoolIcon from '@mui/icons-material/School';
 import GroupsIcon from '@mui/icons-material/Groups';
+import { useEffect } from 'react';
+import { useInView, useMotionValue, useAnimationFrame } from 'framer-motion';
 
 const stats = [
   {
@@ -30,6 +32,47 @@ const stats = [
     label: 'Universities trust us',
   },
 ];
+
+const Counter: React.FC<{ value: string }> = ({ value }) => {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+
+  // Extract numeric part and suffix
+  const match = value.match(/^(\d+)/);
+  const number = match ? parseInt(match[1], 10) : 0;
+  const suffix = match ? value.substring(match[1].length) : value;
+  const [display, setDisplay] = React.useState(0);
+  const animationRef = React.useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const end = number;
+    const duration = 1200; // ms
+    const startTime = performance.now();
+    function animate(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = Math.floor(progress * (end - start) + start);
+      setDisplay(value);
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        setDisplay(end);
+      }
+    }
+    animationRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [isInView, number]);
+
+  return (
+    <span ref={ref}>
+      {display}{suffix}
+    </span>
+  );
+};
 
 const TrackRecordSection: React.FC = () => {
   return (
@@ -148,7 +191,11 @@ const TrackRecordSection: React.FC = () => {
                     mb: 1,
                   }}
                 >
-                  {stat.value}
+                  {stat.label === 'across Computer, ENTC, Electrical, AI & IT branches' ? (
+                    stat.value
+                  ) : (
+                    <Counter value={stat.value} />
+                  )}
                 </Typography>
                 <Typography
                   variant="h6"
