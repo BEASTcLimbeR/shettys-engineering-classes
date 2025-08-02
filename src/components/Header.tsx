@@ -13,6 +13,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Navigation links with section IDs
 const navLinks = [
@@ -23,6 +24,7 @@ const navLinks = [
   { label: 'Testimonials', href: '#testimonials' },
   { label: 'Schedule', href: '#schedule' }, // Placeholder, not implemented
   { label: 'Contact Us', href: '#contact' },
+  { label: 'Gallery', href: '/gallery' },
 ];
 
 const Header: React.FC = () => {
@@ -107,30 +109,52 @@ const Header: React.FC = () => {
         {!isMobile && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {navLinks.map((link) => (
-              <Button 
-                key={link.label} 
-                href={link.href}
-                onClick={e => handleNavClick(e, link.href)}
-                sx={{ 
-                  color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
-                  fontWeight: 500,
-                  fontSize: '0.9rem',
-                  textTransform: 'none',
-                  borderBottom: activeSection === link.href.replace('#', '') ? '2px solid #1976d2' : 'none',
-                  '&:hover': {
-                    background: 'rgba(25, 118, 210, 0.1)',
-                    color: '#1976d2',
-                  },
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                {link.label}
-              </Button>
+              link.href.startsWith('#') ? (
+                <Button
+                  key={link.label}
+                  href={link.href}
+                  onClick={e => handleNavClick(e, link.href)}
+                  sx={{
+                    color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
+                    fontWeight: 500,
+                    fontSize: '0.9rem',
+                    textTransform: 'none',
+                    borderBottom: activeSection === link.href.replace('#', '') ? '2px solid #1976d2' : 'none',
+                    '&:hover': {
+                      background: 'rgba(25, 118, 210, 0.1)',
+                      color: '#1976d2',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  {link.label}
+                </Button>
+              ) : (
+                <Link key={link.label} href={link.href} passHref>
+                  <Button
+                    component="a"
+                    sx={{
+                      color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
+                      fontWeight: 500,
+                      fontSize: '0.9rem',
+                      textTransform: 'none',
+                      borderBottom: activeSection === link.href.replace('#', '') ? '2px solid #1976d2' : 'none',
+                      '&:hover': {
+                        background: 'rgba(25, 118, 210, 0.1)',
+                        color: '#1976d2',
+                      },
+                      transition: 'all 0.3s ease',
+                    }}
+                  >
+                    {link.label}
+                  </Button>
+                </Link>
+              )
             ))}
-            <Button 
-              variant="contained" 
-              sx={{ 
-                ml: 2, 
+            <Button
+              variant="contained"
+              sx={{
+                ml: 2,
                 fontWeight: 600,
                 borderRadius: '25px',
                 px: 3,
@@ -158,7 +182,7 @@ const Header: React.FC = () => {
             <IconButton
               size="large"
               edge="end"
-              sx={{ 
+              sx={{
                 color: '#333',
                 '&:hover': {
                   background: 'rgba(25, 118, 210, 0.1)',
@@ -184,22 +208,41 @@ const Header: React.FC = () => {
               }}
             >
               {navLinks.map((link) => (
-                <MenuItem 
-                  key={link.label} 
-                  onClick={e => { handleNavClick(e as any, link.href); handleClose(); }}
-                  sx={{
-                    color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
-                    fontWeight: 500,
-                    '&:hover': {
-                      background: 'rgba(25, 118, 210, 0.1)',
-                      color: '#1976d2',
-                    },
-                  }}
-                  component="a"
-                  href={link.href}
-                >
-                  {link.label}
-                </MenuItem>
+                link.href.startsWith('#') ? (
+                  <MenuItem
+                    key={link.label}
+                    onClick={e => { handleNavClick(e as any, link.href); handleClose(); }}
+                    sx={{
+                      color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
+                      fontWeight: 500,
+                      '&:hover': {
+                        background: 'rgba(25, 118, 210, 0.1)',
+                        color: '#1976d2',
+                      },
+                    }}
+                    component="a"
+                    href={link.href}
+                  >
+                    {link.label}
+                  </MenuItem>
+                ) : (
+                  <Link key={link.label} href={link.href} passHref>
+                    <MenuItem
+                      component="a"
+                      onClick={handleClose}
+                      sx={{
+                        color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
+                        fontWeight: 500,
+                        '&:hover': {
+                          background: 'rgba(25, 118, 210, 0.1)',
+                          color: '#1976d2',
+                        },
+                      }}
+                    >
+                      {link.label}
+                    </MenuItem>
+                  </Link>
+                )
               ))}
               <MenuItem onClick={e => { handleNavClick(e as any, '#contact'); handleClose(); }} sx={{ mt: 1 }}>
                 <Button 

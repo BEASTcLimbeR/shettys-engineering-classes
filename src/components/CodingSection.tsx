@@ -4,17 +4,26 @@ import React, { useState } from 'react';
 import { Box, Typography, Container, Button } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import Loader from './Loader';
+import programersWorking from '../../public/programers-working.json';
+import clockLoading from '../../public/clock-loading.json';
 
 const CodingSection: React.FC = () => {
   const [isDeveloperMode, setIsDeveloperMode] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleToggle = () => {
-    setIsDeveloperMode(!isDeveloperMode);
-    // Add a small delay before navigation to allow animation to complete
+    setLoading(true);
     setTimeout(() => {
-      router.push('/coding-academy');
-    }, 500);
+      setIsDeveloperMode(!isDeveloperMode);
+      setLoading(false);
+      if (!isDeveloperMode) {
+        setTimeout(() => { router.push('/coding-academy'); }, 500);
+      } else {
+        setTimeout(() => { router.push('/'); }, 500);
+      }
+    }, 1000);
   };
 
   return (
@@ -27,6 +36,12 @@ const CodingSection: React.FC = () => {
         overflow: 'hidden',
       }}
     >
+      {loading && (
+        <Loader
+          animationData={isDeveloperMode ? clockLoading : programersWorking}
+          overlay
+        />
+      )}
       {/* Background decorative elements */}
       <Box
         sx={{

@@ -1,9 +1,13 @@
 "use client";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Box, Typography, Button, Container, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Parallax } from 'react-scroll-parallax';
+import dynamic from 'next/dynamic';
+
+const HeroHeadline = dynamic(() => import('./HeroHeadline'), { ssr: false });
+const HeroCTAButtons = dynamic(() => import('./HeroCTAButtons'), { ssr: false });
 
 const HeroSection: React.FC = () => {
   return (
@@ -65,37 +69,7 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '3rem', sm: '4rem', md: '5rem', lg: '6rem' },
-                fontWeight: 900,
-                lineHeight: 1.1,
-                mb: 2,
-                background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                textShadow: '0 4px 8px rgba(0,0,0,0.1)',
-              }}
-            >
-              Towards Student
-            </Typography>
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '3rem', sm: '4rem', md: '5rem', lg: '6rem' },
-                fontWeight: 900,
-                lineHeight: 1.1,
-                mb: 3,
-                background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Satisfaction
-            </Typography>
+            <HeroHeadline />
           </motion.div>
 
           {/* Subheadline */}
@@ -146,71 +120,7 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              spacing={3}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Button
-                variant="contained"
-                size="large"
-                sx={{
-                  px: 4,
-                  py: 2,
-                  fontSize: '1.1rem',
-                  fontWeight: 700,
-                  borderRadius: '50px',
-                  minHeight: '52px',
-                  lineHeight: 1.5,
-                  background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
-                  boxShadow: '0 8px 25px rgba(255, 107, 53, 0.3)',
-                  '&:hover': {
-                    background: 'linear-gradient(135deg, #e55a2b 0%, #e0851a 100%)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 12px 35px rgba(255, 107, 53, 0.4)',
-                  },
-                  transition: 'all 0.3s ease',
-                  outline: 'none',
-                  '&:focus': {
-                    outline: 'none',
-                    boxShadow: 'none',
-                  },
-                }}
-              >
-                Book a Free Demo
-              </Button>
-              <Button
-                variant="outlined"
-                size="large"
-                sx={{
-                  px: 4,
-                  py: 2,
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  borderRadius: '50px',
-                  minHeight: '52px',
-                  lineHeight: 1.5,
-                  border: '2px solid #1976d2',
-                  color: '#1976d2',
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    background: '#1976d2',
-                    color: 'white',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 8px 25px rgba(25, 118, 210, 0.3)',
-                  },
-                  transition: 'all 0.3s ease',
-                  outline: 'none',
-                  '&:focus': {
-                    outline: 'none',
-                    boxShadow: 'none',
-                  },
-                }}
-              >
-                Talk to a Counselor
-              </Button>
-            </Stack>
+            <HeroCTAButtons />
           </motion.div>
 
           {/* Scroll indicator */}

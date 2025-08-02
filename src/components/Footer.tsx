@@ -1,11 +1,12 @@
 "use client";
 
 import React from 'react';
-import { Box, Typography, Container, Link, Stack, IconButton } from '@mui/material';
+import { Box, Typography, Container, Link as MuiLink, Stack, IconButton } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
+import Link from 'next/link';
 
 const navLinks = [
   { label: 'Home', href: '#' },
@@ -65,14 +66,26 @@ const Footer: React.FC = () => {
           {/* Navigation Links */}
           <Stack direction="row" spacing={2} flexWrap="wrap">
             {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                underline="hover"
-                sx={{ color: '#1976d2', fontWeight: 600, fontSize: '1rem', mx: 1 }}
-              >
-                {link.label}
-              </Link>
+              link.href.startsWith('#') ? (
+                <MuiLink
+                  key={link.label}
+                  href={link.href}
+                  underline="hover"
+                  sx={{ color: '#1976d2', fontWeight: 600, fontSize: '1rem', mx: 1 }}
+                >
+                  {link.label}
+                </MuiLink>
+              ) : (
+                <Link key={link.label} href={link.href}>
+                  <MuiLink
+                    component="a"
+                    underline="hover"
+                    sx={{ color: '#1976d2', fontWeight: 600, fontSize: '1rem', mx: 1 }}
+                  >
+                    {link.label}
+                  </MuiLink>
+                </Link>
+              )
             ))}
           </Stack>
 
@@ -84,15 +97,15 @@ const Footer: React.FC = () => {
             </Stack>
             <Stack direction="row" spacing={1} alignItems="center">
               <PhoneIcon color="primary" fontSize="small" />
-              <Link href={`tel:${contact.phone.replace(/\s+/g, '')}`} underline="hover" sx={{ color: '#1976d2', fontWeight: 600 }}>
+              <MuiLink href={`tel:${contact.phone.replace(/\s+/g, '')}`} underline="hover" sx={{ color: '#1976d2', fontWeight: 600 }}>
                 {contact.phone}
-              </Link>
+              </MuiLink>
             </Stack>
             <Stack direction="row" spacing={1} alignItems="center">
               <EmailIcon color="primary" fontSize="small" />
-              <Link href={`mailto:${contact.email}`} underline="hover" sx={{ color: '#1976d2', fontWeight: 600 }}>
+              <MuiLink href={`mailto:${contact.email}`} underline="hover" sx={{ color: '#1976d2', fontWeight: 600 }}>
                 {contact.email}
-              </Link>
+              </MuiLink>
             </Stack>
             <IconButton
               href={contact.instagram}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Box, 
   Typography, 
@@ -25,6 +25,7 @@ import {
   Psychology,
   Build
 } from '@mui/icons-material';
+import dynamic from 'next/dynamic';
 
 type CourseYearData = {
   FE: string[];
@@ -33,8 +34,20 @@ type CourseYearData = {
   BE: string[];
 };
 
+const BranchTabs = dynamic(() => import('./BranchTabs'), { ssr: false });
+const CourseAccordion = dynamic(() => import('./CourseAccordion'), { ssr: false });
+
 const CoursesSection: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+
+  useEffect(() => {
+    const tab = tabRefs.current[selectedTab];
+    if (tab) {
+      setIndicatorStyle({ left: tab.offsetLeft, width: tab.offsetWidth });
+    }
+  }, [selectedTab]);
 
   const branches = [
     { 
@@ -303,81 +316,17 @@ const CoursesSection: React.FC = () => {
         </motion.div>
 
         {/* Branch Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <Paper
-            elevation={0}
-            sx={{
-              background: 'rgba(255, 255, 255, 0.9)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRadius: 3,
-              mb: 4,
-              position: 'relative',
-              overflow: 'visible',
-            }}
-          >
-            <Box sx={{ position: 'relative' }}>
-              <Tabs
-                value={selectedTab}
-                onChange={handleTabChange}
-                variant="scrollable"
-                scrollButtons="auto"
-                TabIndicatorProps={{ style: { display: 'none' } }}  // Hide default MUI indicator
-                sx={{
-                  '& .MuiTab-root': {
-                    minHeight: '80px',
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    textTransform: 'none',
-                    '&.Mui-selected': {
-                      color: branches[selectedTab]?.color || '#1976d2',
-                    },
-                  },
-                }}
-              >
-                {branches.map((branch, index) => (
-                  <Tab
-                    key={index}
-                    label={
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        {branch.icon}
-                        <span>{branch.name}</span>
-                      </Box>
-                    }
-                    sx={{
-                      color: '#666',
-                      '&.Mui-selected': {
-                        color: branch.color,
-                      },
-                    }}
-                  />
-                ))}
-              </Tabs>
-              {/* Custom Animated Indicator */}
-              <motion.div
-                layout
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                style={{
-                  position: 'absolute',
-                  left: `${(selectedTab * 100) / (branches.length - 1)}%`,
-                  bottom: 0,
-                  width: `${100 / branches.length}%`,
-                  height: 4,
-                  background: branches[selectedTab]?.color || '#1976d2',
-                  borderRadius: 2,
-                  zIndex: 1,
-                }}
-              />
-            </Box>
-          </Paper>
-        </motion.div>
+        <BranchTabs
+          branches={branches}
+          selectedTab={selectedTab}
+          onTabChange={setSelectedTab}
+        />
 
         {/* Course Content */}
-        {renderCourses()}
+        <CourseAccordion
+          branch={branches[selectedTab].name}
+          coursesData={coursesData}
+        />
 
         {/* Other Universities Note */}
         <motion.div

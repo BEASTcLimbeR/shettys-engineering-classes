@@ -8,6 +8,9 @@ import '@fontsource/roboto/700.css';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import Loader from '../components/Loader';
+import clockLoading from '../../public/clock-loading.json';
+import React, { useState, useEffect } from 'react';
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -21,12 +24,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => { setHydrated(true); }, []);
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/logo-icon.svg" type="image/svg+xml" />
       </head>
       <body className={roboto.variable}>
+        {!hydrated && <Loader animationData={clockLoading} overlay />}
         <ParallaxProvider>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -37,7 +43,7 @@ export default function RootLayout({
               transition={{ duration: 0.5, ease: 'easeInOut' }}
               style={{ minHeight: '100vh' }}
             >
-        {children}
+              {children}
             </motion.div>
           </AnimatePresence>
         </ParallaxProvider>
