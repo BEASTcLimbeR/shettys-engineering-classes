@@ -28,7 +28,7 @@ const stats = [
   },
   {
     icon: <GroupsIcon sx={{ fontSize: 48, color: '#ff9800' }} />,
-    value: '26',
+    value: '27',
     label: 'Universities trust us',
   },
 ];

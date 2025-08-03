@@ -1,21 +1,30 @@
 "use client";
 
 import React from 'react';
-import { Box, Typography, Container, Link as MuiLink, Stack, IconButton } from '@mui/material';
+import { Box, Typography, Container, Link as MuiLink, Stack, IconButton, Paper, Divider } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SchoolIcon from '@mui/icons-material/School';
 import Link from 'next/link';
 
 const navLinks = [
-  { label: 'Home', href: '#' },
-  { label: 'About', href: '#' },
-  { label: 'Courses', href: '#' },
-  { label: 'Coding', href: '#' },
-  { label: 'Testimonials', href: '#' },
-  { label: 'Schedule', href: '#' },
-  { label: 'Contact Us', href: '#' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '#about' },
+  { label: 'Courses', href: '#courses' },
+  { label: 'Coding Academy', href: '/coding-academy' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Contact', href: '#contact' },
+];
+
+const quickLinks = [
+  { label: 'Programming Basics', href: '/coding-academy/basics' },
+  { label: 'Why Choose SEC', href: '#why-us' },
+  { label: 'Our Mission', href: '#mission' },
+  { label: 'Student Success', href: '#testimonials' },
 ];
 
 const contact = {
@@ -23,6 +32,8 @@ const contact = {
   phone: '+91 99234 60156',
   email: 'shettyseng@gmail.com',
   instagram: 'https://instagram.com/shettys_engineering_classes',
+  whatsapp: 'https://wa.me/919923460156',
+  timings: 'Mon-Sat: 9:00 AM - 8:00 PM',
 };
 
 const Footer: React.FC = () => {
@@ -30,93 +41,316 @@ const Footer: React.FC = () => {
     <Box
       component="footer"
       sx={{
-        background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-        borderTop: '1px solid #e0e0e0',
-        py: { xs: 4, md: 6 },
-        mt: 8,
+        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+        color: 'white',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)',
+        }
       }}
     >
-      <Container maxWidth="lg">
-        <Stack
-          direction={{ xs: 'column', md: 'row' }}
-          spacing={4}
-          justifyContent="space-between"
-          alignItems={{ xs: 'flex-start', md: 'center' }}
-        >
-          {/* Brand and Copyright */}
-          <Box sx={{ mb: { xs: 2, md: 0 } }}>
+      {/* Background decorative elements */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '20%',
+          right: '10%',
+          width: '200px',
+          height: '200px',
+          borderRadius: '50%',
+          background: 'rgba(25, 118, 210, 0.05)',
+          filter: 'blur(40px)',
+        }}
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '20%',
+          left: '10%',
+          width: '150px',
+          height: '150px',
+          borderRadius: '50%',
+          background: 'rgba(255, 107, 53, 0.05)',
+          filter: 'blur(30px)',
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Main Footer Content */}
+        <Box sx={{ py: { xs: 6, md: 8 } }}>
+          <Stack
+            direction={{ xs: 'column', lg: 'row' }}
+            spacing={{ xs: 4, md: 6 }}
+            justifyContent="space-between"
+          >
+            {/* Brand Section */}
+            <Box sx={{ flex: 1, maxWidth: { lg: '300px' } }}>
+              <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>
+                <SchoolIcon sx={{ fontSize: 40, color: '#ff6b35' }} />
+                <Box>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      fontWeight: 900,
+                      background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      mb: 0.5,
+                    }}
+                  >
+                    SEC
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'rgba(255,255,255,0.8)',
+                      fontWeight: 500,
+                    }}
+                  >
+                    Shetty's Engineering Classes
+                  </Typography>
+                </Box>
+              </Stack>
+              
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'rgba(255,255,255,0.9)',
+                  lineHeight: 1.6,
+                  mb: 3,
+                }}
+              >
+                Empowering engineering students with personalized coaching, expert guidance, and proven academic excellence for over 15+ years.
+              </Typography>
+
+              {/* Social Links */}
+              <Stack direction="row" spacing={2}>
+                <IconButton
+                  href={contact.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: '#E1306C',
+                    background: 'rgba(225, 48, 108, 0.1)',
+                    '&:hover': {
+                      background: 'rgba(225, 48, 108, 0.2)',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <InstagramIcon />
+                </IconButton>
+                <IconButton
+                  href={contact.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: '#25D366',
+                    background: 'rgba(37, 211, 102, 0.1)',
+                    '&:hover': {
+                      background: 'rgba(37, 211, 102, 0.2)',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <WhatsAppIcon />
+                </IconButton>
+              </Stack>
+            </Box>
+
+            {/* Quick Links */}
+            <Box sx={{ flex: 1, maxWidth: { lg: '200px' } }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 700,
+                  mb: 3,
+                  color: '#ff6b35',
+                }}
+              >
+                Quick Links
+              </Typography>
+              <Stack spacing={2}>
+                {quickLinks.map((link) => (
+                  <Link key={link.label} href={link.href}>
+                    <MuiLink
+                      component="a"
+                      underline="none"
+                      sx={{
+                        color: 'rgba(255,255,255,0.8)',
+                        fontWeight: 500,
+                        fontSize: '0.95rem',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          color: '#ff6b35',
+                          transform: 'translateX(5px)',
+                        },
+                      }}
+                    >
+                      {link.label}
+                    </MuiLink>
+                  </Link>
+                ))}
+              </Stack>
+            </Box>
+
+            {/* Navigation */}
+            <Box sx={{ flex: 1, maxWidth: { lg: '200px' } }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 700,
+                  mb: 3,
+                  color: '#ff6b35',
+                }}
+              >
+                Navigation
+              </Typography>
+              <Stack spacing={2}>
+                {navLinks.map((link) => (
+                  <Link key={link.label} href={link.href}>
+                    <MuiLink
+                      component="a"
+                      underline="none"
+                      sx={{
+                        color: 'rgba(255,255,255,0.8)',
+                        fontWeight: 500,
+                        fontSize: '0.95rem',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          color: '#ff6b35',
+                          transform: 'translateX(5px)',
+                        },
+                      }}
+                    >
+                      {link.label}
+                    </MuiLink>
+                  </Link>
+                ))}
+              </Stack>
+            </Box>
+
+            {/* Contact Info */}
+            <Box sx={{ flex: 1, maxWidth: { lg: '300px' } }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 700,
+                  mb: 3,
+                  color: '#ff6b35',
+                }}
+              >
+                Contact Info
+              </Typography>
+              <Stack spacing={2}>
+                <Stack direction="row" spacing={2} alignItems="flex-start">
+                  <LocationOnIcon sx={{ color: '#ff6b35', mt: 0.5, fontSize: 20 }} />
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'rgba(255,255,255,0.9)',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {contact.address}
+                  </Typography>
+                </Stack>
+                
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <PhoneIcon sx={{ color: '#ff6b35', fontSize: 20 }} />
+                  <MuiLink
+                    href={`tel:${contact.phone.replace(/\s+/g, '')}`}
+                    underline="none"
+                    sx={{
+                      color: 'rgba(255,255,255,0.9)',
+                      fontWeight: 600,
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        color: '#ff6b35',
+                      },
+                    }}
+                  >
+                    {contact.phone}
+                  </MuiLink>
+                </Stack>
+                
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <EmailIcon sx={{ color: '#ff6b35', fontSize: 20 }} />
+                  <MuiLink
+                    href={`mailto:${contact.email}`}
+                    underline="none"
+                    sx={{
+                      color: 'rgba(255,255,255,0.9)',
+                      fontWeight: 600,
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        color: '#ff6b35',
+                      },
+                    }}
+                  >
+                    {contact.email}
+                  </MuiLink>
+                </Stack>
+                
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <AccessTimeIcon sx={{ color: '#ff6b35', fontSize: 20 }} />
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'rgba(255,255,255,0.9)',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {contact.timings}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </Box>
+          </Stack>
+        </Box>
+
+        {/* Divider */}
+        <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)', mb: 4 }} />
+
+        {/* Bottom Section */}
+        <Box sx={{ pb: 4 }}>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            spacing={2}
+            justifyContent="space-between"
+            alignItems={{ xs: 'flex-start', md: 'center' }}
+          >
             <Typography
-              variant="h5"
+              variant="body2"
               sx={{
-                fontWeight: 900,
-                background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                mb: 1,
+                color: 'rgba(255,255,255,0.7)',
+                textAlign: { xs: 'left', md: 'center' },
               }}
             >
-              Shetty's Engineering Classes
-            </Typography>
-            <Typography variant="body2" sx={{ color: '#888' }}>
               © {new Date().getFullYear()} Shetty's Engineering Classes. All rights reserved.
             </Typography>
-          </Box>
-
-          {/* Navigation Links */}
-          <Stack direction="row" spacing={2} flexWrap="wrap">
-            {navLinks.map((link) => (
-              link.href.startsWith('#') ? (
-                <MuiLink
-                  key={link.label}
-                  href={link.href}
-                  underline="hover"
-                  sx={{ color: '#1976d2', fontWeight: 600, fontSize: '1rem', mx: 1 }}
-                >
-                  {link.label}
-                </MuiLink>
-              ) : (
-                <Link key={link.label} href={link.href}>
-                  <MuiLink
-                    component="a"
-                    underline="hover"
-                    sx={{ color: '#1976d2', fontWeight: 600, fontSize: '1rem', mx: 1 }}
-                  >
-                    {link.label}
-                  </MuiLink>
-                </Link>
-              )
-            ))}
-          </Stack>
-
-          {/* Contact & Social */}
-          <Stack spacing={1} alignItems={{ xs: 'flex-start', md: 'flex-end' }}>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <LocationOnIcon color="primary" fontSize="small" />
-              <Typography variant="body2" sx={{ color: '#333' }}>{contact.address}</Typography>
-            </Stack>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <PhoneIcon color="primary" fontSize="small" />
-              <MuiLink href={`tel:${contact.phone.replace(/\s+/g, '')}`} underline="hover" sx={{ color: '#1976d2', fontWeight: 600 }}>
-                {contact.phone}
-              </MuiLink>
-            </Stack>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <EmailIcon color="primary" fontSize="small" />
-              <MuiLink href={`mailto:${contact.email}`} underline="hover" sx={{ color: '#1976d2', fontWeight: 600 }}>
-                {contact.email}
-              </MuiLink>
-            </Stack>
-            <IconButton
-              href={contact.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{ color: '#E1306C', mt: 1 }}
+            
+            <Typography
+              variant="body2"
+              sx={{
+                color: 'rgba(255,255,255,0.7)',
+                textAlign: { xs: 'left', md: 'center' },
+              }}
             >
-              <InstagramIcon />
-            </IconButton>
+              Empowering Students • Building Futures • Creating Success
+            </Typography>
           </Stack>
-        </Stack>
+        </Box>
       </Container>
     </Box>
   );

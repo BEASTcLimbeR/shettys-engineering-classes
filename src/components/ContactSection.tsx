@@ -7,12 +7,14 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const contact = {
   address: '3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road, Pune-04',
   phone: '+91 99234 60156',
   email: 'shettyseng@gmail.com',
   instagram: 'https://instagram.com/shettys_engineering_classes',
+  whatsapp: 'https://wa.me/919923460156',
 };
 
 const ContactSection: React.FC = () => {
@@ -110,27 +112,83 @@ const ContactSection: React.FC = () => {
                 </Link>
               </Stack>
             </Stack>
-            <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              href={`mailto:${contact.email}`}
-              sx={{
-                px: 4,
-                py: 1.5,
-                fontWeight: 700,
-                borderRadius: '30px',
-                fontSize: '1.1rem',
-                background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                boxShadow: '0 8px 32px rgba(25, 118, 210, 0.08)',
-                '&:hover': {
-                  background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)',
-                },
-                transition: 'all 0.3s ease',
-              }}
-            >
-              Send an Email
-            </Button>
+            
+            {/* Action Buttons */}
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+              <Button
+                variant="contained"
+                size="large"
+                href={contact.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                startIcon={<WhatsAppIcon />}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 700,
+                  borderRadius: '30px',
+                  fontSize: '1.1rem',
+                  background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                  boxShadow: '0 8px 32px rgba(37, 211, 102, 0.3)',
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, #128C7E 0%, #25D366 100%)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 12px 40px rgba(37, 211, 102, 0.4)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                Book a Free Demo
+              </Button>
+              
+              <Button
+                variant="contained"
+                size="large"
+                href={`tel:${contact.phone.replace(/\s+/g, '')}`}
+                startIcon={<PhoneIcon />}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 700,
+                  borderRadius: '30px',
+                  fontSize: '1.1rem',
+                  background: 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)',
+                  boxShadow: '0 8px 32px rgba(76, 175, 80, 0.3)',
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, #45a049 0%, #4CAF50 100%)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 12px 40px rgba(76, 175, 80, 0.4)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                Talk to a Counselor
+              </Button>
+              
+              <Button
+                variant="contained"
+                size="large"
+                href={`mailto:${contact.email}`}
+                startIcon={<EmailIcon />}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 700,
+                  borderRadius: '30px',
+                  fontSize: '1.1rem',
+                  background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
+                  boxShadow: '0 8px 32px rgba(25, 118, 210, 0.3)',
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 12px 40px rgba(25, 118, 210, 0.4)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                Send Email
+              </Button>
+            </Stack>
           </Paper>
         </motion.div>
       </Container>

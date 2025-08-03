@@ -95,12 +95,27 @@ const MissionOfferSection: React.FC = () => {
               variant="h5"
               sx={{
                 color: '#666',
-                maxWidth: '700px',
+                maxWidth: '800px',
                 mx: 'auto',
                 fontWeight: 400,
+                lineHeight: 1.6,
               }}
             >
-              To deliver affordable, high-quality academic coaching for engineering students across all branches — with 100% syllabus completion, real-time feedback, and a focus on performance and satisfaction.
+              To provide affordable, high-quality academic coaching to engineering students across all branches with a commitment to 100% syllabus completion, real-time feedback, and a strong emphasis on performance, clarity, and student satisfaction.
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                color: '#666',
+                maxWidth: '700px',
+                mx: 'auto',
+                fontWeight: 500,
+                mt: 2,
+                fontStyle: 'italic',
+                lineHeight: 1.5,
+              }}
+            >
+              We aim to be the academic partner every student can rely on from first-year fundamentals to final-year mastery
             </Typography>
           </Box>
         </motion.div>

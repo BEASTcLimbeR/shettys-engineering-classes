@@ -14,6 +14,7 @@ import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
+import ScheduleModal from './ScheduleModal';
 
 // Navigation links with section IDs
 const navLinks = [
@@ -33,10 +34,19 @@ const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
 
   // Smooth scroll to section
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
     e.preventDefault();
+    
+    // Handle Schedule link specially
+    if (href === '#schedule') {
+      setScheduleModalOpen(true);
+      setAnchorEl(null);
+      return;
+    }
+    
     const section = document.querySelector(href);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -130,9 +140,8 @@ const Header: React.FC = () => {
                   {link.label}
                 </Button>
               ) : (
-                <Link key={link.label} href={link.href} passHref>
+                <Link key={link.label} href={link.href}>
                   <Button
-                    component="a"
                     sx={{
                       color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
                       fontWeight: 500,
@@ -226,9 +235,8 @@ const Header: React.FC = () => {
                     {link.label}
                   </MenuItem>
                 ) : (
-                  <Link key={link.label} href={link.href} passHref>
+                  <Link key={link.label} href={link.href}>
                     <MenuItem
-                      component="a"
                       onClick={handleClose}
                       sx={{
                         color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
@@ -265,6 +273,12 @@ const Header: React.FC = () => {
           </>
         )}
       </Toolbar>
+      
+      {/* Schedule Modal */}
+      <ScheduleModal 
+        open={scheduleModalOpen} 
+        onClose={() => setScheduleModalOpen(false)} 
+      />
     </AppBar>
   );
 };

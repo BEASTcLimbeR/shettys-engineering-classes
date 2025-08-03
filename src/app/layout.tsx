@@ -25,7 +25,13 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const [hydrated, setHydrated] = useState(false);
-  useEffect(() => { setHydrated(true); }, []);
+  useEffect(() => {
+    // Give the preloader animation time to show its effect
+    const timer = setTimeout(() => {
+      setHydrated(true);
+    }, 3000); // Show for 3 seconds
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <html lang="en">
       <head>
@@ -39,7 +45,6 @@ export default function RootLayout({
               key={pathname}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: 'easeInOut' }}
               style={{ minHeight: '100vh' }}
             >

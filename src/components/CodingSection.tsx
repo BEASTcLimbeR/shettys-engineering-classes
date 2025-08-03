@@ -14,16 +14,33 @@ const CodingSection: React.FC = () => {
   const router = useRouter();
 
   const handleToggle = () => {
-    setLoading(true);
+    // Play toggle sound
+    const audio = new Audio('/toggle.mp3');
+    audio.play().catch(error => {
+      console.log('Audio play failed:', error);
+    });
+    
+    // First, let the switch animation complete (300ms for the AnimatePresence transition)
     setTimeout(() => {
-      setIsDeveloperMode(!isDeveloperMode);
-      setLoading(false);
-      if (!isDeveloperMode) {
-        setTimeout(() => { router.push('/coding-academy'); }, 500);
-      } else {
-        setTimeout(() => { router.push('/'); }, 500);
-      }
-    }, 1000);
+      setLoading(true);
+      setTimeout(() => {
+        setIsDeveloperMode(!isDeveloperMode);
+        setLoading(false);
+        if (!isDeveloperMode) {
+          setTimeout(() => { router.push('/coding-academy'); }, 500);
+        } else {
+          setTimeout(() => { router.push('/'); }, 500);
+        }
+      }, 2500); // Preloader animation duration
+    }, 300); // Switch animation delay
+  };
+
+  const handleTitleClick = () => {
+    // Play title click sound
+    const audio = new Audio('/toggle.mp3');
+    audio.play().catch(error => {
+      console.log('Audio play failed:', error);
+    });
   };
 
   return (
@@ -79,6 +96,7 @@ const CodingSection: React.FC = () => {
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography
               variant="h2"
+              onClick={handleTitleClick}
               sx={{
                 fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem' },
                 fontWeight: 900,
@@ -87,6 +105,12 @@ const CodingSection: React.FC = () => {
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                  filter: 'brightness(1.1)',
+                },
               }}
             >
               Want to learn coding?

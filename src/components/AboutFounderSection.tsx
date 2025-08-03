@@ -1,9 +1,10 @@
 "use client";
 
 import React from 'react';
-import { Box, Typography, Container, Paper, Avatar, Stack } from '@mui/material';
+import { Box, Typography, Container, Paper, Avatar, Stack, IconButton } from '@mui/material';
 import { motion } from 'framer-motion';
 import PersonIcon from '@mui/icons-material/Person';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const founder = {
   name: 'Prof. Sukumara Shetty',
@@ -13,7 +14,11 @@ const founder = {
     'VTU Karnataka 11th Rank (2005)',
     '14+ Years of Teaching & Industry Experience',
   ],
-  bio: `A passionate educator and mentor, Prof. Shetty has taught thousands of students and is known for his clarity of explanation, student motivation, and exam-cracking strategies. His teaching blends traditional board-based methods with modern tools like Zoom, PDFs, and digital quizzes ensuring that each student feels supported and confident.`,
+  bio: `A passionate Educator, mentor, and the driving force behind Shetty's Engineering Classes, Prof. Sukumara Shetty has guided thousands of Engineering students across the globe with his clear explanations, motivational teaching, and Exam-smart strategies.
+
+Renowned for his student-first approach, Shetty Sir combines traditional board based techniques with modern tools like Zoom sessions, digital quizzes, and custom PDFs, creating a learning environment where every student feels confident, supported, and inspired to succeed.
+
+His teaching isn't just about completing the syllabus — it's about building confidence, cracking exams, and unlocking every student's true potential.`,
   message: `Dear Students & Parents,\n\nWhen I started Shetty’s Engineering Classes, my only goal was simple — to create a space where students feel supported, understood, and genuinely confident in their subjects. Over the years, that goal has evolved into a deeper mission: “Towards Students Satisfaction.”\n\nIn today’s fast-paced education system, many students struggle not because of lack of effort, but due to lack of personalized guidance. Here, at our institute on Ghole Road, Off FC Road, I make it a point to know every student, their strengths and weaknesses, and guide them with the right methods — not just to pass, but to truly learn and grow.\n\nThis institute is not just about notes and lectures. It's about building belief, one student at a time.\n\nLet’s continue the journey together with honesty, clarity, and commitment to excellence.\n\nWarm regards,\nProf. Sukumar Shetty\nFounder & Educator\nShetty’s Engineering Classes`,
 };
 
@@ -95,16 +100,37 @@ const AboutFounderSection: React.FC = () => {
                 >
                   {founder.name}
                 </Typography>
-                <Typography variant="h5" sx={{ fontWeight: 600, color: '#666', mb: 2 }}>
-                  {founder.title}
-                </Typography>
-                <Stack direction="row" spacing={2} flexWrap="wrap" sx={{ mb: 2 }}>
-                  {founder.achievements.map((ach, idx) => (
-                    <Typography key={idx} variant="body1" sx={{ color: '#1976d2', fontWeight: 600 }}>
-                      {ach}
-                    </Typography>
-                  ))}
-                </Stack>
+                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                   <Typography variant="h5" sx={{ fontWeight: 600, color: '#666' }}>
+                     {founder.title}
+                   </Typography>
+                   <IconButton
+                     href="https://www.linkedin.com/in/sukumar-shetty-3950b757?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     sx={{
+                       color: '#0077b5',
+                       '&:hover': {
+                         color: '#005885',
+                         transform: 'scale(1.1)',
+                       },
+                       transition: 'all 0.3s ease',
+                     }}
+                   >
+                     <LinkedInIcon sx={{ fontSize: 28 }} />
+                   </IconButton>
+                 </Box>
+                 <Box sx={{ mb: 2 }}>
+                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600, mb: 1 }}>
+                     {founder.achievements[0]}
+                   </Typography>
+                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600, mb: 1 }}>
+                     {founder.achievements[1]}
+                   </Typography>
+                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600 }}>
+                     {founder.achievements[2]}
+                   </Typography>
+                 </Box>
                 <Typography variant="body1" sx={{ color: '#444', mb: 2, fontWeight: 400 }}>
                   {founder.bio}
                 </Typography>

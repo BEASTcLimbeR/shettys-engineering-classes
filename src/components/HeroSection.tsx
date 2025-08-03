@@ -1,13 +1,11 @@
 "use client";
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Box, Typography, Button, Container, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Parallax } from 'react-scroll-parallax';
-import dynamic from 'next/dynamic';
-
-const HeroHeadline = dynamic(() => import('./HeroHeadline'), { ssr: false });
-const HeroCTAButtons = dynamic(() => import('./HeroCTAButtons'), { ssr: false });
+import HeroHeadline from './HeroHeadline';
+import HeroCTAButtons from './HeroCTAButtons';
 
 const HeroSection: React.FC = () => {
   return (
@@ -89,7 +87,7 @@ const HeroSection: React.FC = () => {
                 mx: 'auto',
               }}
             >
-              One Institute & More Than 12 Universities
+              One Institute & More Than 27 Universities
             </Typography>
           </motion.div>
 
@@ -110,7 +108,7 @@ const HeroSection: React.FC = () => {
                 fontWeight: 300,
               }}
             >
-              Focused coaching for FE to BE—across Pune colleges—on Ghole Road, off FC Road
+              Focused coaching for Global Universities at Ghole Road, off FC Road
             </Typography>
           </motion.div>
 
@@ -121,40 +119,6 @@ const HeroSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <HeroCTAButtons />
-          </motion.div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            style={{
-              position: 'absolute',
-              bottom: '40px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              cursor: 'pointer',
-              zIndex: 2,
-            }}
-            onClick={() => {
-              const nextSection = document.getElementById('about');
-              if (nextSection) {
-                nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }}
-          >
-            <Box
-              sx={{
-                width: '2px',
-                height: '60px',
-                background: 'linear-gradient(to bottom, #1976d2, transparent)',
-                animation: 'scroll-indicator 2s ease-in-out infinite',
-                '@keyframes scroll-indicator': {
-                  '0%, 100%': { opacity: 0.3 },
-                  '50%': { opacity: 1 },
-                },
-              }}
-            />
           </motion.div>
         </Box>
       </Container>
