@@ -67,8 +67,11 @@ const ContactSection: React.FC = () => {
     setError('');
     setSuccess(false);
 
+    // Use environment variable for API URL
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
     try {
-      const response = await fetch('http://localhost:5000/api/email/send', {
+      const response = await fetch(`${API_URL}/api/email/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
