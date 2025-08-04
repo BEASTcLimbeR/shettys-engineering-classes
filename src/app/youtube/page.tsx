@@ -263,7 +263,20 @@ const youtubeVideos = [
   }
 ];
 
-const categories = ['All', 'Academic Updates', 'Results', 'Mobile Computing', 'Fiber Optics', 'Digital Marketing', 'AI & Data Science', 'Control Systems', 'VLSI', 'RMT', 'Blockchain', 'Syllabus'];
+const categories = [
+  'All', 
+  'Academic Updates', 
+  'Results', 
+  'Mobile Computing', 
+  'Fiber Optics', 
+  'Digital Marketing', 
+  'AI & Data Science', 
+  'Control Systems', 
+  'VLSI', 
+  'RMT', 
+  'Blockchain', 
+  'Syllabus'
+];
 
 const YouTubePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -274,274 +287,274 @@ const YouTubePage: React.FC = () => {
 
   return (
     <Box
+      sx={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+        pt: { xs: 8, md: 10 },
+        pb: 8,
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Background decorative elements */}
+      <Box
         sx={{
-          minHeight: '100vh',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
-          pt: { xs: 8, md: 10 },
-          pb: 8,
-          position: 'relative',
-          overflow: 'hidden',
+          position: 'absolute',
+          top: '10%',
+          right: '5%',
+          width: '300px',
+          height: '300px',
+          borderRadius: '50%',
+          background: 'rgba(255, 255, 255, 0.1)',
+          filter: 'blur(60px)',
         }}
-      >
-        {/* Background decorative elements */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '10%',
-            right: '5%',
-            width: '300px',
-            height: '300px',
-            borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.1)',
-            filter: 'blur(60px)',
-          }}
-        />
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: '10%',
-            left: '5%',
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.1)',
-            filter: 'blur(40px)',
-          }}
-        />
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '5%',
+          width: '200px',
+          height: '200px',
+          borderRadius: '50%',
+          background: 'rgba(255, 255, 255, 0.1)',
+          filter: 'blur(40px)',
+        }}
+      />
 
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          {/* Header Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Box sx={{ textAlign: 'center', mb: 6 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
-                <YouTube sx={{ fontSize: 60, color: '#ff0000', mr: 2 }} />
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontWeight: 900,
-                    color: 'white',
-                    fontSize: { xs: '2.5rem', md: '3.5rem' },
-                    textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-                  }}
-                >
-                  Our YouTube Channel
-                </Typography>
-              </Box>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Header Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
+              <YouTube sx={{ fontSize: 60, color: '#ff0000', mr: 2 }} />
               <Typography
-                variant="h5"
+                variant="h2"
                 sx={{
-                  color: 'rgba(255,255,255,0.9)',
-                  mb: 4,
-                  maxWidth: '800px',
-                  mx: 'auto',
-                  textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                  fontWeight: 900,
+                  color: 'white',
+                  fontSize: { xs: '2.5rem', md: '3.5rem' },
+                  textShadow: '0 2px 4px rgba(0,0,0,0.3)',
                 }}
               >
-                Learn engineering concepts, programming, and more with our comprehensive video tutorials
+                Our YouTube Channel
               </Typography>
-              
-              {/* Category Filter */}
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', mb: 4 }}>
-                {categories.map((category) => (
-                  <Chip
-                    key={category}
-                    label={category}
-                    onClick={() => setSelectedCategory(category)}
-                    sx={{
-                      background: selectedCategory === category 
-                        ? 'rgba(255, 255, 255, 0.9)' 
-                        : 'rgba(255, 255, 255, 0.2)',
-                      color: selectedCategory === category ? '#333' : 'white',
-                      fontWeight: 600,
-                      '&:hover': {
-                        background: 'rgba(255, 255, 255, 0.3)',
-                      },
-                    }}
-                  />
-                ))}
-              </Box>
             </Box>
-          </motion.div>
-
-          {/* Videos Grid */}
-          <Grid container spacing={4}>
-            {filteredVideos.map((video, index) => (
-              <Grid item xs={12} sm={6} md={4} key={video.id}>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                >
-                  <Card
-                    sx={{
-                      height: '100%',
-                      background: 'rgba(255, 255, 255, 0.9)',
-                      backdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
-                      borderRadius: 3,
-                      overflow: 'hidden',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-8px)',
-                        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
-                        background: 'rgba(255, 255, 255, 0.95)',
-                      },
-                    }}
-                  >
-                    <Box sx={{ position: 'relative' }}>
-                      <CardMedia
-                        component="img"
-                        height="200"
-                        image={video.thumbnail}
-                        alt={video.title}
-                        sx={{ objectFit: 'cover' }}
-                      />
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: 8,
-                          right: 8,
-                          background: 'rgba(0, 0, 0, 0.7)',
-                          color: 'white',
-                          px: 1,
-                          py: 0.5,
-                          borderRadius: 1,
-                          fontSize: '0.8rem',
-                          fontWeight: 600,
-                        }}
-                      >
-                        {video.duration}
-                      </Box>
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          bottom: 8,
-                          left: 8,
-                          display: 'flex',
-                          alignItems: 'center',
-                          background: 'rgba(0, 0, 0, 0.7)',
-                          color: 'white',
-                          px: 1,
-                          py: 0.5,
-                          borderRadius: 1,
-                          fontSize: '0.8rem',
-                        }}
-                      >
-                        <Visibility sx={{ fontSize: 16, mr: 0.5 }} />
-                        {video.views}
-                      </Box>
-                    </Box>
-                    
-                    <CardContent sx={{ p: 3 }}>
-                      <Chip
-                        label={video.category}
-                        size="small"
-                        sx={{
-                          mb: 2,
-                          background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                          color: 'white',
-                          fontWeight: 600,
-                        }}
-                      />
-                      
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 700,
-                          mb: 2,
-                          color: '#333',
-                          lineHeight: 1.4,
-                          fontSize: '1rem',
-                        }}
-                      >
-                        {video.title}
-                      </Typography>
-                      
-                      <Button
-                        variant="contained"
-                        fullWidth
-                        startIcon={<PlayArrow />}
-                        href={video.videoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{
-                          mt: 2,
-                          background: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
-                          color: 'white',
-                          fontWeight: 600,
-                          borderRadius: 2,
-                          py: 1.5,
-                          '&:hover': {
-                            background: 'linear-gradient(135deg, #cc0000 0%, #aa0000 100%)',
-                            transform: 'translateY(-2px)',
-                            boxShadow: '0 8px 20px rgba(255, 0, 0, 0.3)',
-                          },
-                        }}
-                      >
-                        Watch Video
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </Grid>
-            ))}
-          </Grid>
-
-          {/* Call to Action */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <Paper
+            <Typography
+              variant="h5"
               sx={{
-                mt: 8,
-                p: 4,
-                textAlign: 'center',
-                background: 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: 4,
+                color: 'rgba(255,255,255,0.9)',
+                mb: 4,
+                maxWidth: '800px',
+                mx: 'auto',
+                textShadow: '0 1px 2px rgba(0,0,0,0.3)',
               }}
             >
-              <Typography variant="h4" sx={{ fontWeight: 700, mb: 2, color: '#333' }}>
-                Subscribe to Our Channel
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 3, color: '#666' }}>
-                Get notified about new educational videos and stay updated with the latest engineering concepts
-              </Typography>
-              <Button
-                variant="contained"
-                size="large"
-                startIcon={<YouTube />}
-                href="https://www.youtube.com/@SEC_Pune"
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  background: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
-                  color: 'white',
-                  fontWeight: 600,
-                  px: 4,
-                  py: 1.5,
-                  borderRadius: 3,
-                  fontSize: '1.1rem',
-                  '&:hover': {
-                    background: 'linear-gradient(135deg, #cc0000 0%, #aa0000 100%)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 8px 20px rgba(255, 0, 0, 0.3)',
-                  },
-                }}
+              Learn engineering concepts, programming, and more with our comprehensive video tutorials
+            </Typography>
+            
+            {/* Category Filter */}
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', mb: 4 }}>
+              {categories.map((category) => (
+                <Chip
+                  key={category}
+                  label={category}
+                  onClick={() => setSelectedCategory(category)}
+                  sx={{
+                    background: selectedCategory === category 
+                      ? 'rgba(255, 255, 255, 0.9)' 
+                      : 'rgba(255, 255, 255, 0.2)',
+                    color: selectedCategory === category ? '#333' : 'white',
+                    fontWeight: 600,
+                    '&:hover': {
+                      background: 'rgba(255, 255, 255, 0.3)',
+                    },
+                  }}
+                />
+              ))}
+            </Box>
+          </Box>
+        </motion.div>
+
+        {/* Videos Grid */}
+        <Grid container spacing={4}>
+          {filteredVideos.map((video, index) => (
+            <Grid item xs={12} sm={6} md={4} key={video.id}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
               >
-                Subscribe to SEC Pune
-              </Button>
-            </Paper>
-                     </motion.div>
-         </Container>
-       </Box>
-   );
+                <Card
+                  sx={{
+                    height: '100%',
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: 3,
+                    overflow: 'hidden',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
+                      background: 'rgba(255, 255, 255, 0.95)',
+                    },
+                  }}
+                >
+                  <Box sx={{ position: 'relative' }}>
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      image={video.thumbnail}
+                      alt={video.title}
+                      sx={{ objectFit: 'cover' }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 8,
+                        right: 8,
+                        background: 'rgba(0, 0, 0, 0.7)',
+                        color: 'white',
+                        px: 1,
+                        py: 0.5,
+                        borderRadius: 1,
+                        fontSize: '0.8rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {video.duration}
+                    </Box>
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        bottom: 8,
+                        left: 8,
+                        display: 'flex',
+                        alignItems: 'center',
+                        background: 'rgba(0, 0, 0, 0.7)',
+                        color: 'white',
+                        px: 1,
+                        py: 0.5,
+                        borderRadius: 1,
+                        fontSize: '0.8rem',
+                      }}
+                    >
+                      <Visibility sx={{ fontSize: 16, mr: 0.5 }} />
+                      {video.views}
+                    </Box>
+                  </Box>
+                  
+                  <CardContent sx={{ p: 3 }}>
+                    <Chip
+                      label={video.category}
+                      size="small"
+                      sx={{
+                        mb: 2,
+                        background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
+                        color: 'white',
+                        fontWeight: 600,
+                      }}
+                    />
+                    
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 700,
+                        mb: 2,
+                        color: '#333',
+                        lineHeight: 1.4,
+                        fontSize: '1rem',
+                      }}
+                    >
+                      {video.title}
+                    </Typography>
+                    
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      startIcon={<PlayArrow />}
+                      href={video.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        mt: 2,
+                        background: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
+                        color: 'white',
+                        fontWeight: 600,
+                        borderRadius: 2,
+                        py: 1.5,
+                        '&:hover': {
+                          background: 'linear-gradient(135deg, #cc0000 0%, #aa0000 100%)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 20px rgba(255, 0, 0, 0.3)',
+                        },
+                      }}
+                    >
+                      Watch Video
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <Paper
+            sx={{
+              mt: 8,
+              p: 4,
+              textAlign: 'center',
+              background: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: 4,
+            }}
+          >
+            <Typography variant="h4" sx={{ fontWeight: 700, mb: 2, color: '#333' }}>
+              Subscribe to Our Channel
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 3, color: '#666' }}>
+              Get notified about new educational videos and stay updated with the latest engineering concepts
+            </Typography>
+            <Button
+              variant="contained"
+              size="large"
+              startIcon={<YouTube />}
+              href="https://www.youtube.com/@SEC_Pune"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                background: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
+                color: 'white',
+                fontWeight: 600,
+                px: 4,
+                py: 1.5,
+                borderRadius: 3,
+                fontSize: '1.1rem',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #cc0000 0%, #aa0000 100%)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 8px 20px rgba(255, 0, 0, 0.3)',
+                },
+              }}
+            >
+              Subscribe to SEC Pune
+            </Button>
+          </Paper>
+        </motion.div>
+      </Container>
+    </Box>
+  );
 };
 
 export default YouTubePage; 

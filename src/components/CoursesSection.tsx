@@ -146,10 +146,15 @@ const CoursesSection: React.FC = () => {
 
   // Get all subjects from all branches and years
   const allSubjects = useMemo(() => {
-    const subjects = [];
+    const subjects: Array<{
+      subject: string;
+      branch: string;
+      year: string;
+      fullText: string;
+    }> = [];
     
     // Function to get full year name
-    const getYearName = (year) => {
+    const getYearName = (year: string): string => {
       switch (year) {
         case 'FE': return 'First Year';
         case 'SE': return 'Second Year';
@@ -161,8 +166,10 @@ const CoursesSection: React.FC = () => {
 
     Object.keys(coursesData).forEach(branchName => {
       Object.keys(coursesData[branchName]).forEach(year => {
-        if (coursesData[branchName][year] && coursesData[branchName][year].length > 0) {
-          coursesData[branchName][year].forEach(subject => {
+        const yearData = coursesData[branchName as keyof typeof coursesData];
+        const yearCourses = yearData[year as keyof CourseYearData];
+        if (yearCourses && yearCourses.length > 0) {
+          yearCourses.forEach(subject => {
             subjects.push({
               subject,
               branch: branchName,
@@ -188,8 +195,13 @@ const CoursesSection: React.FC = () => {
     ).slice(0, 10); // Limit to 10 suggestions
   }, [searchQuery, allSubjects]);
 
-  const handleSubjectSelect = (selectedItem) => {
-    if (selectedItem) {
+  const handleSubjectSelect = (selectedItem: string | {
+    subject: string;
+    branch: string;
+    year: string;
+    fullText: string;
+  } | null) => {
+    if (selectedItem && typeof selectedItem === 'object') {
       // Find the branch index and switch to it
       const branchIndex = branches.findIndex(b => b.name === selectedItem.branch);
       if (branchIndex !== -1) {
