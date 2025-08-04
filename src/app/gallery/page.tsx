@@ -1,35 +1,67 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Box, Container, Typography, Grid, Card, CardMedia, IconButton, Dialog, DialogContent, DialogActions, Button } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { 
+  Box, 
+  Container, 
+  Grid, 
+  Card, 
+  CardMedia, 
+  IconButton, 
+  Dialog, 
+  DialogContent, 
+  DialogActions, 
+  Button,
+  Typography
+} from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import CloseIcon from '@mui/icons-material/Close';
+import DownloadIcon from '@mui/icons-material/Download';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+// Import preloader dynamically
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+
+interface GalleryImage {
+  src: string;
+}
 
 const GalleryPage: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const images = [
-    '/photos-with-students/photo-1.jpg',
-    '/photos-with-students/photo-2.jpg',
-    '/photos-with-students/photo-3.jpg',
-    '/photos-with-students/photo-4.jpg',
-    '/photos-with-students/photo-5.jpg',
-    '/photos-with-students/photo-6.jpg',
-    '/photos-with-students/photo-7.jpg',
-    '/photos-with-students/photo-8.jpg',
-    '/photos-with-students/photo-9.jpg',
-    '/photos-with-students/photo-10.jpg',
-    '/photos-with-students/photo-11.jpg',
-    '/photos-with-students/photo-12.jpg',
-    '/photos-with-students/photo-13.jpg',
-    '/photos-with-students/photo-14.jpg',
-    '/photos-with-students/photo-15.jpg',
-    '/photos-with-students/photo-16.jpg',
-    '/photos-with-students/photo-17.jpg',
+  // Preloader effect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Show preloader for 2 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Only image sources
+  const images: GalleryImage[] = [
+    { src: '/photos-with-students/photo-1.jpg' },
+    { src: '/photos-with-students/photo-2.jpg' },
+    { src: '/photos-with-students/photo-3.jpg' },
+    { src: '/photos-with-students/photo-4.jpg' },
+    { src: '/photos-with-students/photo-5.jpg' },
+    { src: '/photos-with-students/photo-6.jpg' },
+    { src: '/photos-with-students/photo-7.jpg' },
+    { src: '/photos-with-students/photo-8.jpg' },
+    { src: '/photos-with-students/photo-9.jpg' },
+    { src: '/photos-with-students/photo-10.jpg' },
+    { src: '/photos-with-students/photo-11.jpg' },
+    { src: '/photos-with-students/photo-12.jpg' },
+    { src: '/photos-with-students/photo-13.jpg' },
+    { src: '/photos-with-students/photo-14.jpg' },
+    { src: '/photos-with-students/photo-15.jpg' },
+    { src: '/photos-with-students/photo-16.jpg' },
+    { src: '/photos-with-students/photo-17.jpg' },
   ];
 
-  const handleImageClick = (image: string) => {
+  const handleImageClick = (image: GalleryImage) => {
     setSelectedImage(image);
   };
 
@@ -37,21 +69,85 @@ const GalleryPage: React.FC = () => {
     setSelectedImage(null);
   };
 
+  const handleDownload = async (image: GalleryImage) => {
+    setIsDownloading(true);
+    try {
+      const response = await fetch(image.src);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `shetty-engineering-gallery-${Date.now()}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  // Preloader component
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+        }}
+      >
+        <Box sx={{ textAlign: 'center' }}>
+          <Lottie
+            animationData={require('../../../public/hand-loading.json')}
+            style={{ width: 200, height: 200 }}
+            loop={true}
+            autoplay={true}
+          />
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <>
       <Head>
-        <title>Gallery - Student Life & Activities | Shetty's Engineering Classes</title>
-        <meta name="description" content="Explore our gallery showcasing student life, classroom activities, and success stories at Shetty's Engineering Classes. See our vibrant learning environment and student achievements." />
-        <meta name="keywords" content="student gallery, engineering classes photos, classroom activities, student life, engineering coaching photos, Pune engineering institute gallery" />
-        <meta property="og:title" content="Gallery - Student Life & Activities" />
-        <meta property="og:description" content="Explore our gallery showcasing student life, classroom activities, and success stories at Shetty's Engineering Classes." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://shettysengineeringclasses.com/gallery" />
-        <link rel="canonical" href="https://shettysengineeringclasses.com/gallery" />
+        <title>Gallery | Shetty's Engineering Classes</title>
+        <meta name="description" content="A gallery of Shetty's Engineering Classes. Relive the best moments." />
       </Head>
 
-      <Box sx={{ pt: '70px', minHeight: '100vh', background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)' }}>
-        <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
+      <Box sx={{ 
+        pt: '70px', 
+        minHeight: '100vh', 
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
+            url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+          `,
+          zIndex: 0,
+        }
+      }}>
+        <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 }, position: 'relative', zIndex: 1 }}>
+          {/* Title Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,57 +158,83 @@ const GalleryPage: React.FC = () => {
               sx={{
                 textAlign: 'center',
                 fontWeight: 900,
-                mb: 6,
-                background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
+                mb: 2,
+                color: 'white',
+                fontSize: { xs: '2rem', md: '3.5rem' },
+                textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                background: 'linear-gradient(45deg, #fff, #f0f8ff)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                fontSize: { xs: '2rem', md: '3rem' },
               }}
             >
-              Our Gallery
+              Our Memories
             </Typography>
             <Typography
               variant="h6"
               sx={{
                 textAlign: 'center',
-                color: '#666',
+                color: 'rgba(255,255,255,0.9)',
                 mb: 6,
                 maxWidth: '800px',
                 mx: 'auto',
+                textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                fontStyle: 'italic',
               }}
             >
-              Explore moments from our vibrant learning environment, student activities, and success stories
+              A journey through time, capturing moments of learning, growth, and success
             </Typography>
           </motion.div>
 
-          <Grid container spacing={3}>
+          <Grid container spacing={4}>
             <AnimatePresence>
               {images.map((image, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5, delay: index * 0.07 }}
+                    whileHover={{ scale: 1.03 }}
                   >
                     <Card
                       sx={{
                         cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                          boxShadow: '0 8px 32px rgba(25, 118, 210, 0.2)',
-                        },
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        boxShadow: '0 4px 24px rgba(44,62,80,0.08)',
+                        position: 'relative',
+                        minHeight: 260,
                       }}
                       onClick={() => handleImageClick(image)}
                     >
-                      <CardMedia
-                        component="img"
-                        height="200"
-                        image={image}
-                        alt={`Gallery image ${index + 1}`}
-                        sx={{ objectFit: 'cover' }}
-                      />
+                      <Box sx={{ position: 'relative', height: 260 }}>
+                        <CardMedia
+                          component="img"
+                          height="260"
+                          image={image.src}
+                          alt="Gallery photo"
+                          sx={{ objectFit: 'cover', height: '100%' }}
+                        />
+                        {/* Download button always visible, bottom right */}
+                        <IconButton
+                          onClick={e => { e.stopPropagation(); handleDownload(image); }}
+                          sx={{
+                            position: 'absolute',
+                            bottom: 12,
+                            right: 12,
+                            background: 'rgba(255,255,255,0.85)',
+                            color: '#764ba2',
+                            boxShadow: '0 2px 8px rgba(44,62,80,0.12)',
+                            '&:hover': {
+                              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                              color: 'white',
+                            },
+                          }}
+                          aria-label="Download photo"
+                        >
+                          <DownloadIcon />
+                        </IconButton>
+                      </Box>
                     </Card>
                   </motion.div>
                 </Grid>
@@ -122,26 +244,52 @@ const GalleryPage: React.FC = () => {
         </Container>
       </Box>
 
+      {/* Simple Modal */}
       <Dialog
         open={!!selectedImage}
         onClose={handleClose}
-        maxWidth="md"
+        maxWidth="sm"
         fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            overflow: 'hidden',
+            background: 'white',
+          }
+        }}
       >
-        <DialogContent sx={{ p: 0 }}>
-          {selectedImage && (
-            <img
-              src={selectedImage}
-              alt="Gallery image"
-              style={{ width: '100%', height: 'auto' }}
-            />
-          )}
-        </DialogContent>
-        <DialogActions>
-          <IconButton onClick={handleClose} color="primary">
-            <CloseIcon />
-          </IconButton>
-        </DialogActions>
+        {selectedImage && (
+          <>
+            <DialogContent sx={{ p: 0, position: 'relative' }}>
+              <img
+                src={selectedImage.src}
+                alt="Gallery photo"
+                style={{ width: '100%', height: 'auto', maxHeight: '60vh', objectFit: 'contain' }}
+              />
+            </DialogContent>
+            <DialogActions sx={{ p: 2, background: '#f7fafc' }}>
+              <Button
+                variant="contained"
+                startIcon={<DownloadIcon />}
+                onClick={() => handleDownload(selectedImage)}
+                disabled={isDownloading}
+                sx={{
+                  background: 'linear-gradient(90deg, #667eea, #764ba2)',
+                  color: 'white',
+                  fontWeight: 600,
+                  '&:hover': {
+                    background: 'linear-gradient(90deg, #5a67d8, #6b21a8)',
+                  }
+                }}
+              >
+                {isDownloading ? 'Downloading...' : 'Download'}
+              </Button>
+              <IconButton onClick={handleClose} color="primary">
+                <CloseIcon />
+              </IconButton>
+            </DialogActions>
+          </>
+        )}
       </Dialog>
     </>
   );

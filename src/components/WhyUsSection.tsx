@@ -19,7 +19,7 @@ const WhyUsSection: React.FC = () => {
     },
     {
       icon: <VideoCall sx={{ fontSize: 40, color: '#1976d2' }} />,
-      title: "Hybrid Learning",
+      title: "Hybrid Learning(Batches)",
       description: "Live Zoom sessions + face-to-face learning at Ghole Road"
     },
     {
@@ -31,6 +31,11 @@ const WhyUsSection: React.FC = () => {
       icon: <Groups sx={{ fontSize: 40, color: '#1976d2' }} />,
       title: "Home Tuition",
       description: "Convenient one-to-one coaching at your doorstep"
+    },
+    {
+      icon: <VideoCall sx={{ fontSize: 40, color: '#1976d2' }} />,
+      title: "Hybrid Learning(One-to-One)",
+      description: "Live Zoom sessions + face-to-face learning(One-to-One) at Ghole Road"
     }
   ];
 
@@ -423,7 +428,7 @@ const WhyUsSection: React.FC = () => {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
             gap: 4,
             mb: 8,
           }}

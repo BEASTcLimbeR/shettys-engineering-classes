@@ -25,6 +25,7 @@ const navLinks = [
   { label: 'Our Faculty', href: '#faculty' },
   { label: 'Contact Us', href: '#contact' },
   { label: 'Gallery', href: '/gallery' },
+  { label: 'YouTube', href: '/youtube' },
 ];
 
 const Header: React.FC = () => {
