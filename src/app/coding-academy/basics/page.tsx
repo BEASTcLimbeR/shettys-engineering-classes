@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, Paper, AppBar, Toolbar, Button, Grid, Chip, IconButton, Tabs, Tab } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
@@ -15,6 +15,9 @@ import StopIcon from '@mui/icons-material/Stop';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 import CoffeeIcon from '@mui/icons-material/Coffee';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import Loader from '../../../components/Loader';
+import programersWorking from '../../../../public/programers-working.json';
 
 const BasicsPage: React.FC = () => {
   const router = useRouter();
@@ -26,6 +29,16 @@ const BasicsPage: React.FC = () => {
   const [showInputPrompt, setShowInputPrompt] = useState<number | null>(null);
   const [currentInputIndex, setCurrentInputIndex] = useState(0);
   const [inputValues, setInputValues] = useState<string[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Custom preloader for basics page
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 2000); // 2 seconds for programming-themed preloader
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   // Simulated code execution outputs with user input support
   const getCodeOutput = (code: string, language: string, inputs: string[] = []): string => {
@@ -2269,257 +2282,277 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
     );
 
   return (
-    <Box
-                      sx={{
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Animated Background Elements */}
-      <Box
-        component={motion.div}
-        animate={{
-          scale: [1, 1.1, 1],
-          rotate: [0, 180, 360],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-                        sx={{
-          position: 'absolute',
-          top: '10%',
-          right: '10%',
-          width: '300px',
-          height: '300px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0, 123, 255, 0.1) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-          zIndex: 0,
-        }}
-      />
-      <Box
-        component={motion.div}
-        animate={{
-          scale: [1.1, 1, 1.1],
-          rotate: [360, 180, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        sx={{
-          position: 'absolute',
-          bottom: '10%',
-          left: '5%',
-          width: '250px',
-          height: '250px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%)',
-          filter: 'blur(30px)',
-          zIndex: 0,
-        }}
-      />
-
-      {/* Navigation Bar */}
-      <AppBar
-        position="fixed"
-        sx={{
-          background: 'rgba(15, 15, 35, 0.95)',
-          backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-        }}
-      >
-        <Toolbar>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              onClick={() => router.back()}
-              sx={{
-                color: '#fff',
-                '&:hover': { background: 'rgba(255, 255, 255, 0.1)' },
-              }}
-            >
-              Back
-            </Button>
-            <Box sx={{ textAlign: 'left' }}>
-                          <Typography
-                            variant="h6"
-                            sx={{
-                  color: '#fff',
-                  fontWeight: 700,
-                  fontSize: '1.1rem',
-                  lineHeight: 1.2,
-                }}
-              >
-                Shetty Sir's Coding Academy
-                          </Typography>
-                        <Typography
-                variant="caption"
-                          sx={{
-                  color: '#00d4ff',
-                  fontWeight: 600,
-                  fontSize: '0.75rem',
-                  letterSpacing: '0.5px',
-                }}
-              >
-                Code, Create, Conquer!
-                        </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ flexGrow: 1 }} />
-          <Chip
-            icon={<CodeIcon />}
-            label="Programming Basics"
-            sx={{
-              background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
-              color: '#fff',
-              fontWeight: 600,
-            }}
-          />
-        </Toolbar>
-      </AppBar>
-
-      <Container maxWidth="lg" sx={{ pt: '80px', pb: 4 }}>
-        {/* Hero Section */}
+    <>
+      <AnimatePresence>
+        {!isLoaded && (
           <motion.div
-          initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          >
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-                <Typography
-              variant="h1"
-                  sx={{
-                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem' },
-                fontWeight: 900,
-                background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                mb: 2,
-              }}
-            >
-              Programming Basics
-            </Typography>
-            <Typography
-              variant="h5"
-              sx={{
-                color: '#b0b0b0',
-                fontWeight: 400,
-                maxWidth: '600px',
-                mx: 'auto',
-              }}
-            >
-              Master C, C++, Java, Python, Data Structures & Algorithms, and Machine Learning with interactive examples
-                </Typography>
-              </Box>
-        </motion.div>
-
-        {/* Tab Navigation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <Paper
-            elevation={0}
-                      sx={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: 3,
-              mb: 4,
-              overflow: 'hidden',
-            }}
-          >
-            <Tabs
-              value={activeTab}
-              onChange={(e, newValue) => setActiveTab(newValue)}
-              variant="scrollable"
-              scrollButtons="auto"
-              allowScrollButtonsMobile
-                        sx={{
-                '& .MuiTab-root': {
-                  color: '#b0b0b0',
-                  fontWeight: 600,
-                  textTransform: 'none',
-                  fontSize: '1rem',
-                  minHeight: '64px',
-                  minWidth: 'auto',
-                  padding: '12px 16px',
-                  '&.Mui-selected': {
-                    color: '#00d4ff',
-                  },
-                },
-                '& .MuiTabs-indicator': {
-                  background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
-                  height: '3px',
-                          },
-                '& .MuiTabs-scrollButtons': {
-                  color: '#b0b0b0',
-                  '&.Mui-disabled': {
-                    opacity: 0.3,
-                  },
-                          },
-                        }}
-                      >
-              <Tab 
-                icon={<CodeIcon />} 
-                label="C Programming" 
-                iconPosition="start"
-              />
-              <Tab 
-                icon={<MemoryIcon />} 
-                label="C++ Programming" 
-                iconPosition="start"
-              />
-              <Tab 
-                icon={<SchoolIcon />} 
-                label="Data Structures & Algorithms" 
-                iconPosition="start"
-              />
-              <Tab 
-                icon={<PsychologyIcon />} 
-                label="Python" 
-                iconPosition="start"
-              />
-              <Tab 
-                icon={<CodeIcon />} 
-                label="DSA with Python" 
-                iconPosition="start"
-              />
-              <Tab 
-                icon={<DataObjectIcon />} 
-                label="Machine Learning" 
-                iconPosition="start"
-              />
-              <Tab 
-                icon={<CoffeeIcon />} 
-                label="Java Programming" 
-                iconPosition="start"
-              />
-            </Tabs>
-          </Paper>
-        </motion.div>
-
-        {/* Content Sections */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {activeTab === 0 && (
-              <Box>
+            <Loader animationData={programersWorking} overlay />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoaded ? 1 : 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <Box
+          sx={{
+            minHeight: '100vh',
+            background: 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Animated Background Elements */}
+          <Box
+            component={motion.div}
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+                            sx={{
+              position: 'absolute',
+              top: '10%',
+              right: '10%',
+              width: '300px',
+              height: '300px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(0, 123, 255, 0.1) 0%, transparent 70%)',
+              filter: 'blur(40px)',
+              zIndex: 0,
+            }}
+          />
+          <Box
+            component={motion.div}
+            animate={{
+              scale: [1.1, 1, 1.1],
+              rotate: [360, 180, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            sx={{
+              position: 'absolute',
+              bottom: '10%',
+              left: '5%',
+              width: '250px',
+              height: '250px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%)',
+              filter: 'blur(30px)',
+              zIndex: 0,
+            }}
+          />
+
+          {/* Navigation Bar */}
+          <AppBar
+            position="fixed"
+            sx={{
+              background: 'rgba(15, 15, 35, 0.95)',
+              backdropFilter: 'blur(20px)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+            }}
+          >
+            <Toolbar>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Button
+                startIcon={<ArrowBackIcon />}
+                onClick={() => router.back()}
+                sx={{
+                  color: '#fff',
+                  '&:hover': { background: 'rgba(255, 255, 255, 0.1)' },
+                }}
+              >
+                Back
+              </Button>
+              <Box sx={{ textAlign: 'left', flex: 1, minWidth: 0 }}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.9rem' },
+                    lineHeight: 1.2,
+                    wordBreak: 'break-all',
+                    overflowWrap: 'break-word',
+                    whiteSpace: 'pre-line',
+                  }}
+                >
+                  SHETTY_SIR's{'\n'}CODING_ACADEMY
+                            </Typography>
                           <Typography
+                  variant="caption"
+                            sx={{
+                    color: '#00d4ff',
+                    fontWeight: 600,
+                    fontSize: '0.75rem',
+                    letterSpacing: '0.5px',
+                  }}
+                >
+                  Code, Create, Conquer!
+                          </Typography>
+              </Box>
+            </Box>
+            <Box sx={{ flexGrow: 1 }} />
+            <Chip
+              icon={<CodeIcon />}
+              label="Programming Basics"
+              sx={{
+                background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
+                color: '#fff',
+                fontWeight: 600,
+              }}
+            />
+          </Toolbar>
+        </AppBar>
+
+        <Container maxWidth="lg" sx={{ pt: '80px', pb: 4 }}>
+          {/* Hero Section */}
+            <motion.div
+            initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            >
+            <Box sx={{ textAlign: 'center', mb: 6 }}>
+                  <Typography
+                variant="h1"
+                    sx={{
+                  fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem' },
+                  fontWeight: 900,
+                  background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  mb: 2,
+                }}
+              >
+                Programming Basics
+              </Typography>
+              <Typography
+                variant="h5"
+                sx={{
+                  color: '#b0b0b0',
+                  fontWeight: 400,
+                  maxWidth: '600px',
+                  mx: 'auto',
+                }}
+              >
+                Master C, C++, Java, Python, Data Structures & Algorithms, and Machine Learning with interactive examples
+                  </Typography>
+              </Box>
+          </motion.div>
+
+          {/* Tab Navigation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <Paper
+              elevation={0}
+                        sx={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: 3,
+                mb: 4,
+                overflow: 'hidden',
+              }}
+            >
+              <Tabs
+                value={activeTab}
+                onChange={(e, newValue) => setActiveTab(newValue)}
+                variant="scrollable"
+                scrollButtons="auto"
+                allowScrollButtonsMobile
+                          sx={{
+                  '& .MuiTab-root': {
+                    color: '#b0b0b0',
+                    fontWeight: 600,
+                    textTransform: 'none',
+                    fontSize: '1rem',
+                    minHeight: '64px',
+                    minWidth: 'auto',
+                    padding: '12px 16px',
+                    '&.Mui-selected': {
+                      color: '#00d4ff',
+                    },
+                  },
+                  '& .MuiTabs-indicator': {
+                    background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
+                    height: '3px',
+                            },
+                  '& .MuiTabs-scrollButtons': {
+                    color: '#b0b0b0',
+                    '&.Mui-disabled': {
+                      opacity: 0.3,
+                    },
+                            },
+                          }}
+                        >
+                <Tab 
+                  icon={<CodeIcon />} 
+                  label="C Programming" 
+                  iconPosition="start"
+                />
+                <Tab 
+                  icon={<MemoryIcon />} 
+                  label="C++ Programming" 
+                  iconPosition="start"
+                />
+                <Tab 
+                  icon={<SchoolIcon />} 
+                  label="Data Structures & Algorithms" 
+                  iconPosition="start"
+                />
+                <Tab 
+                  icon={<PsychologyIcon />} 
+                  label="Python" 
+                  iconPosition="start"
+                />
+                <Tab 
+                  icon={<CodeIcon />} 
+                  label="DSA with Python" 
+                  iconPosition="start"
+                />
+                <Tab 
+                  icon={<DataObjectIcon />} 
+                  label="Machine Learning" 
+                  iconPosition="start"
+                />
+                <Tab 
+                  icon={<CoffeeIcon />} 
+                  label="Java Programming" 
+                  iconPosition="start"
+                />
+              </Tabs>
+            </Paper>
+          </motion.div>
+
+          {/* Content Sections */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              {activeTab === 0 && (
+                <Box>
+                            <Typography
                   variant="h4"
                             sx={{
                     color: '#fff',
@@ -2529,14 +2562,14 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                   }}
                 >
                   C Programming Fundamentals
-                          </Typography>
-                {renderTopics(cTopics, 'C')}
-                        </Box>
-            )}
-            
-            {activeTab === 1 && (
-              <Box>
-                        <Typography
+                            </Typography>
+                  {renderTopics(cTopics, 'C')}
+                          </Box>
+              )}
+              
+              {activeTab === 1 && (
+                <Box>
+                          <Typography
                   variant="h4"
                           sx={{
                     color: '#fff',
@@ -2546,65 +2579,65 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                   }}
                 >
                   C++ Object-Oriented Programming
-                        </Typography>
-                {renderTopics(cppTopics, 'C++')}
-            </Box>
-            )}
-            
-            {activeTab === 2 && (
-              <Box>
-                <Typography
-                  variant="h4"
-                  sx={{
-                    color: '#fff',
-                    fontWeight: 700,
-                    mb: 4,
-                    textAlign: 'center',
-                  }}
-                >
-                  Data Structures & Algorithms
-                </Typography>
-                {renderTopics(dsaTopics, 'DSA')}
+                          </Typography>
+                  {renderTopics(cppTopics, 'C++')}
               </Box>
-            )}
+              )}
+              
+              {activeTab === 2 && (
+                <Box>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      color: '#fff',
+                      fontWeight: 700,
+                      mb: 4,
+                      textAlign: 'center',
+                    }}
+                  >
+                    Data Structures & Algorithms
+                  </Typography>
+                  {renderTopics(dsaTopics, 'DSA')}
+                </Box>
+              )}
 
-            {activeTab === 3 && (
-              <Box>
-                <Typography
-                  variant="h4"
-                      sx={{
-                    color: '#fff',
-                    fontWeight: 700,
-                    mb: 4,
-                    textAlign: 'center',
-                  }}
-                >
-                  Python Basics
-                </Typography>
-                {renderTopics(pythonTopics, 'Python')}
-              </Box>
-            )}
-
-            {activeTab === 4 && (
-              <Box>
-                <Typography
-                  variant="h4"
+              {activeTab === 3 && (
+                <Box>
+                  <Typography
+                    variant="h4"
                         sx={{
-                    color: '#fff',
-                    fontWeight: 700,
-                    mb: 4,
-                    textAlign: 'center',
-                  }}
-                >
-                  DSA with Python
-                </Typography>
-                {renderTopics(dsaWithPythonTopics, 'DSA_Python')}
-              </Box>
-            )}
+                      color: '#fff',
+                      fontWeight: 700,
+                      mb: 4,
+                      textAlign: 'center',
+                    }}
+                  >
+                    Python Basics
+                  </Typography>
+                  {renderTopics(pythonTopics, 'Python')}
+                </Box>
+              )}
 
-            {activeTab === 5 && (
-              <Box>
-                          <Typography
+              {activeTab === 4 && (
+                <Box>
+                  <Typography
+                    variant="h4"
+                          sx={{
+                      color: '#fff',
+                      fontWeight: 700,
+                      mb: 4,
+                      textAlign: 'center',
+                    }}
+                  >
+                    DSA with Python
+                  </Typography>
+                  {renderTopics(dsaWithPythonTopics, 'DSA_Python')}
+                </Box>
+              )}
+
+              {activeTab === 5 && (
+                <Box>
+                            <Typography
                   variant="h4"
                             sx={{
                     color: '#fff',
@@ -2614,16 +2647,16 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                   }}
                 >
                   Machine Learning Concepts
-                          </Typography>
-                {renderTopics(mlTopics, 'ML')}
-                        </Box>
-            )}
+                            </Typography>
+                  {renderTopics(mlTopics, 'ML')}
+                          </Box>
+              )}
 
-            {activeTab === 6 && (
-              <Box>
-                        <Typography
+              {activeTab === 6 && (
+                <Box>
+                          <Typography
                   variant="h4"
-                          sx={{
+                            sx={{
                     color: '#fff',
                     fontWeight: 700,
                     mb: 4,
@@ -2631,72 +2664,83 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                   }}
                 >
                   Java Programming
-                        </Typography>
-                {renderTopics(javaTopics, 'Java')}
-            </Box>
-            )}
-          </motion.div>
-        </AnimatePresence>
+                            </Typography>
+                  {renderTopics(javaTopics, 'Java')}
+              </Box>
+              )}
+            </motion.div>
+          </AnimatePresence>
 
-        {/* Call to Action */}
-          <motion.div
-          initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          >
-          <Box sx={{ textAlign: 'center', mt: 8 }}>
-              <Paper
-              elevation={0}
-                sx={{
-                background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.1) 100%)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(0, 212, 255, 0.2)',
-                  borderRadius: 3,
-                p: 4,
-              }}
+          {/* Call to Action */}
+            <motion.div
+            initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <Typography
-                variant="h5"
-                sx={{
-                  color: '#fff',
-                  fontWeight: 600,
-                  mb: 2,
-                }}
-              >
-                  Ready to Practice?
-                </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: '#b0b0b0',
-                  mb: 3,
-                }}
-              >
-                Start coding with our interactive exercises and real-time feedback
-                </Typography>
-                <Button
-                  variant="contained"
-                  size="large"
-                startIcon={<PlayArrowIcon />}
+            <Box sx={{ textAlign: 'center', mt: 8 }}>
+                <Paper
+                elevation={0}
                   sx={{
-                  background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
+                  background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.1) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(0, 212, 255, 0.2)',
+                    borderRadius: 3,
+                  p: 4,
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  sx={{
+                    color: '#fff',
+                    fontWeight: 600,
+                    mb: 2,
+                  }}
+                >
+                    Ready to Practice?
+                  </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: '#b0b0b0',
+                    mb: 3,
+                  }}
+                >
+                  Start a new journey with our Academy
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    startIcon={<WhatsAppIcon />}
+                    onClick={() => {
+                      const phoneNumber = '919209455752';
+                      const message = encodeURIComponent('Hi! I want to join Shetty Sir\'s Coding Academy. Please provide me with more information about the courses and enrollment process.');
+                      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+                      window.open(whatsappUrl, '_blank');
+                    }}
+                    sx={{
+                  background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                   borderRadius: 2,
                   px: 4,
                   py: 1.5,
                     fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
                     '&:hover': {
-                    background: 'linear-gradient(135deg, #0099cc 0%, #007399 100%)',
+                    background: 'linear-gradient(135deg, #128C7E 0%, #075E54 100%)',
                       transform: 'translateY(-2px)',
+                      boxShadow: '0 8px 25px rgba(37, 211, 102, 0.3)',
                     },
                   }}
                 >
-                Start Coding
+                Join Now
                 </Button>
               </Paper>
             </Box>
           </motion.div>
         </Container>
-    </Box>
+      </Box>
+    </motion.div>
+    </>
   );
 };
 

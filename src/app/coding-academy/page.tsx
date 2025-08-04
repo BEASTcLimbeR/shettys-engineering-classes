@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Container, Paper, AppBar, Toolbar, Button, Grid, Chip, IconButton, Card, CardContent, Avatar, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Container, Paper, Chip, Button, AppBar, Toolbar, Grid, IconButton, Card } from '@mui/material';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CodeIcon from '@mui/icons-material/Code';
@@ -22,20 +22,16 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import DiamondIcon from '@mui/icons-material/Diamond';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import Loader from '../../components/Loader';
-import ThreeJSBackground from '../../components/ThreeJSBackground';
-import programersWorking from '../../../public/programers-working.json';
 
 const CodingAcademyPage: React.FC = () => {
   const [isMainMode, setIsMainMode] = useState(false);
-  const [showPreloader, setShowPreloader] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [particleCount, setParticleCount] = useState(50);
+
   const router = useRouter();
-  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
@@ -81,10 +77,7 @@ const CodingAcademyPage: React.FC = () => {
     }
   };
 
-  const navigateToBasics = async () => {
-    setShowPreloader(true);
-    await new Promise(resolve => setTimeout(resolve, 2500));
-    setShowPreloader(false);
+  const navigateToBasics = () => {
     router.push('/coding-academy/basics');
   };
 
@@ -111,13 +104,8 @@ const CodingAcademyPage: React.FC = () => {
     "Placement Guidance"
   ];
 
-
-
-
-
   return (
     <Box
-      ref={containerRef}
       sx={{
         minHeight: '100vh',
         background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%)',
@@ -128,7 +116,22 @@ const CodingAcademyPage: React.FC = () => {
       }}
     >
       {/* 3D Background */}
-      <ThreeJSBackground />
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `
+            radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(76, 175, 80, 0.1) 0%, transparent 50%)
+          `,
+          animation: 'pulse 8s ease-in-out infinite',
+        }}
+      />
+
       {/* Custom Cursor */}
       <motion.div
         className="custom-cursor"
@@ -163,25 +166,6 @@ const CodingAcademyPage: React.FC = () => {
         }}
       />
 
-
-
-      {/* Animated Background */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: `
-            radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(76, 175, 80, 0.1) 0%, transparent 50%)
-          `,
-          animation: 'pulse 8s ease-in-out infinite',
-        }}
-      />
-
       {/* Navigation Bar */}
       <AppBar 
         position="fixed" 
@@ -196,38 +180,79 @@ const CodingAcademyPage: React.FC = () => {
         <Toolbar sx={{ 
           justifyContent: 'space-between',
           flexDirection: { xs: 'column', sm: 'row' },
-          gap: { xs: 2, sm: 0 },
-          py: { xs: 2, sm: 1 }
+          gap: { xs: 1, sm: 0 },
+          py: { xs: 1, sm: 1 },
+          px: { xs: 1, sm: 2 }
         }}>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
           >
-            <Typography
-              variant="h6"
+            <Box
+              component="img"
+              src="/coding-logo.svg"
+              alt="Coding Academy Logo"
               sx={{
-                fontWeight: 700,
-                background: 'linear-gradient(135deg, #00ff00, #00cc00)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                fontFamily: 'monospace',
-                letterSpacing: '2px',
-                fontSize: { xs: '0.9rem', sm: '1rem', md: '1.2rem' },
-                textAlign: { xs: 'center', sm: 'left' },
+                width: { xs: 28, sm: 36, md: 40 },
+                height: { xs: 28, sm: 36, md: 40 },
+                filter: 'drop-shadow(0 0 8px rgba(0, 255, 0, 0.3))',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  filter: 'drop-shadow(0 0 12px rgba(0, 255, 0, 0.5))',
+                  transform: 'scale(1.05)',
+                },
               }}
-            >
-              SHETTY_SIR's_CODING_ACADEMY
-            </Typography>
+            />
+            <Box sx={{ minWidth: 0, flex: 1 }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  fontSize: { xs: '0.6rem', sm: '0.7rem', md: '0.8rem', lg: '0.9rem' },
+                  letterSpacing: '0.5px',
+                  fontFamily: 'monospace',
+                  textAlign: { xs: 'center', sm: 'left' },
+                  mb: 0.5,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'normal',
+                  wordBreak: 'break-all',
+                  lineHeight: 1.2,
+                  maxHeight: '2.4em',
+                }}
+              >
+                SHETTY_SIR's{'\n'}CODING_ACADEMY
+              </Typography>
+              <Typography
+                variant="caption"
+                sx={{
+                  color: '#00d4ff',
+                  fontWeight: 600,
+                  fontSize: { xs: '0.5rem', sm: '0.7rem', md: '0.8rem' },
+                  letterSpacing: '0.5px',
+                  fontFamily: 'monospace',
+                  textAlign: { xs: 'center', sm: 'left' },
+                  display: 'block',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Code, Create, Conquer!
+              </Typography>
+            </Box>
           </motion.div>
           
           <Box sx={{ 
             display: 'flex', 
-            gap: { xs: 1, sm: 2 },
+            gap: { xs: 0.5, sm: 2 },
             flexWrap: 'wrap',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            width: { xs: '100%', sm: 'auto' }
           }}>
             {[
               { icon: <KeyboardArrowUpIcon />, label: 'TOP', action: scrollToTop },
@@ -252,12 +277,16 @@ const CodingAcademyPage: React.FC = () => {
                     fontFamily: 'monospace',
                     background: 'rgba(255, 255, 255, 0.05)',
                     borderRadius: 2,
-                    px: { xs: 1.5, sm: 2, md: 3 },
+                    px: { xs: 1, sm: 2, md: 3 },
                     py: { xs: 0.5, sm: 1 },
-                    fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.875rem' },
+                    fontSize: { xs: '0.6rem', sm: '0.8rem', md: '0.875rem' },
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     transition: 'all 0.3s ease',
                     minWidth: { xs: 'auto', sm: 'auto' },
+                    maxWidth: { xs: '80px', sm: 'none' },
+                    '& .MuiButton-startIcon': {
+                      marginRight: { xs: 0.5, sm: 1 },
+                    },
                     '&:hover': { 
                       color: '#00ff00',
                       background: 'rgba(0, 255, 0, 0.1)',
@@ -281,9 +310,9 @@ const CodingAcademyPage: React.FC = () => {
             sx={{
               cursor: 'pointer',
               position: 'relative',
-              width: '120px',
-              height: '60px',
-              borderRadius: '30px',
+              width: { xs: '80px', sm: '120px' },
+              height: { xs: '40px', sm: '60px' },
+              borderRadius: { xs: '20px', sm: '30px' },
               background: '#333',
               border: '2px solid #00ff00',
               transition: 'all 0.3s ease',
@@ -385,91 +414,40 @@ const CodingAcademyPage: React.FC = () => {
                 }}
                 style={{
                   position: 'relative',
-                  padding: { xs: '2rem', sm: '3rem', md: '4rem' },
+                  padding: '2rem',
                   border: '2px solid #00ff00',
                   borderRadius: '20px',
                   background: 'rgba(0, 255, 0, 0.05)',
                   backdropFilter: 'blur(20px)',
                   maxWidth: '900px',
                   width: '100%',
-                  margin: { xs: '1rem', sm: '2rem' },
+                  margin: '1rem',
                 }}
               >
                 <motion.div
-                  animate={{
-                    scale: [1, 1.02, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <Typography
-                    variant="h1"
-                    sx={{
-                      fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem', xl: '6rem' },
-                      fontWeight: 900,
-                      background: 'linear-gradient(135deg, #00ff00 0%, #00cc00 50%, #009900 100%)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      mb: { xs: 2, sm: 3 },
-                      lineHeight: 1.1,
-                      textShadow: '0 0 30px rgba(0, 255, 0, 0.5)',
-                      fontFamily: 'monospace',
-                      letterSpacing: { xs: '1px', sm: '2px', md: '3px' },
-                      textAlign: 'center',
-                    }}
-                  >
-                    SHETTY_SIR
-                    <br />
-                    CODING_ACADEMY
-                  </Typography>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                >
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem', lg: '2rem' },
-                      fontWeight: 400,
-                      mb: { xs: 3, sm: 4 },
-                      color: '#cccccc',
-                      fontStyle: 'italic',
-                      fontFamily: 'monospace',
-                      letterSpacing: { xs: '1px', sm: '2px' },
-                      textAlign: 'center',
-                      px: { xs: 1, sm: 2 },
-                    }}
-                  >
-                    "Not Just coding - Career Engineering!"
-                  </Typography>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1, delay: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
                 >
                   <Box
                     sx={{
-                      display: 'inline-block',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       px: { xs: 3, sm: 4, md: 6 },
-                      py: { xs: 2, sm: 3, md: 4 },
-                      border: '2px solid rgba(255, 255, 255, 0.2)',
+                      py: { xs: 4, sm: 5, md: 6 },
+                      border: '2px solid #00ff00',
                       borderRadius: '15px',
-                      background: 'rgba(255, 255, 255, 0.05)',
+                      background: 'rgba(15, 15, 35, 0.95)',
                       backdropFilter: 'blur(20px)',
                       mb: { xs: 4, sm: 6 },
                       position: 'relative',
                       overflow: 'hidden',
                       width: '100%',
-                      maxWidth: '600px',
+                      maxWidth: '800px',
+                      mx: 'auto',
+                      boxShadow: '0 8px 32px rgba(0, 255, 0, 0.2)',
                     }}
                   >
                     <motion.div
@@ -493,24 +471,80 @@ const CodingAcademyPage: React.FC = () => {
                         height: '100%',
                       }}
                     />
+                    
+                    {/* Title */}
+                    <Box sx={{ textAlign: 'center', mb: { xs: 1, sm: 2 } }}>
+                      <Typography
+                        variant="h1"
+                        sx={{
+                          fontSize: { xs: '1.2rem', sm: '1.5rem', md: '2rem', lg: '2.5rem', xl: '3rem' },
+                          fontWeight: 900,
+                          color: '#ffffff',
+                          lineHeight: 1.3,
+                          textShadow: '0 0 30px rgba(255, 255, 255, 0.5)',
+                          fontFamily: 'monospace',
+                          letterSpacing: { xs: '0.5px', sm: '1px', md: '1.5px' },
+                          textAlign: 'center',
+                          display: 'block',
+                          wordBreak: 'break-all',
+                          overflowWrap: 'break-word',
+                          hyphens: 'manual',
+                          whiteSpace: 'pre-line',
+                        }}
+                      >
+                        SHETTY_SIR's{'\n'}CODING_ACADEMY
+                      </Typography>
+                    </Box>
+                    
+                    {/* Slogan */}
                     <Typography
-                      variant="h4"
+                      variant="h3"
                       sx={{
-                        color: '#ffffff',
-                        fontWeight: 700,
+                        fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem', lg: '2rem' },
+                        fontWeight: 600,
+                        mb: { xs: 3, sm: 4 },
+                        color: '#00d4ff',
                         fontFamily: 'monospace',
-                        letterSpacing: '1px',
+                        letterSpacing: { xs: '1px', sm: '2px' },
+                        textAlign: 'center',
                       }}
                     >
-                      Industry-Level C, C++, and Data Structures
+                      Code, Create, Conquer!
                     </Typography>
+                    
+                    {/* Course Details Box */}
+                    <Box
+                      sx={{
+                        display: 'inline-block',
+                        px: { xs: 3, sm: 4, md: 5 },
+                        py: { xs: 2, sm: 3 },
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '10px',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        textAlign: 'center',
+                        minWidth: '200px',
+                      }}
+                    >
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          color: '#ffffff',
+                          fontWeight: 600,
+                          fontFamily: 'monospace',
+                          fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        Industry-Level C, C++, and<br />
+                        Data Structures
+                      </Typography>
+                    </Box>
                   </Box>
                 </motion.div>
               </motion.div>
             </Box>
           </motion.div>
-
-
 
           {/* Course Overview */}
           <motion.div
@@ -541,75 +575,84 @@ const CodingAcademyPage: React.FC = () => {
                 </Typography>
               </motion.div>
               
-                             <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+                             <Box sx={{ 
+                 display: 'grid',
+                 gridTemplateColumns: { 
+                   xs: '1fr', 
+                   sm: 'repeat(2, 1fr)', 
+                   md: 'repeat(3, 1fr)' 
+                 },
+                 gap: { xs: 2, sm: 3, md: 4 },
+                 justifyContent: 'center'
+               }}>
                  {[
                    { title: "DURATION", value: "3.5_MONTHS", color: "#00ff00", icon: <ScheduleIcon /> },
                    { title: "MODE", value: "ONLINE/OFFLINE", color: "#00ccff", icon: <CodeIcon /> },
                    { title: "WEEKLY_ACTIVITIES", value: "CODING_CONTESTS_&_MOCK_INTERVIEWS", color: "#ffaa00", icon: <TrendingUpIcon /> }
                  ].map((item, index) => (
-                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: index * 0.1 }}
-                      whileHover={{ scale: 1.05, y: -10 }}
-                    >
-                                             <Paper
-                         elevation={0}
+                   <Box key={index}>
+                   <motion.div
+                     initial={{ opacity: 0, y: 30 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     transition={{ duration: 0.8, delay: index * 0.1 }}
+                     whileHover={{ scale: 1.05, y: -10 }}
+                   >
+                     <Paper
+                       elevation={0}
+                       sx={{
+                         p: { xs: 2, sm: 3, md: 4 },
+                         background: 'rgba(255, 255, 255, 0.05)',
+                         backdropFilter: 'blur(20px)',
+                         border: `2px solid ${item.color}40`,
+                         borderRadius: 3,
+                         textAlign: 'center',
+                         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                         transition: 'all 0.3s ease',
+                         cursor: 'pointer',
+                         '&:hover': {
+                           transform: 'translateY(-10px)',
+                           boxShadow: `0 20px 40px ${item.color}20`,
+                           border: `2px solid ${item.color}`,
+                         },
+                       }}
+                     >
+                       <Box
                          sx={{
-                           p: { xs: 2, sm: 3, md: 4 },
-                           background: 'rgba(255, 255, 255, 0.05)',
-                           backdropFilter: 'blur(20px)',
-                           border: `2px solid ${item.color}40`,
-                           borderRadius: 3,
-                           textAlign: 'center',
-                           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-                           transition: 'all 0.3s ease',
-                           cursor: 'pointer',
-                           '&:hover': {
-                             transform: 'translateY(-10px)',
-                             boxShadow: `0 20px 40px ${item.color}20`,
-                             border: `2px solid ${item.color}`,
-                           },
+                           color: item.color,
+                           fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                           mb: { xs: 1, sm: 2 },
                          }}
                        >
-                                                 <Box
-                           sx={{
-                             color: item.color,
-                             fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                             mb: { xs: 1, sm: 2 },
-                           }}
-                         >
-                           {item.icon}
-                         </Box>
-                         <Typography
-                           variant="h5"
-                           sx={{
-                             color: '#cccccc',
-                             mb: { xs: 1, sm: 2 },
-                             fontWeight: 700,
-                             fontFamily: 'monospace',
-                             fontSize: { xs: '0.9rem', sm: '1rem', md: '1.25rem' },
-                           }}
-                         >
-                           {item.title}
-                         </Typography>
-                         <Typography
-                           variant="h4"
-                           sx={{
-                             color: item.color,
-                             fontWeight: 900,
-                             fontFamily: 'monospace',
-                             fontSize: { xs: '1.2rem', sm: '1.5rem', md: '2rem' },
-                           }}
-                         >
-                           {item.value}
-                         </Typography>
-                      </Paper>
-                    </motion.div>
-                  </Grid>
-                ))}
-              </Grid>
+                         {item.icon}
+                       </Box>
+                       <Typography
+                         variant="h5"
+                         sx={{
+                           color: '#cccccc',
+                           mb: { xs: 1, sm: 2 },
+                           fontWeight: 700,
+                           fontFamily: 'monospace',
+                           fontSize: { xs: '0.9rem', sm: '1rem', md: '1.25rem' },
+                         }}
+                       >
+                         {item.title}
+                       </Typography>
+                       <Typography
+                         variant="h4"
+                         sx={{
+                           color: item.color,
+                           fontWeight: 900,
+                           fontFamily: 'monospace',
+                           fontSize: { xs: '1.2rem', sm: '1.5rem', md: '2rem' },
+                         }}
+                       >
+                         {item.value}
+                       </Typography>
+                     </Paper>
+                   </motion.div>
+                 </Box>
+               ))}
+             </Box>
             </Box>
           </motion.div>
 
@@ -642,88 +685,99 @@ const CodingAcademyPage: React.FC = () => {
                 </Typography>
               </motion.div>
               
-                             <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
-                 {programmingConcepts.map((concept, index) => (
-                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: index * 0.1 }}
-                      whileHover={{ scale: 1.05, y: -10 }}
-                      onHoverStart={() => setHoveredCard(index)}
-                      onHoverEnd={() => setHoveredCard(null)}
+              <Box sx={{ 
+                display: 'grid',
+                gridTemplateColumns: { 
+                  xs: '1fr', 
+                  sm: 'repeat(2, 1fr)', 
+                  md: 'repeat(3, 1fr)' 
+                },
+                gap: { xs: 2, sm: 3, md: 4 },
+                justifyContent: 'center',
+                maxWidth: '1200px',
+                mx: 'auto'
+              }}>
+                {programmingConcepts.map((concept, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.05, y: -10 }}
+                    onHoverStart={() => setHoveredCard(index)}
+                    onHoverEnd={() => setHoveredCard(null)}
+                  >
+                    <Card
+                      elevation={0}
+                      sx={{
+                        p: { xs: 2, sm: 3, md: 4 },
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(20px)',
+                        border: `2px solid ${concept.color}40`,
+                        borderRadius: 3,
+                        textAlign: 'center',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        height: '100%',
+                        '&:hover': {
+                          transform: 'translateY(-10px)',
+                          boxShadow: `0 20px 40px ${concept.color}20`,
+                          border: `2px solid ${concept.color}`,
+                        },
+                      }}
                     >
-                                             <Card
-                         elevation={0}
-                         sx={{
-                           p: { xs: 2, sm: 3, md: 4 },
-                           background: 'rgba(255, 255, 255, 0.05)',
-                           backdropFilter: 'blur(20px)',
-                           border: `2px solid ${concept.color}40`,
-                           borderRadius: 3,
-                           textAlign: 'center',
-                           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-                           transition: 'all 0.3s ease',
-                           cursor: 'pointer',
-                           position: 'relative',
-                           overflow: 'hidden',
-                           '&:hover': {
-                             transform: 'translateY(-10px)',
-                             boxShadow: `0 20px 40px ${concept.color}20`,
-                             border: `2px solid ${concept.color}`,
-                           },
-                         }}
-                       >
-                        <motion.div
-                          animate={{
-                            background: hoveredCard === index ? concept.gradient : 'transparent',
-                          }}
-                          transition={{ duration: 0.3 }}
-                          style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            opacity: 0.1,
-                          }}
-                        />
-                                                 <Box
-                           sx={{
-                             color: concept.color,
-                             fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                             mb: { xs: 1, sm: 2 },
-                           }}
-                         >
-                           {concept.icon}
-                         </Box>
-                         <Typography
-                           variant="h6"
-                           sx={{
-                             color: '#ffffff',
-                             mb: 1,
-                             fontWeight: 700,
-                             fontFamily: 'monospace',
-                             fontSize: { xs: '0.9rem', sm: '1rem', md: '1.25rem' },
-                           }}
-                         >
-                           {concept.title}
-                         </Typography>
-                         <Typography
-                           variant="body2"
-                           sx={{
-                             color: '#cccccc',
-                             fontFamily: 'monospace',
-                             fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.875rem' },
-                           }}
-                         >
-                           {concept.desc}
-                         </Typography>
-                      </Card>
-                    </motion.div>
-                  </Grid>
+                      <motion.div
+                        animate={{
+                          background: hoveredCard === index ? concept.gradient : 'transparent',
+                        }}
+                        transition={{ duration: 0.3 }}
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          opacity: 0.1,
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          color: concept.color,
+                          fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                          mb: { xs: 1, sm: 2 },
+                        }}
+                      >
+                        {concept.icon}
+                      </Box>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: '#ffffff',
+                          mb: 1,
+                          fontWeight: 700,
+                          fontFamily: 'monospace',
+                          fontSize: { xs: '0.9rem', sm: '1rem', md: '1.25rem' },
+                        }}
+                      >
+                        {concept.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: '#cccccc',
+                          fontFamily: 'monospace',
+                          fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.875rem' },
+                        }}
+                      >
+                        {concept.desc}
+                      </Typography>
+                    </Card>
+                  </motion.div>
                 ))}
-              </Grid>
+              </Box>
             </Box>
           </motion.div>
 
@@ -756,44 +810,53 @@ const CodingAcademyPage: React.FC = () => {
                 </Typography>
               </motion.div>
               
-                             <Grid container spacing={{ xs: 1, sm: 2 }}>
-                 {features.map((feature, index) => (
-                   <Grid item xs={12} sm={6} md={4} key={index}>
-                    <motion.div
-                      initial={{ opacity: 0, x: -30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.05 }}
-                      whileHover={{ scale: 1.05, x: 5 }}
-                    >
-                                              <Chip
-                          label={feature}
-                          sx={{
-                            background: 'rgba(255, 255, 255, 0.05)',
-                            color: '#cccccc',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
-                            fontFamily: 'monospace',
-                            fontWeight: 500,
-                            fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.9rem' },
-                            height: 'auto',
-                            backdropFilter: 'blur(20px)',
-                            '& .MuiChip-label': {
-                              whiteSpace: 'normal',
-                              textAlign: 'center',
-                              padding: { xs: '8px 12px', sm: '10px 14px', md: '12px 16px' },
-                            },
-                            '&:hover': {
-                              background: 'rgba(0, 255, 0, 0.1)',
-                              border: '1px solid #00ff00',
-                              color: '#00ff00',
-                              transform: 'translateY(-2px)',
-                              boxShadow: '0 4px 12px rgba(0, 255, 0, 0.2)',
-                            },
-                          }}
-                        />
-                    </motion.div>
-                  </Grid>
+              <Box sx={{ 
+                display: 'grid',
+                gridTemplateColumns: { 
+                  xs: '1fr', 
+                  sm: 'repeat(2, 1fr)', 
+                  md: 'repeat(3, 1fr)' 
+                },
+                gap: { xs: 1, sm: 2 },
+                justifyContent: 'center'
+              }}>
+                {features.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.05 }}
+                    whileHover={{ scale: 1.05, x: 5 }}
+                  >
+                    <Chip
+                      label={feature}
+                      sx={{
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        color: '#cccccc',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        fontFamily: 'monospace',
+                        fontWeight: 500,
+                        fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.9rem' },
+                        height: 'auto',
+                        backdropFilter: 'blur(20px)',
+                        width: '100%',
+                        '& .MuiChip-label': {
+                          whiteSpace: 'normal',
+                          textAlign: 'center',
+                          padding: { xs: '8px 12px', sm: '10px 14px', md: '12px 16px' },
+                        },
+                        '&:hover': {
+                          background: 'rgba(0, 255, 0, 0.1)',
+                          border: '1px solid #00ff00',
+                          color: '#00ff00',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(0, 255, 0, 0.2)',
+                        },
+                      }}
+                    />
+                  </motion.div>
                 ))}
-              </Grid>
+              </Box>
             </Box>
           </motion.div>
 
@@ -946,7 +1009,6 @@ const CodingAcademyPage: React.FC = () => {
           background: linear-gradient(135deg, #0099cc, #007399);
         }
       `}</style>
-      {showPreloader && <Loader animationData={programersWorking} overlay />}
     </Box>
   );
 };

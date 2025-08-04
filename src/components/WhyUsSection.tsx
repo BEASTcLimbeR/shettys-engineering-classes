@@ -521,7 +521,7 @@ const WhyUsSection: React.FC = () => {
                   fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
                 }}
               >
-                Why "Student Satisfaction"?
+                Why "Students Satisfaction"?
               </Typography>
               <Typography
                 variant="h6"

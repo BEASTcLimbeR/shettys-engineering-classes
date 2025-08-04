@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   Box, 
   Typography, 
@@ -12,7 +12,11 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Grid
+  Grid,
+  TextField,
+  Autocomplete,
+  ListItem,
+  ListItemText
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { 
@@ -23,20 +27,22 @@ import {
   ElectricBolt,
   Storage,
   Psychology,
-  Build
+  Build,
+  Search as SearchIcon
 } from '@mui/icons-material';
 import BranchTabs from './BranchTabs';
 import CourseAccordion from './CourseAccordion';
 
 type CourseYearData = {
   FE?: string[];
-  SE: string[];
-  TE: string[];
-  BE: string[];
+  SE?: string[];
+  TE?: string[];
+  BE?: string[];
 };
 
 const CoursesSection: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
   const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
@@ -92,46 +98,105 @@ const CoursesSection: React.FC = () => {
 
   const coursesData: Record<string, CourseYearData> = {
     SPPU: {
-      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving'],
-      SE: [],
-      TE: [],
-      BE: [],
+      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving', 'Engineering Graphics', 'Engineering Physics', 'Engineering Chemistry', 'Fundamentals of Programming Languages'],
     },
     'E&TC': {
+      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving', 'Engineering Graphics', 'Engineering Physics', 'Engineering Chemistry', 'Fundamentals of Programming Languages'],
       SE: ['Electrical Circuits', 'Electronics Circuits', 'Digital Circuits', 'Engineering Mathematics 3', 'Signal Systems', 'Control Systems'],
       TE: ['Digital Communication', 'Electromagnetic Field Theory', 'Microcontrollers', 'Database Management Systems', 'Power Device Circuits', 'Cellular Networks', 'Network Security'],
       BE: ['VLSI Design', 'Radiation and Microwave Theory', 'Cellular Networks', 'Digital Image Processing', 'Cloud Computing', 'JavaScript', 'Deep Learning', 'Digital Marketing', 'Fundamentals of Optical Communication'],
     },
     'CS': {
+      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving', 'Engineering Graphics', 'Engineering Physics', 'Engineering Chemistry', 'Fundamentals of Programming Languages'],
       SE: ['Digital Electronics Logic Design', 'Object Oriented Programming with C++ and Java', 'Microprocessor', 'Engineering Mathematics 3', 'Software Engineering', 'Discrete Mathematics'],
       TE: ['Database Management Systems', 'Data Science and Big Data Analytics', 'System Programming and Operating Systems', 'Web Technology', 'Computer Networks', 'Network Security', 'Theory of Computation', 'Artificial Intelligence'],
       BE: ['Deep Learning', 'Machine Learning', 'Design and Analysis of Algorithms', 'Blockchain Technology', 'High Performance Computing', 'Natural Language Processing'],
     },
     'Electrical': {
+      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving', 'Engineering Graphics', 'Engineering Physics', 'Engineering Chemistry', 'Fundamentals of Programming Languages'],
       SE: ['Analog and Digital Electronics', 'Network Analysis'],
       TE: ['Power Electronics', 'Advanced Microcontroller and Embedded Systems', 'Control Systems'],
       BE: ['Advanced Electrical Drives and Control', 'Advanced Control Systems'],
     },
     'IT': {
+      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving', 'Engineering Graphics', 'Engineering Physics', 'Engineering Chemistry', 'Fundamentals of Programming Languages'],
       SE: ['Basics of Computer Networks', 'Digital Electronics Logic Design', 'Database Management Systems'],
       TE: ['Theory of Computation', 'Machine Learning', 'Operating Systems', 'Computer Networks and Security'],
       BE: ['Blockchain Technology', 'Distributed Systems', 'Deep Learning'],
     },
     'AI&DS': {
+      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving', 'Engineering Graphics', 'Engineering Physics', 'Engineering Chemistry', 'Fundamentals of Programming Languages'],
       SE: ['Discrete Mathematics', 'Statistics and Probability', 'Internet of Things'],
       TE: ['Machine Learning', 'Data Science', 'Database Management Systems', 'Computer Networks', 'Artificial Neural Networks', 'Artificial Intelligence'],
       BE: ['Data Modeling and Visualization', 'Deep Learning', 'Distributed Computing', 'Computational Intelligence'],
     },
     'Mechanical': {
+      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving', 'Engineering Graphics', 'Engineering Physics', 'Engineering Chemistry', 'Fundamentals of Programming Languages'],
       SE: ['Solid Mechanics', 'Engineering Thermodynamics', 'Electrical Electronics Engineering', 'Engineering Mathematics 3', 'Fluid Mechanics'],
       TE: ['Numerical and Statistical Methods', 'Heat and Mass Transfer', 'Design of Machine Elements', 'Artificial Intelligence and Machine Learning'],
       BE: ['Design of Machine Elements', 'Thermal Engineering', 'Computer Integrated Manufacturing'],
     },
     'Civil': {
+      FE: ['Engineering Mathematics 1', 'Engineering Mathematics 2', 'Engineering Mechanics', 'Basic Electrical Engineering', 'Basic Electronics Engineering', 'Programming and Problem Solving', 'Engineering Graphics', 'Engineering Physics', 'Engineering Chemistry', 'Fundamentals of Programming Languages'],
       SE: ['Fluid Mechanics', 'Solid Mechanics', 'Geotechnical Engineering', 'Structural Analysis'],
       TE: ['Design of Steel Structures', 'Design of Reinforced Concrete'],
       BE: ['Traffic Engineering', 'Structural Design 3'],
     },
+  };
+
+  // Get all subjects from all branches and years
+  const allSubjects = useMemo(() => {
+    const subjects = [];
+    
+    // Function to get full year name
+    const getYearName = (year) => {
+      switch (year) {
+        case 'FE': return 'First Year';
+        case 'SE': return 'Second Year';
+        case 'TE': return 'Third Year';
+        case 'BE': return 'Final Year';
+        default: return year;
+      }
+    };
+
+    Object.keys(coursesData).forEach(branchName => {
+      Object.keys(coursesData[branchName]).forEach(year => {
+        if (coursesData[branchName][year] && coursesData[branchName][year].length > 0) {
+          coursesData[branchName][year].forEach(subject => {
+            subjects.push({
+              subject,
+              branch: branchName,
+              year,
+              fullText: `${subject} (${branchName} - ${getYearName(year)})`
+            });
+          });
+        }
+      });
+    });
+    return subjects;
+  }, [coursesData]);
+
+  // Filter subjects based on search query
+  const filteredSubjects = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    
+    const query = searchQuery.toLowerCase();
+    return allSubjects.filter(item => 
+      item.subject.toLowerCase().includes(query) ||
+      item.branch.toLowerCase().includes(query) ||
+      item.year.toLowerCase().includes(query)
+    ).slice(0, 10); // Limit to 10 suggestions
+  }, [searchQuery, allSubjects]);
+
+  const handleSubjectSelect = (selectedItem) => {
+    if (selectedItem) {
+      // Find the branch index and switch to it
+      const branchIndex = branches.findIndex(b => b.name === selectedItem.branch);
+      if (branchIndex !== -1) {
+        setSelectedTab(branchIndex);
+      }
+      setSearchQuery('');
+    }
   };
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -146,8 +211,13 @@ const CoursesSection: React.FC = () => {
 
     return (
       <Box sx={{ mt: 4 }}>
-        {/* SE, TE, BE Courses */}
-        {['SE', 'TE', 'BE'].map((year, yearIndex) => {
+        {/* FE, SE, TE, BE Courses */}
+        {['FE', 'SE', 'TE', 'BE'].map((year, yearIndex) => {
+          // Skip SE, TE, BE for SPPU branch
+          if (branch.name === 'SPPU' && year !== 'FE') {
+            return null;
+          }
+          
           const yearCourses = courses[year as keyof CourseYearData];
           return yearCourses && yearCourses.length > 0 ? (
             <motion.div
@@ -168,7 +238,7 @@ const CoursesSection: React.FC = () => {
                 }}
               >
                 <Typography variant="h5" sx={{ fontWeight: 700, mb: 3, color: branch.color }}>
-                  {year === 'SE' ? 'Second Year' : year === 'TE' ? 'Third Year' : 'Final Year'} Engineering ({year})
+                  {year === 'FE' ? 'First Year' : year === 'SE' ? 'Second Year' : year === 'TE' ? 'Third Year' : 'Final Year'} Engineering
                 </Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                   {yearCourses.map((subject: string, index: number) => (
@@ -191,7 +261,8 @@ const CoursesSection: React.FC = () => {
           ) : null;
         })}
         {/* If no courses, show a message */}
-        {(!courses.SE || courses.SE.length === 0) &&
+        {(!courses.FE || courses.FE.length === 0) &&
+          (!courses.SE || courses.SE.length === 0) &&
           (!courses.TE || courses.TE.length === 0) &&
           (!courses.BE || courses.BE.length === 0) && (
             <Box sx={{ mt: 4, textAlign: 'center' }}>
@@ -272,8 +343,107 @@ const CoursesSection: React.FC = () => {
                 mx: 'auto',
               }}
             >
-              Comprehensive coaching for all engineering branches and years
+              Comprehensive coaching for all Engineering Branches, Years and Patterns.
             </Typography>
+          </Box>
+        </motion.div>
+
+        {/* Search Section - Moved above Branch Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: '#1976d2' }}>
+              🔍 Search Subjects
+            </Typography>
+            <Autocomplete
+              freeSolo
+              options={filteredSubjects}
+              getOptionLabel={(option) => 
+                typeof option === 'string' ? option : option.fullText
+              }
+              inputValue={searchQuery}
+              onInputChange={(event, newInputValue) => {
+                setSearchQuery(newInputValue);
+              }}
+              onChange={(event, newValue) => {
+                handleSubjectSelect(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder="Search subjects (e.g., 'Engineering', 'Programming', 'Mathematics')"
+                  variant="outlined"
+                  fullWidth
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 3,
+                      backgroundColor: 'white',
+                      '&:hover': {
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#1976d2',
+                        },
+                      },
+                      '&.Mui-focused': {
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#1976d2',
+                        },
+                      },
+                    },
+                  }}
+                  InputProps={{
+                    ...params.InputProps,
+                    startAdornment: (
+                      <SearchIcon sx={{ color: '#1976d2', mr: 1 }} />
+                    ),
+                  }}
+                />
+              )}
+              renderOption={(props, option) => {
+                const { key, ...otherProps } = props;
+                return (
+                  <ListItem key={key} {...otherProps} sx={{ py: 1 }}>
+                    <ListItemText
+                      primary={option.subject}
+                      secondary={`${option.branch} - ${option.year}`}
+                      primaryTypographyProps={{
+                        fontWeight: 600,
+                        color: '#1976d2',
+                      }}
+                      secondaryTypographyProps={{
+                        fontSize: '0.85rem',
+                        color: '#666',
+                      }}
+                    />
+                  </ListItem>
+                );
+              }}
+              PaperComponent={({ children, ...props }) => (
+                <Paper
+                  {...props}
+                  sx={{
+                    mt: 1,
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                    borderRadius: 2,
+                    '& .MuiAutocomplete-listbox': {
+                      py: 0,
+                    },
+                  }}
+                >
+                  {children}
+                </Paper>
+              )}
+            />
+            
+            {/* Search Tips */}
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
+                💡 <strong>Search Tips:</strong> Try searching for "Engineering", "Programming", "Mathematics", "Physics", "Chemistry", "Mechanics", "Electrical", "Computer", etc.
+              </Typography>
+            </Box>
           </Box>
         </motion.div>
 
@@ -288,6 +458,12 @@ const CoursesSection: React.FC = () => {
         <CourseAccordion
           branch={branches[selectedTab].name}
           coursesData={coursesData}
+          onBranchChange={(branchName: string) => {
+            const branchIndex = branches.findIndex(b => b.name === branchName);
+            if (branchIndex !== -1) {
+              setSelectedTab(branchIndex);
+            }
+          }}
         />
 
         {/* Other Universities Note */}
@@ -482,7 +658,7 @@ const CoursesSection: React.FC = () => {
             </Box>
 
             <Chip
-              label="One-to-One Tuition"
+              label="Batches and One-to-One Tuition"
               sx={{
                 mt: 3,
                 background: 'rgba(255, 255, 255, 0.2)',

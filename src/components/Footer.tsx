@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, Link as MuiLink, Stack, IconButton, Paper, Divider } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -9,7 +9,11 @@ import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SchoolIcon from '@mui/icons-material/School';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -33,10 +37,21 @@ const contact = {
   email: 'shettyseng@gmail.com',
   instagram: 'https://instagram.com/shettys_engineering_classes',
   whatsapp: 'https://wa.me/919923460156',
+  youtube: 'https://www.youtube.com/@SEC_Pune',
+  facebook: 'https://facebook.com/share/1DeqGNdbm4/?mibextid=qi2Omg',
+  justdial: 'https://jsdl.in/DT-49D672TZ',
+  whatsappChannel: 'https://whatsapp.com/channel/0029VaFdKKwGk1G1F0VpOZ0y',
+  linkedin: 'https://www.linkedin.com/in/sukumar-shetty-3950b757?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
   timings: 'Mon-Sat: 9:00 AM - 8:00 PM',
 };
 
 const Footer: React.FC = () => {
+  const [currentYear, setCurrentYear] = useState('');
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear().toString());
+  }, []);
+
   return (
     <Box
       component="footer"
@@ -132,7 +147,7 @@ const Footer: React.FC = () => {
               </Typography>
 
               {/* Social Links */}
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2} sx={{ flexWrap: 'wrap', gap: 1 }}>
                 <IconButton
                   href={contact.instagram}
                   target="_blank"
@@ -165,6 +180,86 @@ const Footer: React.FC = () => {
                 >
                   <WhatsAppIcon />
                 </IconButton>
+                <IconButton
+                  href={contact.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: '#FF0000',
+                    background: 'rgba(255, 0, 0, 0.1)',
+                    '&:hover': {
+                      background: 'rgba(255, 0, 0, 0.2)',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <YouTubeIcon />
+                </IconButton>
+                <IconButton
+                  href={contact.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: '#1877F2',
+                    background: 'rgba(24, 119, 242, 0.1)',
+                    '&:hover': {
+                      background: 'rgba(24, 119, 242, 0.2)',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <FacebookIcon />
+                </IconButton>
+                <IconButton
+                  href={contact.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: '#0077B5',
+                    background: 'rgba(0, 119, 181, 0.1)',
+                    '&:hover': {
+                      background: 'rgba(0, 119, 181, 0.2)',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <LinkedInIcon />
+                </IconButton>
+                <IconButton
+                  href={contact.justdial}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: '#FF6B35',
+                    background: 'rgba(255, 107, 53, 0.1)',
+                    '&:hover': {
+                      background: 'rgba(255, 107, 53, 0.2)',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <SchoolIcon />
+                </IconButton>
+                <IconButton
+                  href={contact.whatsappChannel}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: '#25D366',
+                    background: 'rgba(37, 211, 102, 0.1)',
+                    '&:hover': {
+                      background: 'rgba(37, 211, 102, 0.2)',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <WhatsAppIcon />
+                </IconButton>
               </Stack>
             </Box>
 
@@ -183,14 +278,14 @@ const Footer: React.FC = () => {
               <Stack spacing={2}>
                 {quickLinks.map((link) => (
                   <Link key={link.label} href={link.href}>
-                    <MuiLink
-                      component="a"
-                      underline="none"
+                    <Typography
+                      component="span"
                       sx={{
                         color: 'rgba(255,255,255,0.8)',
                         fontWeight: 500,
                         fontSize: '0.95rem',
                         transition: 'all 0.3s ease',
+                        cursor: 'pointer',
                         '&:hover': {
                           color: '#ff6b35',
                           transform: 'translateX(5px)',
@@ -198,7 +293,7 @@ const Footer: React.FC = () => {
                       }}
                     >
                       {link.label}
-                    </MuiLink>
+                    </Typography>
                   </Link>
                 ))}
               </Stack>
@@ -219,14 +314,14 @@ const Footer: React.FC = () => {
               <Stack spacing={2}>
                 {navLinks.map((link) => (
                   <Link key={link.label} href={link.href}>
-                    <MuiLink
-                      component="a"
-                      underline="none"
+                    <Typography
+                      component="span"
                       sx={{
                         color: 'rgba(255,255,255,0.8)',
                         fontWeight: 500,
                         fontSize: '0.95rem',
                         transition: 'all 0.3s ease',
+                        cursor: 'pointer',
                         '&:hover': {
                           color: '#ff6b35',
                           transform: 'translateX(5px)',
@@ -234,7 +329,7 @@ const Footer: React.FC = () => {
                       }}
                     >
                       {link.label}
-                    </MuiLink>
+                    </Typography>
                   </Link>
                 ))}
               </Stack>
@@ -255,15 +350,22 @@ const Footer: React.FC = () => {
               <Stack spacing={2}>
                 <Stack direction="row" spacing={2} alignItems="flex-start">
                   <LocationOnIcon sx={{ color: '#ff6b35', mt: 0.5, fontSize: 20 }} />
-                  <Typography
-                    variant="body2"
+                  <MuiLink
+                    href="https://maps.google.com/?q=3rd+Floor+besides+Namaskar+Restaurant+opp+MJM+Hospital+Ghole+Road+Off+FC+Road+Pune+04"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    underline="hover"
                     sx={{
                       color: 'rgba(255,255,255,0.9)',
                       lineHeight: 1.5,
+                      cursor: 'pointer',
+                      '&:hover': {
+                        color: '#ff6b35',
+                      },
                     }}
                   >
                     {contact.address}
-                  </Typography>
+                  </MuiLink>
                 </Stack>
                 
                 <Stack direction="row" spacing={2} alignItems="center">
@@ -337,7 +439,7 @@ const Footer: React.FC = () => {
                 textAlign: { xs: 'left', md: 'center' },
               }}
             >
-              © {new Date().getFullYear()} Shetty's Engineering Classes. All rights reserved.
+              © {currentYear} Shetty's Engineering Classes. All rights reserved.
             </Typography>
             
             <Typography

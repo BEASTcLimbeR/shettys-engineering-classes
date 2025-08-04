@@ -24,7 +24,7 @@ const stats = [
   {
     icon: <SchoolIcon sx={{ fontSize: 48, color: '#4caf50' }} />,
     value: 'Toppers',
-    label: 'across Computer, ENTC, Electrical, AI & IT branches',
+    label: 'across Computer, ENTC, Electrical, AI, IT, Mechanical and Civil branches',
   },
   {
     icon: <GroupsIcon sx={{ fontSize: 48, color: '#ff9800' }} />,
@@ -35,7 +35,7 @@ const stats = [
 
 const Counter: React.FC<{ value: string }> = ({ value }) => {
   const ref = React.useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref);
 
   // Extract numeric part and suffix
   const match = value.match(/^(\d+)/);
@@ -191,11 +191,11 @@ const TrackRecordSection: React.FC = () => {
                     mb: 1,
                   }}
                 >
-                  {stat.label === 'across Computer, ENTC, Electrical, AI & IT branches' ? (
-                    stat.value
-                  ) : (
-                    <Counter value={stat.value} />
-                  )}
+                                     {stat.label === 'across Computer, ENTC, Electrical, AI, IT, Mechanical and Civil branches' ? (
+                     stat.value
+                   ) : (
+                     <Counter value={stat.value} />
+                   )}
                 </Typography>
                 <Typography
                   variant="h6"

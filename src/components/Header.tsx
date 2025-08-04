@@ -14,7 +14,6 @@ import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import ScheduleModal from './ScheduleModal';
 
 // Navigation links with section IDs
 const navLinks = [
@@ -23,7 +22,7 @@ const navLinks = [
   { label: 'Courses', href: '#courses' },
   { label: 'Coding', href: '#coding' }, // Placeholder, not implemented
   { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Schedule', href: '#schedule' }, // Placeholder, not implemented
+  { label: 'Our Faculty', href: '#faculty' },
   { label: 'Contact Us', href: '#contact' },
   { label: 'Gallery', href: '/gallery' },
 ];
@@ -34,46 +33,55 @@ const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
-  const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
 
   // Smooth scroll to section
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
     e.preventDefault();
     
-    // Handle Schedule link specially
-    if (href === '#schedule') {
-      setScheduleModalOpen(true);
-      setAnchorEl(null);
-      return;
-    }
-    
     const section = document.querySelector(href);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const headerHeight = scrolled ? 56 : 70; // Account for header height
+      const sectionTop = section.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20; // Extra 20px for breathing room
+      
+      window.scrollTo({
+        top: sectionTop,
+        behavior: 'smooth'
+      });
       setAnchorEl(null);
     }
   };
 
   // Highlight active section on scroll
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setScrolled(scrollY > 10);
-      const sectionIds = navLinks.map(link => link.href.replace('#', ''));
-      let current = 'home';
-      for (const id of sectionIds) {
-        const section = document.getElementById(id);
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= 80 && rect.bottom > 80) {
-            current = id;
-            break;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          setScrolled(scrollY > 10);
+          
+          const sectionIds = navLinks.map(link => link.href.replace('#', ''));
+          let current = 'home';
+          
+          for (const id of sectionIds) {
+            const section = document.getElementById(id);
+            if (section) {
+              const rect = section.getBoundingClientRect();
+              if (rect.top <= 80 && rect.bottom > 80) {
+                current = id;
+                break;
+              }
+            }
           }
-        }
+          setActiveSection(current);
+          ticking = false;
+        });
+        ticking = true;
       }
-      setActiveSection(current);
     };
-    window.addEventListener('scroll', handleScroll);
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -99,20 +107,35 @@ const Header: React.FC = () => {
       <Toolbar sx={{ minHeight: scrolled ? '56px' : '70px', transition: 'min-height 0.3s cubic-bezier(.4,2,.3,1)' }}>
         {/* Logo and Brand Name */}
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-          <Image src="/logo-icon.svg" alt="Shetty's Engineering Classes Logo" width={40} height={40} style={{ marginRight: 12 }} />
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              fontWeight: 800,
-              background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontSize: '1.5rem',
-            }}
-          >
-            Shetty's Engineering Classes
-          </Typography>
+          <Image src="/logo-sec-icon.svg" alt="Shetty's Engineering Classes Logo" width={40} height={40} style={{ marginRight: 12 }} />
+          <Box>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                fontWeight: 800,
+                background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                fontSize: '1.5rem',
+                lineHeight: 1.2,
+              }}
+            >
+              Shetty's Engineering Classes
+            </Typography>
+            <Typography 
+              variant="caption" 
+              sx={{ 
+                fontWeight: 600,
+                color: '#666',
+                fontSize: '0.75rem',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+              }}
+            >
+              Since 2010
+            </Typography>
+          </Box>
         </Box>
         
         {/* Desktop Navigation */}
@@ -229,8 +252,6 @@ const Header: React.FC = () => {
                         color: '#1976d2',
                       },
                     }}
-                    component="a"
-                    href={link.href}
                   >
                     {link.label}
                   </MenuItem>
@@ -274,11 +295,6 @@ const Header: React.FC = () => {
         )}
       </Toolbar>
       
-      {/* Schedule Modal */}
-      <ScheduleModal 
-        open={scheduleModalOpen} 
-        onClose={() => setScheduleModalOpen(false)} 
-      />
     </AppBar>
   );
 };

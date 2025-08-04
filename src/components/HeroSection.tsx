@@ -87,7 +87,7 @@ const HeroSection: React.FC = () => {
                 mx: 'auto',
               }}
             >
-              One Institute & More Than 27 Universities
+              One Institute & More Than 12 Universities
             </Typography>
           </motion.div>
 

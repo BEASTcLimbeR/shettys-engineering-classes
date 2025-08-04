@@ -20,19 +20,18 @@ const CodingSection: React.FC = () => {
       console.log('Audio play failed:', error);
     });
     
-    // First, let the switch animation complete (300ms for the AnimatePresence transition)
+    // Keep original animation timing but optimize routing
+    setLoading(true);
     setTimeout(() => {
-      setLoading(true);
-      setTimeout(() => {
-        setIsDeveloperMode(!isDeveloperMode);
-        setLoading(false);
-        if (!isDeveloperMode) {
-          setTimeout(() => { router.push('/coding-academy'); }, 500);
-        } else {
-          setTimeout(() => { router.push('/'); }, 500);
-        }
-      }, 2500); // Preloader animation duration
-    }, 300); // Switch animation delay
+      setIsDeveloperMode(!isDeveloperMode);
+      setLoading(false);
+      // Fast routing without delays
+      if (!isDeveloperMode) {
+        router.push('/coding-academy');
+      } else {
+        router.push('/');
+      }
+    }, 1500); // Keep original animation time for beautiful preloader
   };
 
   const handleTitleClick = () => {
@@ -90,7 +89,7 @@ const CodingSection: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8 }} // Restored original duration
           viewport={{ once: true }}
         >
           <Box sx={{ textAlign: 'center', mb: 8 }}>
@@ -122,7 +121,7 @@ const CodingSection: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.2 }} // Restored original duration
           viewport={{ once: true }}
         >
           <Box
@@ -211,7 +210,7 @@ const CodingSection: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.4 }} // Restored original duration
               viewport={{ once: true }}
             >
               <Typography
