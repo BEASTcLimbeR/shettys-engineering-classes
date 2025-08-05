@@ -13,7 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MapIcon from '@mui/icons-material/Map';
 
 const contact = {
-  address: '3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road, Pune-04',
+  address: "Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004",
   phone: '+91 99234 60156',
   email: 'shettyseng@gmail.com',
   instagram: 'https://instagram.com/shettys_engineering_classes',
@@ -205,20 +205,20 @@ const ContactSection: React.FC = () => {
                 <Stack direction="row" spacing={2} alignItems="center">
                   <LocationOnIcon color="primary" />
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Link
-                      href="https://maps.google.com/?q=3rd+Floor+besides+Namaskar+Restaurant+opp+MJM+Hospital+Ghole+Road+Off+FC+Road+Pune+04"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      underline="hover"
-                      sx={{ 
-                        fontWeight: 500, 
-                        color: '#333',
-                        cursor: 'pointer',
-                        '&:hover': {
-                          color: '#1976d2',
-                        },
-                      }}
-                    >
+                                      <Link
+                    href="https://maps.google.com/?q=Shetty%27s+Engineering+Classes+3rd+Floor+Besides+Namaskar+Restaurant+Ghole+Rd+opposite+MJM+Hospital+Sud+Nagar+Shivajinagar+Pune+Maharashtra+411004"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    underline="hover"
+                    sx={{ 
+                      fontWeight: 500, 
+                      color: '#333',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        color: '#1976d2',
+                      },
+                    }}
+                  >
                       {contact.address}
                     </Link>
                     <MapIcon sx={{ fontSize: 16, color: '#1976d2', cursor: 'pointer' }} />

@@ -125,7 +125,7 @@ const emailTemplates = {
             <p style="margin: 5px 0; color: #333;">
               <strong>📞 Phone:</strong> +91 99234 60156<br>
               <strong>📧 Email:</strong> shettyseng@gmail.com<br>
-              <strong>📍 Address:</strong> 3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road, Pune-04
+              <strong>📍 Address:</strong> Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004
             </p>
           </div>
         </div>

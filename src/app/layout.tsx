@@ -175,10 +175,10 @@ export default function RootLayout({
               "email": "shettyseng@gmail.com",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road",
+                "streetAddress": "Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004",
                 "addressLocality": "Pune",
                 "addressRegion": "Maharashtra",
-                "postalCode": "411005",
+                "postalCode": "411004",
                 "addressCountry": "IN"
               },
               "geo": {

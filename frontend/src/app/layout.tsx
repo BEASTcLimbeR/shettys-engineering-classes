@@ -129,10 +129,10 @@ export const metadata: Metadata = {
     'bingbot': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     
     // Business meta data
-    'business:contact_data:street_address': '3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road',
+    'business:contact_data:street_address': "Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004",
     'business:contact_data:locality': 'Pune',
     'business:contact_data:region': 'Maharashtra',
-    'business:contact_data:postal_code': '411005',
+    'business:contact_data:postal_code': '411004',
     'business:contact_data:country_name': 'India',
     'business:contact_data:phone_number': '+91 99234 60156',
     'business:contact_data:email': 'shettyseng@gmail.com',
@@ -215,10 +215,10 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Business Meta Tags */}
-        <meta name="business:contact_data:street_address" content="3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road" />
+        <meta name="business:contact_data:street_address" content="Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004" />
         <meta name="business:contact_data:locality" content="Pune" />
         <meta name="business:contact_data:region" content="Maharashtra" />
-        <meta name="business:contact_data:postal_code" content="411005" />
+        <meta name="business:contact_data:postal_code" content="411004" />
         <meta name="business:contact_data:country_name" content="India" />
         <meta name="business:contact_data:phone_number" content="+91 99234 60156" />
         <meta name="business:contact_data:email" content="shettyseng@gmail.com" />
@@ -261,10 +261,10 @@ export default function RootLayout({
               "email": "shettyseng@gmail.com",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road",
+                "streetAddress": "Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004",
                 "addressLocality": "Pune",
                 "addressRegion": "Maharashtra",
-                "postalCode": "411005",
+                "postalCode": "411004",
                 "addressCountry": "IN"
               },
               "geo": {
