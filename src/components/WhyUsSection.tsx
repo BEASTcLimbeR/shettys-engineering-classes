@@ -228,7 +228,7 @@ const WhyUsSection: React.FC = () => {
                           fontWeight: 600,
                         }}
                       >
-                        📍 Located at <strong>Ghole Road, Off FC Road</strong>, we specialize in coaching First Year to Final Year engineering students, covering core subjects across Electronics, Electrical, Computer, IT, and AI branches.
+                                                 📍 Located at <strong>Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004</strong>, we specialize in coaching First Year to Final Year engineering students, covering core subjects across Electronics, Electrical, Computer, IT, and AI branches.
                       </Typography>
                     </Box>
                   </Box>
