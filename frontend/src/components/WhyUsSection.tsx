@@ -3,7 +3,7 @@
 import React from 'react';
 import { Box, Typography, Container, Grid, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
-import { CheckCircle, School, Groups, VideoCall, Assessment } from '@mui/icons-material';
+import { CheckCircle, School, Groups, VideoCall, Assessment, Home } from '@mui/icons-material';
 
 const WhyUsSection: React.FC = () => {
   const promises = [
@@ -19,7 +19,7 @@ const WhyUsSection: React.FC = () => {
     },
     {
       icon: <VideoCall sx={{ fontSize: 40, color: '#1976d2' }} />,
-      title: "Hybrid Learning",
+      title: "Hybrid Learning(Batches)",
       description: "Live Zoom sessions + face-to-face learning at Ghole Road"
     },
     {
@@ -28,9 +28,14 @@ const WhyUsSection: React.FC = () => {
       description: "Unit tests, past-year questions, and performance insights"
     },
     {
-      icon: <Groups sx={{ fontSize: 40, color: '#1976d2' }} />,
+      icon: <Home sx={{ fontSize: 40, color: '#1976d2' }} />,
       title: "Home Tuition",
       description: "Convenient one-to-one coaching at your doorstep"
+    },
+    {
+      icon: <VideoCall sx={{ fontSize: 40, color: '#1976d2' }} />,
+      title: "Hybrid Learning(One-to-One)",
+      description: "Live Zoom sessions + face-to-face learning(One-to-One) at Ghole Road"
     }
   ];
 
