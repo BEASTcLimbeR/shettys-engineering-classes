@@ -38,7 +38,7 @@ const contact = {
   instagram: 'https://instagram.com/shettys_engineering_classes',
   whatsapp: 'https://wa.me/919923460156',
   youtube: 'https://www.youtube.com/@SEC_Pune',
-  facebook: 'https://facebook.com/share/1DeqGNdbm4/?mibextid=qi2Omg',
+  facebook: 'https://www.facebook.com/share/1Dy6BBvbY8/',
   justdial: 'https://jsdl.in/DT-49D672TZ',
   whatsappChannel: 'https://whatsapp.com/channel/0029VaFdKKwGk1G1F0VpOZ0y',
   linkedin: 'https://www.linkedin.com/in/sukumar-shetty-3950b757?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
