@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Performance optimizations
+  // Performance optimizations for Core Web Vitals
   experimental: {
     optimizePackageImports: ['@mui/material', '@mui/icons-material', 'framer-motion'],
   },
@@ -19,12 +19,18 @@ const nextConfig: NextConfig = {
   // Output configuration for Vercel
   output: 'standalone',
   
-  // Image optimization
+  // Enhanced Image optimization for Core Web Vitals
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
+    // Enable lazy loading
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Optimize for Core Web Vitals
+    unoptimized: false,
+    loader: 'default',
   },
 
   // Bundle analyzer

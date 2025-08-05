@@ -4,6 +4,7 @@ import "./globals.css";
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/700.css';
 import ClientLayout from '../components/ClientLayout';
+import CoreWebVitals from '../components/CoreWebVitals';
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -146,9 +147,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Core Web Vitals - Resource Hints */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+        
+        {/* Preload critical resources */}
+        <link rel="preload" href="/logo-sec-icon.svg" as="image" type="image/svg+xml" />
+        <link rel="preload" href="/logo.svg" as="image" type="image/svg+xml" />
+        
+        {/* Favicon and Icons */}
         <link rel="icon" type="image/svg+xml" href="/logo-sec-icon.svg" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="canonical" href="https://shettysengineeringclasses.com" />
+        
+        {/* Theme and App Meta */}
         <meta name="theme-color" content="#1976d2" />
         <meta name="msapplication-TileColor" content="#1976d2" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,6 +171,9 @@ export default function RootLayout({
         <meta name="application-name" content="Shetty's Engineering Classes" />
         <meta name="msapplication-TileImage" content="/logo-sec-icon.svg" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
+        
+        {/* Core Web Vitals Performance Monitor */}
+        <script src="/performance-monitor.js" defer />
         
         {/* Structured Data */}
         <script
@@ -318,6 +335,7 @@ export default function RootLayout({
         />
       </head>
       <body className={roboto.variable}>
+        <CoreWebVitals />
         <ClientLayout>
           {children}
         </ClientLayout>

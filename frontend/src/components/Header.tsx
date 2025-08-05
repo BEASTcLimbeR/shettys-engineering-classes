@@ -108,7 +108,15 @@ const Header: React.FC = () => {
       <Toolbar sx={{ minHeight: scrolled ? '56px' : '70px', transition: 'min-height 0.3s cubic-bezier(.4,2,.3,1)' }}>
         {/* Logo and Brand Name */}
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-          <Image src="/logo-sec-icon.svg" alt="Shetty's Engineering Classes Logo" width={40} height={40} style={{ marginRight: 12 }} />
+          <Image 
+          src="/logo-sec-icon.svg" 
+          alt="Shetty's Engineering Classes Logo" 
+          width={40} 
+          height={40} 
+          style={{ marginRight: 12 }}
+          priority
+          loading="eager"
+        />
           <Box>
             <Typography 
               variant="h6" 
