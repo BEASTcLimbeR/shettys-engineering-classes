@@ -132,14 +132,6 @@ const processEmailsInBackground = async (emailRecord, name, email, subject, mess
     console.log('❌ Email status updated to "failed"');
   }
 };
-    res.status(200).json({
-      success: true,
-      message: 'Email sent successfully! Check your inbox for a confirmation.',
-      data: {
-        id: emailRecord._id,
-        status: emailRecord.status
-      }
-    });
 
   } catch (error) {
     console.error('❌ Email sending error:', error);
