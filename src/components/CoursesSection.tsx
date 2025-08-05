@@ -40,7 +40,7 @@ type CourseYearData = {
   BE?: string[];
 };
 
-const CoursesSection: React.FC = () => {
+const CoursesSection = (): JSX.Element => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -242,17 +242,30 @@ const CoursesSection: React.FC = () => {
               <Paper
                 elevation={0}
                 sx={{
-                  p: 4,
+                  p: { xs: 2, sm: 3, md: 4 },
                   mb: 3,
                   background: 'rgba(255, 255, 255, 0.9)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: 3,
                 }}
               >
-                <Typography variant="h5" sx={{ fontWeight: 700, mb: 3, color: branch.color }}>
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    fontWeight: 700, 
+                    mb: { xs: 2, md: 3 }, 
+                    color: branch.color,
+                    fontSize: { xs: '1.3rem', sm: '1.5rem', md: '1.75rem' }
+                  }}
+                >
                   {year === 'FE' ? 'First Year' : year === 'SE' ? 'Second Year' : year === 'TE' ? 'Third Year' : 'Final Year'} Engineering
                 </Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: { xs: 0.5, sm: 1 },
+                  justifyContent: { xs: 'center', sm: 'flex-start' }
+                }}>
                   {yearCourses.map((subject: string, index: number) => (
                     <Chip
                       key={index}
@@ -261,6 +274,9 @@ const CoursesSection: React.FC = () => {
                         background: `${branch.color}15`,
                         color: branch.color,
                         fontWeight: 600,
+                        fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                        height: { xs: 28, sm: 32 },
+                        mb: { xs: 0.5, sm: 0 },
                         '&:hover': {
                           background: `${branch.color}25`,
                         },
@@ -670,7 +686,13 @@ const CoursesSection: React.FC = () => {
             </Box>
 
             <Chip
-              label="Batches and One-to-One Tuition"
+              label={
+                <span dangerouslySetInnerHTML={{
+                  __html: "Batches and One-to-One Tuition"
+                    .replace(/Batches/g, '<span style="color: #ff6b35; font-weight: 800;">Batches</span>')
+                    .replace(/One-to-One/g, '<span style="color: #ff6b35; font-weight: 800;">One-to-One</span>')
+                }} />
+              }
               sx={{
                 mt: 3,
                 background: 'rgba(255, 255, 255, 0.2)',
