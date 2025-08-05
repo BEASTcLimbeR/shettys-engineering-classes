@@ -149,7 +149,7 @@ const CoursesSection = (): JSX.Element => {
     const subjects: Array<{ subject: string; branch: string; year: string; fullText: string }> = [];
     
     // Function to get full year name
-    const getYearName = (year: string) => {
+    const getYearName = (year: string): string => {
       switch (year) {
         case 'FE': return 'First Year';
         case 'SE': return 'Second Year';
