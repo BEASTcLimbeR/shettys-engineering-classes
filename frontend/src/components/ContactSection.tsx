@@ -67,8 +67,8 @@ const ContactSection: React.FC = () => {
     setError('');
     setSuccess(false);
 
-    // Use environment variable for API URL
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    // Use environment variable for API URL with fallback
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://shettys-engineering-classes.onrender.com';
 
     try {
       const response = await fetch(`${API_URL}/api/email/send`, {
@@ -89,6 +89,7 @@ const ContactSection: React.FC = () => {
       }
     } catch (error) {
       console.error('Error:', error);
+      console.error('API URL:', API_URL);
       setError('Failed to send email. Please try again.');
     } finally {
       setLoading(false);

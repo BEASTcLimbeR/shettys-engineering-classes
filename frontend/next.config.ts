@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   
+  // Output configuration for Vercel
+  output: 'standalone',
+  
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
