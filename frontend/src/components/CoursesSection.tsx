@@ -40,7 +40,7 @@ type CourseYearData = {
   BE?: string[];
 };
 
-const CoursesSection: React.FC = () => {
+const CoursesSection = (): JSX.Element => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -146,10 +146,10 @@ const CoursesSection: React.FC = () => {
 
   // Get all subjects from all branches and years
   const allSubjects = useMemo(() => {
-    const subjects = [];
+    const subjects: Array<{ subject: string; branch: string; year: string; fullText: string }> = [];
     
     // Function to get full year name
-    const getYearName = (year) => {
+    const getYearName = (year: string) => {
       switch (year) {
         case 'FE': return 'First Year';
         case 'SE': return 'Second Year';
@@ -160,9 +160,11 @@ const CoursesSection: React.FC = () => {
     };
 
     Object.keys(coursesData).forEach(branchName => {
-      Object.keys(coursesData[branchName]).forEach(year => {
-        if (coursesData[branchName][year] && coursesData[branchName][year].length > 0) {
-          coursesData[branchName][year].forEach(subject => {
+      const branchData = coursesData[branchName as keyof typeof coursesData];
+      Object.keys(branchData).forEach(year => {
+        const yearData = branchData[year as keyof typeof branchData];
+        if (yearData && yearData.length > 0) {
+          yearData.forEach(subject => {
             subjects.push({
               subject,
               branch: branchName,
@@ -188,7 +190,7 @@ const CoursesSection: React.FC = () => {
     ).slice(0, 10); // Limit to 10 suggestions
   }, [searchQuery, allSubjects]);
 
-  const handleSubjectSelect = (selectedItem) => {
+  const handleSubjectSelect = (selectedItem: { subject: string; branch: string; year: string; fullText: string } | null) => {
     if (selectedItem) {
       // Find the branch index and switch to it
       const branchIndex = branches.findIndex(b => b.name === selectedItem.branch);
@@ -370,7 +372,7 @@ const CoursesSection: React.FC = () => {
                 setSearchQuery(newInputValue);
               }}
               onChange={(event, newValue) => {
-                handleSubjectSelect(newValue);
+                handleSubjectSelect(typeof newValue === 'string' ? null : newValue);
               }}
               renderInput={(params) => (
                 <TextField
@@ -658,7 +660,13 @@ const CoursesSection: React.FC = () => {
             </Box>
 
             <Chip
-              label="Batches and One-to-One Tuition"
+              label={
+                <span dangerouslySetInnerHTML={{
+                  __html: "Batches and One-to-One Tuition"
+                    .replace(/Batches/g, '<span style="color: #ff6b35; font-weight: 800;">Batches</span>')
+                    .replace(/One-to-One/g, '<span style="color: #ff6b35; font-weight: 800;">One-to-One</span>')
+                }} />
+              }
               sx={{
                 mt: 3,
                 background: 'rgba(255, 255, 255, 0.2)',
