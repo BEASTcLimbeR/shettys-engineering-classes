@@ -19,6 +19,9 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001', 
   'http://127.0.0.1:3000',
+  'https://shettys-engineering-classes-pune.vercel.app',
+  'https://shettysengineeringclasses.com',
+  'https://www.shettysengineeringclasses.com',
   // Add your Vercel domain here after deployment
   process.env.FRONTEND_URL // This will be set in Render environment variables
 ].filter(Boolean); // Remove undefined values
@@ -69,6 +72,17 @@ app.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV,
+    mongodb: 'connected'
+  });
+});
+
+// API health check route
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'API is running',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
     mongodb: 'connected'
