@@ -7,7 +7,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
 import SchoolIcon from '@mui/icons-material/School';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -404,18 +404,7 @@ const Footer: React.FC = () => {
                   </MuiLink>
                 </Stack>
                 
-                <Stack direction="row" spacing={2} alignItems="center">
-                  <AccessTimeIcon sx={{ color: '#ff6b35', fontSize: 20 }} />
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: 'rgba(255,255,255,0.9)',
-                      fontWeight: 500,
-                    }}
-                  >
-                    {contact.timings}
-                  </Typography>
-                </Stack>
+                
               </Stack>
             </Box>
           </Stack>
