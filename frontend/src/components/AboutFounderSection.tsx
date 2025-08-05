@@ -15,11 +15,17 @@ const founder = {
   name: 'Prof. Sukumara Shetty (Shetty Sir)',
   title: 'Founder & Educator',
   achievements: [
-    '1st Topper SVCE Bangalore',
-    'VTU Karnataka 11th Rank (2005)',
-    '14+ Years of Teaching & Industry Experience',
+    '**1st Topper** SVCE Bangalore',
+    'VTU Karnataka **11th Rank (2005)**',
+    '**14+ Years** of Teaching & Industry Experience',
   ],
-  bio: `A passionate Educator, mentor, and the driving force behind Shetty's Engineering Classes, Prof. Sukumara Shetty has guided thousands of Engineering students across the globe with his clear explanations, motivational teaching, and Exam-smart strategies. Renowned for his student-first approach, Shetty Sir combines traditional board based techniques with modern tools like Zoom sessions, digital quizzes, and custom PDFs, creating a learning environment where every student feels confident, supported, and inspired to succeed. His teaching isn't just about completing the syllabus — it's about building confidence, cracking exams, and unlocking every student's true potential.`,
+  bio: `A passionate Educator, mentor, and the driving force behind Shetty's Engineering Classes, Prof. Sukumara Shetty (Shetty Sir) has guided thousands of Engineering students across the globe with his clear explanations, motivational teaching, and Exam-smart strategies.
+
+Renowned for his student-first approach, Shetty Sir combines traditional board based techniques with modern tools like Zoom sessions, digital quizzes, and custom PDFs, creating a learning environment where every student feels confident, supported, and inspired to succeed.
+
+His teaching isn't just about completing the syllabus — it's about building confidence, cracking exams, and unlocking every student's true potential.
+
+He teaches **50+ subjects** across Electronics & Telecommunication, Computer, Artificial Intelligence, Data Science, Machine Learning, and Electrical Engineering domains.`,
   message: `Dear Students & Parents,\n\nWhen I started Shetty's Engineering Classes, my only goal was simple — to create a space where students feel supported, understood, and genuinely confident in their subjects. Over the years, that goal has evolved into a deeper mission: "Towards Students Satisfaction."\n\nIn today's fast-paced education system, many students struggle not because of lack of effort, but due to lack of personalized guidance. Here, at our institute on Ghole Road, Off FC Road, I make it a point to know every student, their strengths and weaknesses, and guide them with the right methods — not just to pass, but to truly learn and grow.\n\nThis institute is not just about notes and lectures. It's about building belief, one student at a time.\n\nLet's continue the journey together with honesty, clarity, and commitment to excellence.\n\nWarm regards,\nProf. Sukumar Shetty\nFounder & Educator\nShetty's Engineering Classes`,
 };
 
@@ -123,10 +129,18 @@ const AboutFounderSection: React.FC = () => {
               mb: 4,
             }}
           >
-            <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} alignItems="center">
+            <Stack direction={{ xs: 'row', md: 'row' }} spacing={{ xs: 2, md: 4 }} alignItems={{ xs: 'flex-start', md: 'flex-start' }}>
               {/* Founder Photo */}
               <Avatar
-                sx={{ width: 120, height: 120, bgcolor: '#1976d2', fontSize: 60 }}
+                sx={{ 
+                  width: { xs: 80, md: 120 }, 
+                  height: { xs: 80, md: 120 }, 
+                  bgcolor: '#1976d2', 
+                  fontSize: { xs: 40, md: 60 },
+                  flexShrink: 0,
+                  mt: { xs: 0, md: 1 },
+                  alignSelf: { xs: 'flex-start', md: 'flex-start' }
+                }}
                 src={'/shetty-sir.svg'}
               >
                 <PersonIcon fontSize="inherit" />
@@ -142,6 +156,7 @@ const AboutFounderSection: React.FC = () => {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     mb: 1,
+                    fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
                   }}
                 >
                   {founder.name}
@@ -153,17 +168,17 @@ const AboutFounderSection: React.FC = () => {
                 </Box>
                 <Box sx={{ mb: 2 }}>
                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600, mb: 1 }}>
-                    {founder.achievements[0]}
+                    <span dangerouslySetInnerHTML={{ __html: founder.achievements[0].replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>') }} />
                   </Typography>
                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600, mb: 1 }}>
-                    {founder.achievements[1]}
+                    <span dangerouslySetInnerHTML={{ __html: founder.achievements[1].replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>') }} />
                   </Typography>
                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600 }}>
-                    {founder.achievements[2]}
+                    <span dangerouslySetInnerHTML={{ __html: founder.achievements[2].replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>') }} />
                   </Typography>
                 </Box>
                 <Typography variant="body1" sx={{ color: '#444', mb: 2, fontWeight: 400 }}>
-                  {founder.bio}
+                  <span dangerouslySetInnerHTML={{ __html: founder.bio.replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>').replace(/\n\n/g, '</p><p style="margin-bottom: 2rem; line-height: 1.8;">') }} />
                 </Typography>
                 
                 {/* Social Media Icons */}
@@ -252,7 +267,7 @@ const AboutFounderSection: React.FC = () => {
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: 800, mb: 3 }}>
-              Founder's Message
+              Founder&apos;s Message
             </Typography>
             {founder.message.split('\n').map((line, idx) => (
               <Typography key={idx} variant="h6" sx={{ fontWeight: 400, mb: 2, opacity: 0.95 }}>
