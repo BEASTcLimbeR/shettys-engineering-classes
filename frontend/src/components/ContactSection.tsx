@@ -71,13 +71,24 @@ const ContactSection: React.FC = () => {
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://shettys-engineering-classes.onrender.com';
 
     try {
+      // Create AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
       const response = await fetch(`${API_URL}/api/email/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
+        signal: controller.signal
       });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const result = await response.json();
       
@@ -90,7 +101,12 @@ const ContactSection: React.FC = () => {
     } catch (error) {
       console.error('Error:', error);
       console.error('API URL:', API_URL);
-      setError('Failed to send email. Please try again.');
+      
+      if (error instanceof Error && error.name === 'AbortError') {
+        setError('Request timed out. Please try again.');
+      } else {
+        setError('Failed to send email. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -440,29 +456,34 @@ const ContactSection: React.FC = () => {
                     rows={4}
                     variant="outlined"
                   />
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    disabled={loading}
-                    startIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
-                    sx={{
-                      px: 4,
-                      py: 1.5,
-                      fontWeight: 600,
-                      borderRadius: '25px',
-                      fontSize: '1rem',
-                      background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                      boxShadow: '0 4px 15px rgba(25, 118, 210, 0.3)',
-                      '&:hover': {
-                        background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)',
-                        transform: 'translateY(-1px)',
-                        boxShadow: '0 6px 20px rgba(25, 118, 210, 0.4)',
-                      },
-                      transition: 'all 0.3s ease',
-                    }}
-                  >
-                    {loading ? 'Sending...' : 'Send Message'}
-                  </Button>
+                                     <Button
+                     type="submit"
+                     variant="contained"
+                     disabled={loading}
+                     startIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
+                     sx={{
+                       px: 4,
+                       py: 1.5,
+                       fontWeight: 600,
+                       borderRadius: '25px',
+                       fontSize: '1rem',
+                       background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
+                       boxShadow: '0 4px 15px rgba(25, 118, 210, 0.3)',
+                       '&:hover': {
+                         background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)',
+                         transform: 'translateY(-1px)',
+                         boxShadow: '0 6px 20px rgba(25, 118, 210, 0.4)',
+                       },
+                       transition: 'all 0.3s ease',
+                       '&:disabled': {
+                         background: 'linear-gradient(135deg, #9e9e9e 0%, #757575 100%)',
+                         transform: 'none',
+                         boxShadow: '0 2px 8px rgba(158, 158, 158, 0.3)',
+                       },
+                     }}
+                   >
+                     {loading ? 'Sending Message...' : 'Send Message'}
+                   </Button>
                 </Stack>
               </Box>
             </Paper>

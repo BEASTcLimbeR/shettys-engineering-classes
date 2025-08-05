@@ -5,7 +5,6 @@ const { createTransporter, emailTemplates } = require('../config/email');
 const sendEmail = async (req, res) => {
   try {
     console.log('📨 Email Controller - Starting email processing...');
-    console.log('📋 Request Body:', JSON.stringify(req.body, null, 2));
     
     const { name, email, subject, message, phone } = req.body;
 
@@ -49,6 +48,31 @@ const sendEmail = async (req, res) => {
     await emailRecord.save();
     console.log('✅ Email record saved with ID:', emailRecord._id);
 
+    // Send immediate success response
+    res.status(200).json({
+      success: true,
+      message: 'Email sent successfully!',
+      emailId: emailRecord._id
+    });
+
+    // Process emails in background (non-blocking)
+    processEmailsInBackground(emailRecord, name, email, subject, message, phone);
+
+  } catch (error) {
+    console.error('❌ Email Controller Error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to send email. Please try again.',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+// Background email processing function
+const processEmailsInBackground = async (emailRecord, name, email, subject, message, phone) => {
+  try {
+    console.log('🔄 Processing emails in background...');
+    
     // Create email transporter
     console.log('📤 Creating email transporter...');
     const transporter = createTransporter();
@@ -97,7 +121,17 @@ const sendEmail = async (req, res) => {
     await emailRecord.save();
     console.log('✅ Email status updated to "thank_you_sent"');
 
-    console.log('🎉 Email processing completed successfully!');
+    console.log('🎉 Background email processing completed successfully!');
+  } catch (error) {
+    console.error('❌ Background email processing error:', error);
+    
+    // Update status to failed
+    emailRecord.status = 'failed';
+    emailRecord.error = error.message;
+    await emailRecord.save();
+    console.log('❌ Email status updated to "failed"');
+  }
+};
     res.status(200).json({
       success: true,
       message: 'Email sent successfully! Check your inbox for a confirmation.',
