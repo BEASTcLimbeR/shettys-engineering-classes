@@ -32,7 +32,7 @@ const quickLinks = [
 ];
 
 const contact = {
-  address: '3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road, Pune-04',
+  address: 'Shetty\'s Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004',
   phone: '+91 99234 60156',
   email: 'shettyseng@gmail.com',
   instagram: 'https://instagram.com/shettys_engineering_classes',
@@ -350,11 +350,11 @@ const Footer: React.FC = () => {
               <Stack spacing={2}>
                 <Stack direction="row" spacing={2} alignItems="flex-start">
                   <LocationOnIcon sx={{ color: '#ff6b35', mt: 0.5, fontSize: 20 }} />
-                  <MuiLink
-                    href="https://maps.google.com/?q=3rd+Floor+besides+Namaskar+Restaurant+opp+MJM+Hospital+Ghole+Road+Off+FC+Road+Pune+04"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    underline="hover"
+                                     <MuiLink
+                     href="https://maps.google.com/?q=Shetty%27s+Engineering+Classes%2C+3rd+Floor+Besides+Namaskar+Restaurant%2C+Ghole+Rd%2C+opposite+MJM+Hospital%2C+Sud+Nagar%2C+Shivajinagar%2C+Pune%2C+Maharashtra+411004"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     underline="hover"
                     sx={{
                       color: 'rgba(255,255,255,0.9)',
                       lineHeight: 1.5,
