@@ -100,9 +100,8 @@ const GalleryPage: React.FC = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(135deg, #8B5A8C 0%, #9B59B6 50%, #8E44AD 100%)',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 9999,
@@ -111,24 +110,10 @@ const GalleryPage: React.FC = () => {
         <Box sx={{ textAlign: 'center' }}>
           <Lottie
             animationData={handLoadingAnimation}
-            style={{ width: 280, height: 280 }}
+            style={{ width: 200, height: 200 }}
             loop={true}
             autoplay={true}
           />
-          <Typography
-            variant="h6"
-            sx={{
-              mt: 3,
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontWeight: 300,
-              fontSize: { xs: '1rem', sm: '1.1rem' },
-              letterSpacing: '0.05em',
-              textAlign: 'center',
-              fontStyle: 'italic',
-            }}
-          >
-            loading our memories.....
-          </Typography>
         </Box>
       </Box>
     );
@@ -137,7 +122,7 @@ const GalleryPage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Gallery | Shetty&apos;s Engineering Classes</title>
+        <title>Gallery | Shetty's Engineering Classes</title>
         <meta name="description" content="A gallery of Shetty's Engineering Classes. Relive the best moments." />
       </Head>
 
@@ -202,82 +187,61 @@ const GalleryPage: React.FC = () => {
             </Typography>
           </motion.div>
 
-                     <Box sx={{ 
-             display: 'grid', 
-             gridTemplateColumns: { 
-               xs: '1fr', 
-               sm: '1fr 1fr', 
-               md: '1fr 1fr 1fr', 
-               lg: '1fr 1fr 1fr 1fr' 
-             }, 
-             gap: 3,
-             maxWidth: '100%',
-             mx: 'auto'
-           }}>
-             <AnimatePresence>
-               {images.map((image, index) => (
-                 <motion.div
-                   key={index}
-                   initial={{ opacity: 0, scale: 0.9 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   transition={{ duration: 0.5, delay: index * 0.07 }}
-                   whileHover={{ scale: 1.03 }}
-                   style={{ display: 'flex' }}
-                 >
-                   <Card
-                     sx={{
-                       cursor: 'pointer',
-                       borderRadius: 4,
-                       overflow: 'hidden',
-                       boxShadow: '0 4px 24px rgba(44,62,80,0.08)',
-                       position: 'relative',
-                       width: '100%',
-                       height: 'fit-content',
-                       '&:hover': {
-                         boxShadow: '0 8px 32px rgba(44,62,80,0.15)',
-                         transform: 'translateY(-4px)',
-                       },
-                     }}
-                     onClick={() => handleImageClick(image)}
-                   >
-                     <Box sx={{ position: 'relative' }}>
-                       <CardMedia
-                         component="img"
-                         height="240"
-                         image={image.src}
-                         alt="Gallery photo"
-                         sx={{ 
-                           objectFit: 'cover', 
-                           width: '100%',
-                           height: '240px'
-                         }}
-                       />
-                       {/* Download button always visible, bottom right */}
-                       <IconButton
-                         onClick={e => { e.stopPropagation(); handleDownload(image); }}
-                         sx={{
-                           position: 'absolute',
-                           bottom: 12,
-                           right: 12,
-                           background: 'rgba(255,255,255,0.9)',
-                           color: '#764ba2',
-                           boxShadow: '0 2px 8px rgba(44,62,80,0.15)',
-                           '&:hover': {
-                             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                             color: 'white',
-                             transform: 'scale(1.1)',
-                           },
-                         }}
-                         aria-label="Download photo"
-                       >
-                         <DownloadIcon />
-                       </IconButton>
-                     </Box>
-                   </Card>
-                 </motion.div>
-               ))}
-             </AnimatePresence>
-           </Box>
+          <Grid container spacing={4}>
+            <AnimatePresence>
+              {images.map((image, index) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.07 }}
+                    whileHover={{ scale: 1.03 }}
+                  >
+                    <Card
+                      sx={{
+                        cursor: 'pointer',
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        boxShadow: '0 4px 24px rgba(44,62,80,0.08)',
+                        position: 'relative',
+                        minHeight: 260,
+                      }}
+                      onClick={() => handleImageClick(image)}
+                    >
+                      <Box sx={{ position: 'relative', height: 260 }}>
+                        <CardMedia
+                          component="img"
+                          height="260"
+                          image={image.src}
+                          alt="Gallery photo"
+                          sx={{ objectFit: 'cover', height: '100%' }}
+                        />
+                        {/* Download button always visible, bottom right */}
+                        <IconButton
+                          onClick={e => { e.stopPropagation(); handleDownload(image); }}
+                          sx={{
+                            position: 'absolute',
+                            bottom: 12,
+                            right: 12,
+                            background: 'rgba(255,255,255,0.85)',
+                            color: '#764ba2',
+                            boxShadow: '0 2px 8px rgba(44,62,80,0.12)',
+                            '&:hover': {
+                              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                              color: 'white',
+                            },
+                          }}
+                          aria-label="Download photo"
+                        >
+                          <DownloadIcon />
+                        </IconButton>
+                      </Box>
+                    </Card>
+                  </motion.div>
+                </Grid>
+              ))}
+            </AnimatePresence>
+          </Grid>
         </Container>
       </Box>
 

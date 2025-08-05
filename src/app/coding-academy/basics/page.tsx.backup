@@ -1937,7 +1937,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
     }
   };
 
-  const renderTopics = (topics: { title: string; description: string; code?: string; icon?: string; difficulty?: string; definition?: string; keyConcepts?: string[]; explanation?: string; }[], language: string) => (
+  const renderTopics = (topics: { title: string; description: string; code?: string; }[], language: string) => (
     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
       {topics.map((topic, index) => (
         <motion.div
@@ -2047,7 +2047,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                   🎯 Key Concepts
               </Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-                  {topic.keyConcepts?.map((concept: string, idx: number) => (
+                  {topic.keyConcepts.map((concept: string, idx: number) => (
                     <Chip
                       key={idx}
                       label={concept}
@@ -2095,7 +2095,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                                       <Box sx={{ display: 'flex', gap: 1 }}>
                       <IconButton
                         size="small"
-                        onClick={() => copyToClipboard(topic.code || '', index)}
+                        onClick={() => copyToClipboard(topic.code, index)}
                         sx={{
                           color: copiedIndex === index ? '#4caf50' : '#888',
                           '&:hover': { color: '#00d4ff' },
@@ -2105,7 +2105,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                       </IconButton>
                       <IconButton
                         size="small"
-                        onClick={() => runningCode === index ? stopCode(index) : runCode(index, topic.code || '', language)}
+                        onClick={() => runningCode === index ? stopCode(index) : runCode(index, topic.code, language)}
                         sx={{
                           color: runningCode === index ? '#f44336' : '#888',
                           '&:hover': { color: runningCode === index ? '#ff4444' : '#00d4ff' },
@@ -2135,7 +2135,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                     '& .class': { color: '#4ec9b0' },
                   }}
                   dangerouslySetInnerHTML={{
-                    __html: topic.code || ''
+                    __html: topic.code
                       .replace(/\b(int|void|return|if|else|for|while|printf|include|main|class|public|private|protected|virtual|template|typename|vector|map|stack|queue|struct|new|delete|cout|cin|endl|using|namespace|std|def|import|from|as|True|False|None|self|__init__|print|range|len|append|remove|add|pop|fit|predict|transform|reshape|array|plt|show|scatter|plot|legend|xlabel|ylabel|title|cmap|alpha|random_state|test_size|n_clusters|n_samples|n_features|n_informative|n_redundant|epochs|batch_size|verbose|optimizer|loss|metrics|accuracy|binary_crossentropy|adam|relu|sigmoid|Sequential|Dense|KMeans|LinearRegression|make_classification|StandardScaler|train_test_split|static|String|System|out|println|args|HelloWorld|Variables|ControlStructures|Functions|Arrays|Pointers)\b/g, '<span class="keyword">$1</span>')
                       .replace(/"([^"]*)"/g, '<span class="string">"$1"</span>')
                       .replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>')
@@ -2186,7 +2186,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                         onChange={(e) => handleInputChange(e.target.value)}
                         onKeyPress={(e) => {
                           if (e.key === 'Enter') {
-                            handleInputSubmit(index, topic.code || '', language);
+                            handleInputSubmit(index, topic.code, language);
                           }
                         }}
                         style={{
@@ -2205,7 +2205,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                       <Button
                         size="small"
                         variant="contained"
-                        onClick={() => handleInputSubmit(index, topic.code || '', language)}
+                        onClick={() => handleInputSubmit(index, topic.code, language)}
                     sx={{
                           background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
                           color: '#fff',

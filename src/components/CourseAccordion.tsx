@@ -14,12 +14,18 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import SchoolIcon from '@mui/icons-material/School';
 import { motion } from 'framer-motion';
 
-const CourseAccordion = ({ branch, coursesData, onBranchChange }) => {
+interface CourseAccordionProps {
+  branch: string;
+  coursesData: any;
+  onBranchChange: (branch: string) => void;
+}
+
+const CourseAccordion: React.FC<CourseAccordionProps> = ({ branch, coursesData, onBranchChange }) => {
   const years = ['FE', 'SE', 'TE', 'BE'];
   const otherBranches = ['E&TC', 'CS', 'Electrical', 'IT', 'AI&DS', 'Mechanical', 'Civil'];
 
   // Function to get full year name
-  const getYearName = (year) => {
+  const getYearName = (year: string) => {
     switch (year) {
       case 'FE': return 'First Year';
       case 'SE': return 'Second Year';
@@ -30,7 +36,7 @@ const CourseAccordion = ({ branch, coursesData, onBranchChange }) => {
   };
 
   // Function to get year color and gradient
-  const getYearStyle = (year) => {
+  const getYearStyle = (year: string) => {
     switch (year) {
       case 'FE': 
         return {
@@ -65,9 +71,23 @@ const CourseAccordion = ({ branch, coursesData, onBranchChange }) => {
     }
   };
 
+  // Function to get branch color
+  const getBranchColor = (branchName: string) => {
+    switch (branchName) {
+      case 'E&TC': return '#2196f3';
+      case 'CS': return '#4caf50';
+      case 'Electrical': return '#ff9800';
+      case 'IT': return '#9c27b0';
+      case 'AI&DS': return '#f44336';
+      case 'Mechanical': return '#795548';
+      case 'Civil': return '#607d8b';
+      default: return '#1976d2';
+    }
+  };
+
   return (
     <Box>
-      <Grid container spacing={3}>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
         {years.map((year, index) => {
           // Skip SE, TE, BE for SPPU branch
           if (branch === 'SPPU' && year !== 'FE') {
@@ -77,7 +97,7 @@ const CourseAccordion = ({ branch, coursesData, onBranchChange }) => {
           const yearStyle = getYearStyle(year);
           
           return (
-            <Grid item xs={12} md={6} key={year}>
+            <Box key={year} sx={{ display: 'flex', flexDirection: 'column', width: { xs: '100%', md: '48%' } }}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -190,9 +210,9 @@ const CourseAccordion = ({ branch, coursesData, onBranchChange }) => {
                           >
                             {coursesData[branch][year].length} Courses Available
                           </Typography>
-                          <Grid container spacing={1}>
-                            {coursesData[branch][year].map((course, idx) => (
-                              <Grid item key={idx}>
+                          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                            {coursesData[branch][year].map((course: string, idx: number) => (
+                              <Box key={idx}>
                                 <Chip 
                                   label={course} 
                                   variant="outlined" 
@@ -209,9 +229,9 @@ const CourseAccordion = ({ branch, coursesData, onBranchChange }) => {
                                     },
                                   }} 
                                 />
-                              </Grid>
+                              </Box>
                             ))}
-                          </Grid>
+                          </Box>
                         </Box>
                       ) : (
                         <Box sx={{ textAlign: 'center', py: 3 }}>
@@ -225,10 +245,10 @@ const CourseAccordion = ({ branch, coursesData, onBranchChange }) => {
                   </Accordion>
                 </Paper>
               </motion.div>
-            </Grid>
+            </Box>
           );
         })}
-      </Grid>
+      </Box>
       
       {/* Branch Navigation for SPPU */}
       {branch === 'SPPU' && (
@@ -237,25 +257,34 @@ const CourseAccordion = ({ branch, coursesData, onBranchChange }) => {
             Explore Other Branches:
           </Typography>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-            {otherBranches.map((branchName) => (
-              <Button
-                key={branchName}
-                variant="outlined"
-                onClick={() => onBranchChange(branchName)}
-                sx={{
-                  borderColor: '#1976d2',
-                  color: '#1976d2',
-                  fontWeight: 600,
-                  '&:hover': {
-                    backgroundColor: '#1976d2',
-                    color: 'white',
-                    borderColor: '#1976d2',
-                  },
-                }}
-              >
-                {branchName}
-              </Button>
-            ))}
+            {otherBranches.map((branchName) => {
+              const branchColor = getBranchColor(branchName);
+              return (
+                <Button
+                  key={branchName}
+                  variant="outlined"
+                  onClick={() => onBranchChange(branchName)}
+                  sx={{
+                    borderColor: branchColor,
+                    color: branchColor,
+                    fontWeight: 600,
+                    borderRadius: 2,
+                    px: 3,
+                    py: 1,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: branchColor,
+                      color: 'white',
+                      borderColor: branchColor,
+                      transform: 'translateY(-2px)',
+                      boxShadow: `0 4px 12px ${branchColor}40`,
+                    },
+                  }}
+                >
+                  {branchName}
+                </Button>
+              );
+            })}
           </Box>
         </Box>
       )}

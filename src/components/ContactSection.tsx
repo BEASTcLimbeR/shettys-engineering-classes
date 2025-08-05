@@ -102,7 +102,7 @@ const ContactSection: React.FC = () => {
     });
   };
 
-  const handleSubjectChange = (event: any, newValue: any) => {
+  const handleSubjectChange = (event: React.SyntheticEvent<Element, Event>, newValue: string | null) => {
     setFormData({
       ...formData,
       subject: newValue || ''
@@ -309,7 +309,7 @@ const ContactSection: React.FC = () => {
               )}
 
               <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-                <Stack spacing={3}>
+                <Stack spacing={{ xs: 2.5, sm: 3 }}>
                   <TextField
                     name="name"
                     label="Your Name"
@@ -318,6 +318,18 @@ const ContactSection: React.FC = () => {
                     required
                     fullWidth
                     variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        height: { xs: 56, sm: 48 },
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                      },
+                    }}
                   />
                   <TextField
                     name="email"
@@ -328,6 +340,18 @@ const ContactSection: React.FC = () => {
                     required
                     fullWidth
                     variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        height: { xs: 56, sm: 48 },
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                      },
+                    }}
                   />
                   <TextField
                     name="phone"
@@ -336,6 +360,18 @@ const ContactSection: React.FC = () => {
                     onChange={handleInputChange}
                     fullWidth
                     variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        height: { xs: 56, sm: 48 },
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                      },
+                    }}
                   />
                   
                   {/* Subject Autocomplete */}
@@ -383,6 +419,11 @@ const ContactSection: React.FC = () => {
                         }}
                         sx={{
                           '& .MuiOutlinedInput-root': {
+                            height: { xs: 56, sm: 48 },
+                            fontSize: { xs: '1rem', sm: '0.875rem' },
+                            '& .MuiOutlinedInput-input': {
+                              padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                            },
                             '&:hover': {
                               '& .MuiOutlinedInput-notchedOutline': {
                                 borderColor: '#1976d2',
@@ -393,6 +434,9 @@ const ContactSection: React.FC = () => {
                                 borderColor: '#1976d2',
                               },
                             },
+                          },
+                          '& .MuiInputLabel-root': {
+                            fontSize: { xs: '1rem', sm: '0.875rem' },
                           },
                         }}
                       />
@@ -436,8 +480,19 @@ const ContactSection: React.FC = () => {
                     required
                     fullWidth
                     multiline
-                    rows={4}
+                    rows={{ xs: 5, sm: 4 }}
                     variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                      },
+                    }}
                   />
                   <Button
                     type="submit"
@@ -445,11 +500,12 @@ const ContactSection: React.FC = () => {
                     disabled={loading}
                     startIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
                     sx={{
-                      px: 4,
-                      py: 1.5,
+                      px: { xs: 3, sm: 4 },
+                      py: { xs: 2, sm: 1.5 },
                       fontWeight: 600,
                       borderRadius: '25px',
-                      fontSize: '1rem',
+                      fontSize: { xs: '1.1rem', sm: '1rem' },
+                      height: { xs: 56, sm: 48 },
                       background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
                       boxShadow: '0 4px 15px rgba(25, 118, 210, 0.3)',
                       '&:hover': {

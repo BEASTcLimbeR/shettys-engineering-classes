@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
                       fontWeight: 500,
                     }}
                   >
-                    Shetty's Engineering Classes
+                    Shetty&apos;s Engineering Classes
                   </Typography>
                 </Box>
               </Stack>
@@ -439,7 +439,7 @@ const Footer: React.FC = () => {
                 textAlign: { xs: 'left', md: 'center' },
               }}
             >
-              © {currentYear} Shetty's Engineering Classes. All rights reserved.
+              © {currentYear} Shetty&apos;s Engineering Classes. All rights reserved.
             </Typography>
             
             <Typography

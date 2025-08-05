@@ -17,22 +17,7 @@ const HeroHeadline = () => (
         textShadow: '0 4px 8px rgba(0,0,0,0.1)',
       }}
     >
-      Shetty's Engineering Classes
-    </Typography>
-    <Typography
-      variant="h1"
-      sx={{
-        fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' },
-        fontWeight: 800,
-        lineHeight: 1.1,
-        mb: 2,
-        background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-        backgroundClip: 'text',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-      }}
-    >
-      Towards Students
+      Shetty&apos;s Engineering Classes
     </Typography>
     <Typography
       variant="h1"
@@ -47,7 +32,7 @@ const HeroHeadline = () => (
         WebkitTextFillColor: 'transparent',
       }}
     >
-      Satisfaction
+      Towards Students Satisfaction
     </Typography>
   </>
 );

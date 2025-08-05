@@ -45,8 +45,8 @@ export default function Home() {
         <section id="coding"><CodingSection /></section>
         <section id="founder"><AboutFounderSection /></section>
         <section id="mission"><MissionOfferSection /></section>
-        <section id="contact"><ContactSection /></section>
         <section id="testimonials"><TestimonialsSection /></section>
+        <section id="contact"><ContactSection /></section>
         <section id="faq"><FAQSection /></section>
       </Box>
       <Footer />

@@ -2,8 +2,23 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Paper, Box, Tabs, Tab } from '@mui/material';
 import { motion } from 'framer-motion';
 
-const BranchTabs = ({ branches, selectedTab, onTabChange }) => {
-  const tabRefs = useRef([]);
+// Define the Branch interface
+interface Branch {
+  name: string;
+  color: string;
+  icon: React.ReactNode;
+}
+
+// Define the component props interface
+interface BranchTabsProps {
+  branches: Branch[];
+  selectedTab: number;
+  onTabChange: (tabIndex: number) => void;
+}
+
+const BranchTabs: React.FC<BranchTabsProps> = ({ branches, selectedTab, onTabChange }) => {
+  // Properly type the refs array to hold HTMLDivElement references
+  const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
   useEffect(() => {
@@ -50,7 +65,7 @@ const BranchTabs = ({ branches, selectedTab, onTabChange }) => {
               },
             }}
           >
-            {branches.map((branch, index) => (
+            {branches.map((branch: Branch, index: number) => (
               <Tab
                 key={index}
                 label={
@@ -65,7 +80,9 @@ const BranchTabs = ({ branches, selectedTab, onTabChange }) => {
                     color: branch.color,
                   },
                 }}
-                ref={el => tabRefs.current[index] = el}
+                ref={(el: HTMLDivElement | null) => {
+                  tabRefs.current[index] = el;
+                }}
               />
             ))}
           </Tabs>

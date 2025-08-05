@@ -46,7 +46,7 @@ const Counter: React.FC<{ value: string }> = ({ value }) => {
 
   useEffect(() => {
     if (!isInView) return;
-    let start = 0;
+    const start = 0;
     const end = number;
     const duration = 1200; // ms
     const startTime = performance.now();

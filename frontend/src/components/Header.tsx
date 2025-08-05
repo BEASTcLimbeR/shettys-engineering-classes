@@ -21,10 +21,11 @@ const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Courses', href: '#courses' },
   { label: 'Coding', href: '#coding' }, // Placeholder, not implemented
-  { label: 'Testimonials', href: '#testimonials' },
   { label: 'Our Faculty', href: '#faculty' },
+  { label: 'Testimonials', href: '#testimonials' },
   { label: 'Contact Us', href: '#contact' },
   { label: 'Gallery', href: '/gallery' },
+  { label: 'YouTube', href: '/youtube' },
 ];
 
 const Header: React.FC = () => {

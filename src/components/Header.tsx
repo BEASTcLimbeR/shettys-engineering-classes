@@ -21,8 +21,8 @@ const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Courses', href: '#courses' },
   { label: 'Coding', href: '#coding' }, // Placeholder, not implemented
-  { label: 'Testimonials', href: '#testimonials' },
   { label: 'Our Faculty', href: '#faculty' },
+  { label: 'Testimonials', href: '#testimonials' },
   { label: 'Contact Us', href: '#contact' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'YouTube', href: '/youtube' },
@@ -122,7 +122,7 @@ const Header: React.FC = () => {
                 lineHeight: 1.2,
               }}
             >
-              Shetty's Engineering Classes
+              Shetty&apos;s Engineering Classes
             </Typography>
             <Typography 
               variant="caption" 
@@ -244,7 +244,7 @@ const Header: React.FC = () => {
                 link.href.startsWith('#') ? (
                   <MenuItem
                     key={link.label}
-                    onClick={e => { handleNavClick(e as any, link.href); handleClose(); }}
+                    onClick={e => { handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement, MouseEvent>, link.href); handleClose(); }}
                     sx={{
                       color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
                       fontWeight: 500,
@@ -274,7 +274,7 @@ const Header: React.FC = () => {
                   </Link>
                 )
               ))}
-              <MenuItem onClick={e => { handleNavClick(e as any, '#contact'); handleClose(); }} sx={{ mt: 1 }}>
+              <MenuItem onClick={e => { handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement, MouseEvent>, '#contact'); handleClose(); }} sx={{ mt: 1 }}>
                 <Button 
                   variant="contained" 
                   fullWidth

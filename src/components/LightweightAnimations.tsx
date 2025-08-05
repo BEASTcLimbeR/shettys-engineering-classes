@@ -186,14 +186,14 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
     >
       {React.Children.map(children, (child, index) => {
         if (React.isValidElement(child)) {
-          return React.cloneElement(child, {
+          return React.cloneElement(child as React.ReactElement<any>, {
             style: {
-              ...child.props.style,
+              ...((child as any).props?.style || {}),
               opacity: visibleItems.includes(index) ? 1 : 0,
               transform: visibleItems.includes(index) ? 'translateY(0)' : 'translateY(20px)',
               transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1)`,
             },
-          });
+          } as any);
         }
         return child;
       })}

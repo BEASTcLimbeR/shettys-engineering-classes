@@ -19,7 +19,7 @@ const WhyUsSection: React.FC = () => {
     },
     {
       icon: <VideoCall sx={{ fontSize: 40, color: '#1976d2' }} />,
-      title: "Hybrid Learning",
+      title: "Hybrid Learning(Batches)",
       description: "Live Zoom sessions + face-to-face learning at Ghole Road"
     },
     {
@@ -31,6 +31,11 @@ const WhyUsSection: React.FC = () => {
       icon: <Groups sx={{ fontSize: 40, color: '#1976d2' }} />,
       title: "Home Tuition",
       description: "Convenient one-to-one coaching at your doorstep"
+    },
+    {
+      icon: <VideoCall sx={{ fontSize: 40, color: '#1976d2' }} />,
+      title: "Hybrid Learning(One-to-One)",
+      description: "Live Zoom sessions + face-to-face learning(One-to-One) at Ghole Road"
     }
   ];
 
@@ -256,8 +261,8 @@ const WhyUsSection: React.FC = () => {
                     Why Students Choose SEC:
                   </Typography>
 
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mb: 4 }}>
-                    <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%' } }}>
+                  <Grid container spacing={3} sx={{ mb: 4 }}>
+                    <Grid item xs={12} sm={6}>
                       {[
                         { icon: '✨', text: 'Student-First Philosophy', color: '#4caf50' },
                         { icon: '🔍', text: 'Focus on Concept Clarity', color: '#2196f3' },
@@ -296,8 +301,8 @@ const WhyUsSection: React.FC = () => {
                           </Typography>
                         </Box>
                       ))}
-                    </Box>
-                    <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%' } }}>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
                       {[
                         { icon: '🎯', text: 'Result-Oriented Exam Preparation', color: '#f44336' },
                         { icon: '✅', text: 'Strong Concept Building + Exam-Focused Coaching', color: '#4caf50' },
@@ -336,8 +341,8 @@ const WhyUsSection: React.FC = () => {
                           </Typography>
                         </Box>
                       ))}
-                    </Box>
-                  </Box>
+                    </Grid>
+                  </Grid>
                 </Box>
 
                 {/* Enhanced Conclusion */}
@@ -423,7 +428,7 @@ const WhyUsSection: React.FC = () => {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
             gap: 4,
             mb: 8,
           }}
@@ -464,12 +469,9 @@ const WhyUsSection: React.FC = () => {
                     mb: 2,
                     color: '#333',
                   }}
-                  dangerouslySetInnerHTML={{
-                    __html: promise.title
-                      .replace(/Batches/g, '<span style="color: #ff6b35; font-weight: 800;">Batches</span>')
-                      .replace(/One-to-One/g, '<span style="color: #ff6b35; font-weight: 800;">One-to-One</span>')
-                  }}
-                />
+                >
+                  {promise.title}
+                </Typography>
                 <Typography
                   variant="body1"
                   sx={{

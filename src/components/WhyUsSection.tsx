@@ -186,7 +186,7 @@ const WhyUsSection: React.FC = () => {
                       textAlign: 'center',
                     }}
                   >
-                    Welcome to <span style={{ color: '#1976d2', fontWeight: 900 }}>SHETTY's Engineering Classes (SEC)</span> — Pune's trusted hub for engineering academic excellence!
+                    Welcome to <span style={{ color: '#1976d2', fontWeight: 900 }}>SHETTY&apos;s Engineering Classes (SEC)</span> — Pune&apos;s trusted hub for engineering academic excellence!
                   </Typography>
 
                   <Box sx={{ 
@@ -208,7 +208,7 @@ const WhyUsSection: React.FC = () => {
                           fontWeight: 500,
                         }}
                       >
-                        Founded over a decade ago by <strong>Prof. Sukumara Shetty</strong>, SEC has grown into one of Pune's most sought-after coaching institutes, empowering thousands of engineering students across <strong>12+ top universities</strong> including SPPU, Mumbai University, and other institutions across India and abroad.
+                        Founded over a decade ago by <strong>Prof. Sukumara Shetty</strong>, SEC has grown into one of Pune&apos;s most sought-after coaching institutes, empowering thousands of engineering students across <strong>12+ top universities</strong> including SPPU, Mumbai University, and other institutions across India and abroad.
                       </Typography>
                     </Box>
                     <Box sx={{ 
@@ -261,8 +261,8 @@ const WhyUsSection: React.FC = () => {
                     Why Students Choose SEC:
                   </Typography>
 
-                  <Grid container spacing={3} sx={{ mb: 4 }}>
-                    <Grid item xs={12} sm={6}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mb: 4 }}>
+                    <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%' } }}>
                       {[
                         { icon: '✨', text: 'Student-First Philosophy', color: '#4caf50' },
                         { icon: '🔍', text: 'Focus on Concept Clarity', color: '#2196f3' },
@@ -301,8 +301,8 @@ const WhyUsSection: React.FC = () => {
                           </Typography>
                         </Box>
                       ))}
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
+                    </Box>
+                    <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%' } }}>
                       {[
                         { icon: '🎯', text: 'Result-Oriented Exam Preparation', color: '#f44336' },
                         { icon: '✅', text: 'Strong Concept Building + Exam-Focused Coaching', color: '#4caf50' },
@@ -341,8 +341,8 @@ const WhyUsSection: React.FC = () => {
                           </Typography>
                         </Box>
                       ))}
-                    </Grid>
-                  </Grid>
+                    </Box>
+                  </Box>
                 </Box>
 
                 {/* Enhanced Conclusion */}
@@ -380,7 +380,7 @@ const WhyUsSection: React.FC = () => {
                       zIndex: 1,
                     }}
                   >
-                    Whether you're aiming to ace your semester, clear backlogs, or simply build a strong foundation, we're committed to your success — <strong>every step of the way</strong>.
+                    Whether you're aiming to ace your semester, clear backlogs, or simply build a strong foundation, we&apos;re committed to your success — <strong>every step of the way</strong>.
                   </Typography>
                 </Box>
               </Box>
@@ -469,9 +469,12 @@ const WhyUsSection: React.FC = () => {
                     mb: 2,
                     color: '#333',
                   }}
-                >
-                  {promise.title}
-                </Typography>
+                  dangerouslySetInnerHTML={{
+                    __html: promise.title
+                      .replace(/Batches/g, '<span style="color: #ff6b35; font-weight: 800;">Batches</span>')
+                      .replace(/One-to-One/g, '<span style="color: #ff6b35; font-weight: 800;">One-to-One</span>')
+                  }}
+                />
                 <Typography
                   variant="body1"
                   sx={{
@@ -539,7 +542,7 @@ const WhyUsSection: React.FC = () => {
                 }}
               >
                 Studies show personalized coaching with frequent feedback directly boosts academic performance and satisfaction. 
-                We've embedded these proven methods in every module.
+                We&apos;ve embedded these proven methods in every module.
               </Typography>
             </Box>
           </Box>

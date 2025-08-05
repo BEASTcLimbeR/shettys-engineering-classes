@@ -280,10 +280,185 @@ const categories = [
 
 const YouTubePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading time
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredVideos = selectedCategory === 'All' 
     ? youtubeVideos 
     : youtubeVideos.filter(video => video.category === selectedCategory);
+
+  // Professional Preloader
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+        }}
+      >
+        {/* Animated YouTube Logo */}
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Box sx={{
+            background: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
+            borderRadius: '50%',
+            p: 4,
+            mb: 4,
+            boxShadow: '0 12px 40px rgba(255, 0, 0, 0.4)',
+            border: '4px solid rgba(255, 255, 255, 0.3)',
+            position: 'relative',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: '-8px',
+              left: '-8px',
+              right: '-8px',
+              bottom: '-8px',
+              borderRadius: '50%',
+              background: 'linear-gradient(45deg, #ff0000, #cc0000, #ff0000)',
+              zIndex: -1,
+              animation: 'pulse 2s infinite',
+            }
+          }}>
+            <YouTube sx={{ 
+              fontSize: 120, 
+              color: 'white',
+              filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.5))'
+            }} />
+          </Box>
+        </motion.div>
+
+        {/* Loading Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              color: 'white',
+              fontWeight: 600,
+              textAlign: 'center',
+              mb: 2,
+              textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            }}
+          >
+            Loading Our YouTube Channel
+          </Typography>
+        </motion.div>
+
+        {/* Subtitle */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              color: 'rgba(255,255,255,0.9)',
+              textAlign: 'center',
+              mb: 4,
+              fontWeight: 400,
+              fontStyle: 'italic',
+            }}
+          >
+            Preparing educational content for you...
+          </Typography>
+        </motion.div>
+
+        {/* Loading Animation */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
+          <Box sx={{
+            display: 'flex',
+            gap: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            {[0, 1, 2].map((index) => (
+              <motion.div
+                key={index}
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 1, 0.5],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  delay: index * 0.2,
+                }}
+              >
+                <Box sx={{
+                  width: 12,
+                  height: 12,
+                  borderRadius: '50%',
+                  background: 'white',
+                  boxShadow: '0 2px 8px rgba(255,255,255,0.3)',
+                }} />
+              </motion.div>
+            ))}
+          </Box>
+        </motion.div>
+
+        {/* Progress Bar */}
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: '100%' }}
+          transition={{ duration: 2.5, ease: "easeInOut" }}
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: '4px',
+            background: 'linear-gradient(90deg, #ff0000, #cc0000)',
+            borderRadius: '2px',
+          }}
+        />
+
+        {/* CSS Animations */}
+        <style jsx>{`
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+              opacity: 1;
+            }
+            50% {
+              transform: scale(1.1);
+              opacity: 0.7;
+            }
+            100% {
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
+        `}</style>
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -323,186 +498,389 @@ const YouTubePage: React.FC = () => {
       />
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        {/* Header Section */}
+        {/* Enhanced Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
-              <YouTube sx={{ fontSize: 60, color: '#ff0000', mr: 2 }} />
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            {/* Main Title with Enhanced Styling */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Box sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                mb: 2,
+                position: 'relative'
+              }}>
+                {/* Animated YouTube Icon */}
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Box sx={{
+                    background: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
+                    borderRadius: '50%',
+                    p: 2,
+                    mr: 3,
+                    boxShadow: '0 8px 32px rgba(255, 0, 0, 0.3)',
+                    border: '3px solid rgba(255, 255, 255, 0.2)',
+                  }}>
+                    <YouTube sx={{ 
+                      fontSize: 70, 
+                      color: 'white',
+                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+                    }} />
+                  </Box>
+                </motion.div>
+                
+                {/* Enhanced Title */}
+                <Typography
+                  variant="h2"
+                  sx={{
+                    fontWeight: 900,
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f0f8ff 50%, #e6f3ff 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontSize: { xs: '2.5rem', md: '4rem' },
+                    textShadow: '0 4px 8px rgba(0,0,0,0.4)',
+                    letterSpacing: '0.02em',
+                    position: 'relative',
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: -10,
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '60%',
+                      height: '3px',
+                      background: 'linear-gradient(90deg, transparent, #ff0000, transparent)',
+                      borderRadius: '2px',
+                    }
+                  }}
+                >
+                  Our YouTube Channel
+                </Typography>
+              </Box>
+              
+              {/* Channel Name - Now properly positioned below */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color: '#ff6b35',
+                    fontWeight: 700,
+                    mt: 2,
+                    textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                    fontSize: { xs: '1.2rem', md: '1.8rem' },
+                    letterSpacing: '0.05em',
+                    fontStyle: 'italic',
+                    lineHeight: 1.3,
+                    maxWidth: '600px',
+                    mx: 'auto',
+                    textAlign: 'center',
+                  }}
+                >
+                  SPPU Engineering Simplified By SHETTY SIR
+                </Typography>
+              </motion.div>
+            </motion.div>
+            
+            {/* Enhanced Subtitle */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               <Typography
-                variant="h2"
+                variant="h5"
                 sx={{
-                  fontWeight: 900,
-                  color: 'white',
-                  fontSize: { xs: '2.5rem', md: '3.5rem' },
+                  color: 'rgba(255,255,255,0.95)',
+                  mb: 6,
+                  maxWidth: '900px',
+                  mx: 'auto',
                   textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                  fontWeight: 400,
+                  lineHeight: 1.6,
+                  fontSize: { xs: '1.2rem', md: '1.4rem' },
+                  fontStyle: 'italic',
                 }}
               >
-                Our YouTube Channel
+                Learn engineering concepts, programming, and more with our comprehensive video tutorials
               </Typography>
-            </Box>
-            <Typography
-              variant="h5"
-              sx={{
-                color: 'rgba(255,255,255,0.9)',
-                mb: 4,
-                maxWidth: '800px',
-                mx: 'auto',
-                textShadow: '0 1px 2px rgba(0,0,0,0.3)',
-              }}
-            >
-              Learn engineering concepts, programming, and more with our comprehensive video tutorials
-            </Typography>
+            </motion.div>
             
-            {/* Category Filter */}
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', mb: 4 }}>
-              {categories.map((category) => (
-                <Chip
-                  key={category}
-                  label={category}
-                  onClick={() => setSelectedCategory(category)}
-                  sx={{
-                    background: selectedCategory === category 
-                      ? 'rgba(255, 255, 255, 0.9)' 
-                      : 'rgba(255, 255, 255, 0.2)',
-                    color: selectedCategory === category ? '#333' : 'white',
-                    fontWeight: 600,
-                    '&:hover': {
-                      background: 'rgba(255, 255, 255, 0.3)',
-                    },
-                  }}
-                />
-              ))}
-            </Box>
+            {/* Stats Section */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: 4,
+                mb: 6,
+                flexWrap: 'wrap'
+              }}>
+                <Box sx={{
+                  textAlign: 'center',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: 3,
+                  p: 2,
+                  minWidth: 120,
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                }}>
+                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, mb: 0.5 }}>
+                    25+
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                    Videos
+                  </Typography>
+                </Box>
+                <Box sx={{
+                  textAlign: 'center',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: 3,
+                  p: 2,
+                  minWidth: 120,
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                }}>
+                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, mb: 0.5 }}>
+                    50K+
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                    Views
+                  </Typography>
+                </Box>
+                <Box sx={{
+                  textAlign: 'center',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: 3,
+                  p: 2,
+                  minWidth: 120,
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                }}>
+                  <Typography variant="h4" sx={{ color: 'white', fontWeight: 700, mb: 0.5 }}>
+                    12
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                    Categories
+                  </Typography>
+                </Box>
+              </Box>
+            </motion.div>
+            
+            {/* Enhanced Category Filter */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <Box sx={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: 2, 
+                justifyContent: 'center', 
+                mb: 6,
+                p: 2,
+                background: 'rgba(255, 255, 255, 0.05)',
+                borderRadius: 4,
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+              }}>
+                {categories.map((category, index) => (
+                  <motion.div
+                    key={category}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Chip
+                      label={category}
+                      onClick={() => setSelectedCategory(category)}
+                      sx={{
+                        background: selectedCategory === category 
+                          ? 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)' 
+                          : 'rgba(255, 255, 255, 0.15)',
+                        color: selectedCategory === category ? 'white' : 'rgba(255,255,255,0.9)',
+                        fontWeight: 600,
+                        fontSize: '0.9rem',
+                        px: 2,
+                        py: 1,
+                        border: selectedCategory === category 
+                          ? '2px solid rgba(255, 255, 255, 0.3)' 
+                          : '1px solid rgba(255, 255, 255, 0.2)',
+                        '&:hover': {
+                          background: selectedCategory === category 
+                            ? 'linear-gradient(135deg, #cc0000 0%, #aa0000 100%)'
+                            : 'rgba(255, 255, 255, 0.25)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+                        },
+                        transition: 'all 0.3s ease',
+                      }}
+                    />
+                  </motion.div>
+                ))}
+              </Box>
+            </motion.div>
           </Box>
         </motion.div>
 
         {/* Videos Grid */}
-        <Grid container spacing={4}>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { 
+            xs: '1fr', 
+            sm: '1fr 1fr', 
+            md: '1fr 1fr 1fr' 
+          }, 
+          gap: 3,
+          maxWidth: '100%',
+          mx: 'auto'
+        }}>
           {filteredVideos.map((video, index) => (
-            <Grid item xs={12} sm={6} md={4} key={video.id}>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
+            <motion.div
+              key={video.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              style={{ display: 'flex' }}
+            >
+              <Card
+                sx={{
+                  width: '100%',
+                  height: 'fit-content',
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
+                    background: 'rgba(255, 255, 255, 0.95)',
+                  },
+                }}
               >
-                <Card
-                  sx={{
-                    height: '100%',
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    borderRadius: 3,
-                    overflow: 'hidden',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
-                      background: 'rgba(255, 255, 255, 0.95)',
-                    },
-                  }}
-                >
-                  <Box sx={{ position: 'relative' }}>
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      image={video.thumbnail}
-                      alt={video.title}
-                      sx={{ objectFit: 'cover' }}
-                    />
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        top: 8,
-                        right: 8,
-                        background: 'rgba(0, 0, 0, 0.7)',
-                        color: 'white',
-                        px: 1,
-                        py: 0.5,
-                        borderRadius: 1,
-                        fontSize: '0.8rem',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {video.duration}
-                    </Box>
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        bottom: 8,
-                        left: 8,
-                        display: 'flex',
-                        alignItems: 'center',
-                        background: 'rgba(0, 0, 0, 0.7)',
-                        color: 'white',
-                        px: 1,
-                        py: 0.5,
-                        borderRadius: 1,
-                        fontSize: '0.8rem',
-                      }}
-                    >
-                      <Visibility sx={{ fontSize: 16, mr: 0.5 }} />
-                      {video.views}
-                    </Box>
+                <Box sx={{ position: 'relative' }}>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={video.thumbnail}
+                    alt={video.title}
+                    sx={{ 
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: '200px'
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 8,
+                      right: 8,
+                      background: 'rgba(0, 0, 0, 0.7)',
+                      color: 'white',
+                      px: 1,
+                      py: 0.5,
+                      borderRadius: 1,
+                      fontSize: '0.8rem',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {video.duration}
                   </Box>
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      bottom: 8,
+                      left: 8,
+                      display: 'flex',
+                      alignItems: 'center',
+                      background: 'rgba(0, 0, 0, 0.7)',
+                      color: 'white',
+                      px: 1,
+                      py: 0.5,
+                      borderRadius: 1,
+                      fontSize: '0.8rem',
+                    }}
+                  >
+                    <Visibility sx={{ fontSize: 16, mr: 0.5 }} />
+                    {video.views}
+                  </Box>
+                </Box>
+                
+                <CardContent sx={{ p: 3 }}>
+                  <Chip
+                    label={video.category}
+                    size="small"
+                    sx={{
+                      mb: 2,
+                      background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
+                      color: 'white',
+                      fontWeight: 600,
+                    }}
+                  />
                   
-                  <CardContent sx={{ p: 3 }}>
-                    <Chip
-                      label={video.category}
-                      size="small"
-                      sx={{
-                        mb: 2,
-                        background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                        color: 'white',
-                        fontWeight: 600,
-                      }}
-                    />
-                    
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: 700,
-                        mb: 2,
-                        color: '#333',
-                        lineHeight: 1.4,
-                        fontSize: '1rem',
-                      }}
-                    >
-                      {video.title}
-                    </Typography>
-                    
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      startIcon={<PlayArrow />}
-                      href={video.videoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{
-                        mt: 2,
-                        background: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
-                        color: 'white',
-                        fontWeight: 600,
-                        borderRadius: 2,
-                        py: 1.5,
-                        '&:hover': {
-                          background: 'linear-gradient(135deg, #cc0000 0%, #aa0000 100%)',
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 8px 20px rgba(255, 0, 0, 0.3)',
-                        },
-                      }}
-                    >
-                      Watch Video
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Grid>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      mb: 2,
+                      color: '#333',
+                      lineHeight: 1.4,
+                      fontSize: '1rem',
+                    }}
+                  >
+                    {video.title}
+                  </Typography>
+                  
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    startIcon={<PlayArrow />}
+                    href={video.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      mt: 2,
+                      background: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
+                      color: 'white',
+                      fontWeight: 600,
+                      borderRadius: 2,
+                      py: 1.5,
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #cc0000 0%, #aa0000 100%)',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 20px rgba(255, 0, 0, 0.3)',
+                      },
+                    }}
+                  >
+                    Watch Video
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </Grid>
+        </Box>
 
         {/* Call to Action */}
         <motion.div

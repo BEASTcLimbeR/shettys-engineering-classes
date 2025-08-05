@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
 
 // Dynamically import Lottie to avoid SSR issues
@@ -67,7 +67,7 @@ const Loader: React.FC<LoaderProps> = ({ animationData, size = 180, overlay = fa
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: overlay ? 2000 : 'auto',
-        background: overlay ? 'rgba(255,255,255,0.95)' : 'none',
+        background: overlay ? 'rgba(255, 255, 255, 0.9)' : 'none',
       }}
     >
       <Lottie
