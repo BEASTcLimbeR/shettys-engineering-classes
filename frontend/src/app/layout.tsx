@@ -5,6 +5,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/700.css';
 import ClientLayout from '../components/ClientLayout';
 import CoreWebVitals from '../components/CoreWebVitals';
+import { keywordString } from '../data/keywords';
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -15,47 +16,11 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: {
-    default: "Best Engineering Classes in Pune - Shetty's Engineering Classes Since 2010",
+    default: "Best Engineering Classes in Pune | Shetty's Engineering Classes (SEC) - Expert Coaching Since 2010",
     template: "%s | Shetty's Engineering Classes"
   },
-  description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute in Pune offering personalized coaching for all engineering branches including E&TC, Computer, Electrical, AI&DS, Mechanical, Civil. Expert guidance, small batches, and proven results since 2010. Book your free demo today!",
-  keywords: [
-    "engineering coaching",
-    "Pune engineering classes",
-    "SEC Pune",
-    "Shetty's Engineering Classes",
-    "engineering coaching institute",
-    "engineering tuition",
-    "engineering classes Pune",
-    "E&TC coaching",
-    "Computer engineering classes",
-    "Electrical engineering coaching",
-    "AI&DS coaching",
-    "Mechanical engineering classes",
-    "Civil engineering coaching",
-    "engineering exam preparation",
-    "engineering study material",
-    "engineering faculty Pune",
-    "engineering batches",
-    "one-to-one engineering tuition",
-    "engineering demo class",
-    "engineering counseling",
-    "Best First Year Engineering Class in Pune",
-    "Engineering classes near me",
-    "Engineering classes in Pune",
-    "Best Engineering classes in Pune",
-    "Best Engineering classes in Shivajinagar",
-    "engineering coaching Shivajinagar",
-    "engineering classes FC Road",
-    "engineering coaching Ghole Road",
-    "engineering classes Pune Maharashtra",
-    "best engineering coaching institute Pune",
-    "top engineering classes Pune",
-    "engineering coaching for first year",
-    "engineering classes for beginners",
-    "engineering coaching near FC Road",
-    "engineering classes near Ghole Road"
-  ].join(", "),
+  description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute offering personalized coaching for E&TC, Computer, Electrical, AI&DS, Mechanical, Civil branches. Expert guidance, small batches, proven results since 2010. Book free demo today!",
+  keywords: keywordString,
   authors: [{ name: "Shetty's Engineering Classes", url: "https://shettysengineeringclasses.com" }],
   creator: "Shetty's Engineering Classes",
   publisher: "Shetty's Engineering Classes",
@@ -69,8 +34,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Best Engineering Classes in Pune - Shetty's Engineering Classes Since 2010",
-    description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute in Pune offering personalized coaching for all engineering branches. Expert guidance, small batches, and proven results since 2010.",
+    title: "Best Engineering Classes in Pune | Shetty's Engineering Classes (SEC) - Expert Coaching Since 2010",
+    description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute offering personalized coaching for E&TC, Computer, Electrical, AI&DS, Mechanical, Civil branches. Expert guidance, small batches, proven results since 2010. Book free demo today!",
     url: 'https://shettysengineeringclasses.com',
     siteName: "Shetty's Engineering Classes",
     images: [
@@ -78,18 +43,25 @@ export const metadata: Metadata = {
         url: '/logo-sec-icon.svg',
         width: 1200,
         height: 630,
-        alt: "Shetty's Engineering Classes Logo",
+        alt: "Shetty's Engineering Classes Logo - Best Engineering Coaching in Pune",
+        type: 'image/svg+xml',
       },
     ],
     locale: 'en_US',
     type: 'website',
+    countryName: 'India',
+    emails: ['shettyseng@gmail.com'],
+    phoneNumbers: ['+91 99234 60156'],
+    faxNumbers: [],
+    ttl: 86400,
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Best Engineering Classes in Pune - Shetty's Engineering Classes",
-    description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute in Pune offering personalized coaching for all engineering branches since 2010.",
+    title: "Best Engineering Classes in Pune | Shetty's Engineering Classes (SEC)",
+    description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute offering personalized coaching for all engineering branches since 2010. Book free demo today!",
     images: ['/logo-sec-icon.svg'],
     creator: '@SEC_Pune',
+    site: '@SEC_Pune',
   },
   icons: {
     icon: [
@@ -119,14 +91,20 @@ export const metadata: Metadata = {
   category: 'education',
   classification: 'engineering coaching institute',
   other: {
+    // Geographic meta data
     'geo.region': 'IN-MH',
     'geo.placename': 'Pune',
     'geo.position': '18.5204;73.8567',
     'ICBM': '18.5204, 73.8567',
-    'DC.title': "Shetty's Engineering Classes",
+    'geo.country': 'India',
+    'geo.city': 'Pune',
+    'geo.state': 'Maharashtra',
+    
+    // Dublin Core meta data
+    'DC.title': "Best Engineering Classes in Pune | Shetty's Engineering Classes (SEC)",
     'DC.creator': "Shetty's Engineering Classes",
-    'DC.subject': 'Engineering Coaching',
-    'DC.description': 'Best Engineering Classes in Pune - Leading engineering coaching institute',
+    'DC.subject': 'Engineering Coaching, Engineering Classes, Engineering Tuition, Engineering Exam Preparation',
+    'DC.description': 'Best First Year Engineering Class in Pune. Leading engineering coaching institute offering personalized coaching for E&TC, Computer, Electrical, AI&DS, Mechanical, Civil branches.',
     'DC.publisher': "Shetty's Engineering Classes",
     'DC.contributor': "Shetty's Engineering Classes",
     'DC.date': '2010-01-01',
@@ -136,6 +114,49 @@ export const metadata: Metadata = {
     'DC.language': 'en',
     'DC.coverage': 'Pune, Maharashtra, India',
     'DC.rights': 'Copyright 2024 Shetty\'s Engineering Classes',
+    'DC.source': 'https://shettysengineeringclasses.com',
+    'DC.relation': 'https://shettysengineeringclasses.com',
+    
+    // Additional SEO meta data
+    'author': "Shetty's Engineering Classes",
+    'copyright': 'Copyright 2024 Shetty\'s Engineering Classes',
+    'language': 'en',
+    'distribution': 'global',
+    'rating': 'general',
+    'revisit-after': '7 days',
+    'robots': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    'googlebot': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    'bingbot': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    
+    // Business meta data
+    'business:contact_data:street_address': '3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road',
+    'business:contact_data:locality': 'Pune',
+    'business:contact_data:region': 'Maharashtra',
+    'business:contact_data:postal_code': '411005',
+    'business:contact_data:country_name': 'India',
+    'business:contact_data:phone_number': '+91 99234 60156',
+    'business:contact_data:email': 'shettyseng@gmail.com',
+    'business:contact_data:website': 'https://shettysengineeringclasses.com',
+    
+    // Educational meta data
+    'education:institution_name': "Shetty's Engineering Classes",
+    'education:institution_type': 'Engineering Coaching Institute',
+    'education:specialization': 'Engineering Coaching',
+    'education:branches': 'E&TC, Computer, Electrical, AI&DS, Mechanical, Civil',
+    'education:location': 'Pune, Maharashtra, India',
+    'education:established': '2010',
+    'education:founder': 'Prof. Sukumara Shetty',
+    
+    // Local SEO meta data
+    'place:location:latitude': '18.5204',
+    'place:location:longitude': '73.8567',
+    'place:location:locality': 'Pune',
+    'place:location:region': 'Maharashtra',
+    'place:location:country': 'India',
+    'place:business:name': "Shetty's Engineering Classes",
+    'place:business:category': 'Education',
+    'place:business:phone': '+91 99234 60156',
+    'place:business:website': 'https://shettysengineeringclasses.com',
   },
 };
 
@@ -174,6 +195,54 @@ export default function RootLayout({
         
         {/* Core Web Vitals Performance Monitor */}
         <script src="/performance-monitor.js" defer />
+        
+        {/* Enhanced SEO Meta Tags */}
+        <meta name="author" content="Shetty's Engineering Classes" />
+        <meta name="copyright" content="Copyright 2024 Shetty's Engineering Classes" />
+        <meta name="language" content="en" />
+        <meta name="distribution" content="global" />
+        <meta name="rating" content="general" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="target" content="all" />
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="MobileOptimized" content="width" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="SEC Pune" />
+        <meta name="application-name" content="Shetty's Engineering Classes" />
+        <meta name="msapplication-TileImage" content="/logo-sec-icon.svg" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        
+        {/* Business Meta Tags */}
+        <meta name="business:contact_data:street_address" content="3rd Floor, besides Namaskar Restaurant, opp. MJM Hospital, Ghole Road, Off. FC Road" />
+        <meta name="business:contact_data:locality" content="Pune" />
+        <meta name="business:contact_data:region" content="Maharashtra" />
+        <meta name="business:contact_data:postal_code" content="411005" />
+        <meta name="business:contact_data:country_name" content="India" />
+        <meta name="business:contact_data:phone_number" content="+91 99234 60156" />
+        <meta name="business:contact_data:email" content="shettyseng@gmail.com" />
+        <meta name="business:contact_data:website" content="https://shettysengineeringclasses.com" />
+        
+        {/* Educational Meta Tags */}
+        <meta name="education:institution_name" content="Shetty's Engineering Classes" />
+        <meta name="education:institution_type" content="Engineering Coaching Institute" />
+        <meta name="education:specialization" content="Engineering Coaching" />
+        <meta name="education:branches" content="E&TC, Computer, Electrical, AI&DS, Mechanical, Civil" />
+        <meta name="education:location" content="Pune, Maharashtra, India" />
+        <meta name="education:established" content="2010" />
+        <meta name="education:founder" content="Prof. Sukumara Shetty" />
+        
+        {/* Local SEO Meta Tags */}
+        <meta name="place:location:latitude" content="18.5204" />
+        <meta name="place:location:longitude" content="73.8567" />
+        <meta name="place:location:locality" content="Pune" />
+        <meta name="place:location:region" content="Maharashtra" />
+        <meta name="place:location:country" content="India" />
+        <meta name="place:business:name" content="Shetty's Engineering Classes" />
+        <meta name="place:business:category" content="Education" />
+        <meta name="place:business:phone" content="+91 99234 60156" />
+        <meta name="place:business:website" content="https://shettysengineeringclasses.com" />
         
         {/* Structured Data */}
         <script
