@@ -133,54 +133,6 @@ const processEmailsInBackground = async (emailRecord, name, email, subject, mess
   }
 };
 
-  } catch (error) {
-    console.error('❌ Email sending error:', error);
-    console.error('🔍 Error details:', {
-      message: error.message,
-      stack: error.stack,
-      code: error.code,
-      command: error.command
-    });
-
-    // Update status to failed if email record exists
-    if (req.body.email) {
-      try {
-        const emailRecord = await Email.findOne({
-          email: req.body.email,
-          subject: req.body.subject,
-          createdAt: { $gte: new Date(Date.now() - 60000) } // Last minute
-        });
-        
-        if (emailRecord) {
-          emailRecord.status = 'failed';
-          emailRecord.errorMessage = error.message;
-          await emailRecord.save();
-          console.log('💾 Updated email record status to "failed"');
-        }
-      } catch (dbError) {
-        console.error('❌ Database error:', dbError);
-      }
-    }
-
-    // Provide more specific error messages
-    let errorMessage = 'Failed to send email. Please try again later.';
-    
-    if (error.code === 'EAUTH') {
-      errorMessage = 'Email authentication failed. Please check your email settings.';
-    } else if (error.code === 'ECONNECTION') {
-      errorMessage = 'Email connection failed. Please check your internet connection.';
-    } else if (error.code === 'ETIMEDOUT') {
-      errorMessage = 'Email request timed out. Please try again.';
-    }
-
-    res.status(500).json({
-      success: false,
-      message: errorMessage,
-      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
-    });
-  }
-};
-
 // Get all emails (admin only)
 const getAllEmails = async (req, res) => {
   try {
