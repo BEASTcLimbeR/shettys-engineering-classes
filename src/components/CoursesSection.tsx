@@ -40,9 +40,11 @@ type CourseYearData = {
   BE?: string[];
 };
 
-const CoursesSection = (): JSX.Element => {
+const CoursesSection = (): React.JSX.Element => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [successSubject, setSuccessSubject] = useState('');
   const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
@@ -206,6 +208,31 @@ const CoursesSection = (): JSX.Element => {
       const branchIndex = branches.findIndex(b => b.name === selectedItem.branch);
       if (branchIndex !== -1) {
         setSelectedTab(branchIndex);
+        
+        // Show success message
+        setSuccessSubject(selectedItem.subject);
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 3000);
+        
+        // Scroll to the specific subject after a short delay to ensure the tab switch is complete
+        setTimeout(() => {
+          const subjectElement = document.querySelector(`[data-subject="${selectedItem.subject}"][data-year="${selectedItem.year}"]`);
+          if (subjectElement) {
+            // Scroll to the subject with smooth animation
+            subjectElement.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+            
+            // Add highlight effect
+            subjectElement.classList.add('subject-highlight');
+            setTimeout(() => {
+              subjectElement.classList.remove('subject-highlight');
+            }, 2000);
+          }
+        }, 300);
       }
       setSearchQuery('');
     }
@@ -270,6 +297,18 @@ const CoursesSection = (): JSX.Element => {
                     <Chip
                       key={index}
                       label={subject}
+                      data-subject={subject}
+                      data-year={year}
+                      onClick={() => {
+                        // Add a subtle highlight effect when clicked
+                        const chip = document.querySelector(`[data-subject="${subject}"][data-year="${year}"]`);
+                        if (chip) {
+                          chip.classList.add('subject-highlight');
+                          setTimeout(() => {
+                            chip.classList.remove('subject-highlight');
+                          }, 1000);
+                        }
+                      }}
                       sx={{
                         background: `${branch.color}15`,
                         color: branch.color,
@@ -277,8 +316,22 @@ const CoursesSection = (): JSX.Element => {
                         fontSize: { xs: '0.75rem', sm: '0.875rem' },
                         height: { xs: 28, sm: 32 },
                         mb: { xs: 0.5, sm: 0 },
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
                         '&:hover': {
                           background: `${branch.color}25`,
+                          transform: 'scale(1.05)',
+                          boxShadow: `0 4px 12px ${branch.color}40`,
+                        },
+                        '&:active': {
+                          transform: 'scale(0.95)',
+                        },
+                        // Highlight effect for searched subjects
+                        '&.subject-highlight': {
+                          background: `${branch.color}40`,
+                          transform: 'scale(1.1)',
+                          boxShadow: `0 8px 24px ${branch.color}60`,
+                          animation: 'pulse 2s ease-in-out',
                         },
                       }}
                     />
@@ -433,7 +486,25 @@ const CoursesSection = (): JSX.Element => {
               renderOption={(props, option) => {
                 const { key, ...otherProps } = props;
                 return (
-                  <ListItem key={key} {...otherProps} sx={{ py: 1 }}>
+                  <ListItem 
+                    key={key} 
+                    {...otherProps} 
+                    sx={{ 
+                      py: 1,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      borderRadius: 1,
+                      mx: 1,
+                      '&:hover': {
+                        backgroundColor: 'rgba(25, 118, 210, 0.08)',
+                        transform: 'translateX(4px)',
+                      },
+                      '&:active': {
+                        backgroundColor: 'rgba(25, 118, 210, 0.12)',
+                        transform: 'translateX(6px)',
+                      }
+                    }}
+                  >
                     <ListItemText
                       primary={option.subject}
                       secondary={`${option.branch} - ${option.year}`}
@@ -446,6 +517,34 @@ const CoursesSection = (): JSX.Element => {
                         color: '#666',
                       }}
                     />
+                    <Box sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center',
+                      color: '#1976d2',
+                      opacity: 0.7,
+                      transition: 'opacity 0.2s ease',
+                      '&:hover': {
+                        opacity: 1,
+                      }
+                    }}>
+                      <Typography variant="caption" sx={{ mr: 1, fontWeight: 600 }}>
+                        Tap to navigate
+                      </Typography>
+                      <Box sx={{ 
+                        width: 16, 
+                        height: 16, 
+                        borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #1976d2, #42a5f5)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '0.6rem',
+                        color: 'white',
+                        fontWeight: 'bold'
+                      }}>
+                        →
+                      </Box>
+                    </Box>
                   </ListItem>
                 );
               }}
@@ -472,6 +571,43 @@ const CoursesSection = (): JSX.Element => {
                 💡 <strong>Search Tips:</strong> Try searching for "Engineering", "Programming", "Mathematics", "Physics", "Chemistry", "Mechanics", "Electrical", "Computer", etc.
               </Typography>
             </Box>
+            
+            {/* Success Message */}
+            {showSuccessMessage && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Box sx={{ 
+                  mt: 2, 
+                  p: 2, 
+                  background: 'linear-gradient(135deg, #4caf50, #66bb6a)', 
+                  borderRadius: 2,
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1
+                }}>
+                  <Box sx={{ 
+                    width: 20, 
+                    height: 20, 
+                    borderRadius: '50%',
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '0.8rem'
+                  }}>
+                    ✓
+                  </Box>
+                  <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                    Navigated to <strong>{successSubject}</strong> in {branches[selectedTab]?.name} branch
+                  </Typography>
+                </Box>
+              </motion.div>
+            )}
           </Box>
         </motion.div>
 
@@ -712,6 +848,24 @@ const CoursesSection = (): JSX.Element => {
           </Paper>
         </motion.div>
       </Container>
+      
+      {/* Global Styles for Subject Highlight Animation */}
+      <style jsx global>{`
+        @keyframes pulse {
+          0%, 100% { 
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(25, 118, 210, 0.6);
+          }
+          50% { 
+            transform: scale(1.15);
+            box-shadow: 0 12px 32px rgba(25, 118, 210, 0.8);
+          }
+        }
+        
+        .subject-highlight {
+          animation: pulse 2s ease-in-out !important;
+        }
+      `}</style>
     </Box>
   );
 };

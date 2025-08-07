@@ -13,11 +13,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import MapIcon from '@mui/icons-material/Map';
 
 const contact = {
-  address: "Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004",
+  address: "Shettys Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004",
   phone: '+91 99234 60156',
   email: 'shettyseng@gmail.com',
   instagram: 'https://instagram.com/shettys_engineering_classes',
   whatsapp: 'https://wa.me/919923460156',
+  name: "Shettys Engineering Classes",
+  description: "Best Engineering Classes in Pune - Leading engineering coaching institute since 2010",
 };
 
 // Common subject suggestions for contact form
@@ -480,7 +482,7 @@ const ContactSection: React.FC = () => {
                     required
                     fullWidth
                     multiline
-                    rows={{ xs: 5, sm: 4 }}
+                    rows={4}
                     variant="outlined"
                     sx={{
                       '& .MuiOutlinedInput-root': {

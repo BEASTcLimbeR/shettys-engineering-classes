@@ -14,15 +14,51 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: {
-    default: "Best Engineering Classes in Pune - Shetty's Engineering Classes Since 2010",
-    template: "%s | Shetty's Engineering Classes"
+    default: "Shettys Engineering Classes - Best Engineering Classes in Pune Since 2010",
+    template: "%s | Shettys Engineering Classes"
   },
-  description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute in Pune offering personalized coaching for all engineering branches including E&TC, Computer, Electrical, AI&DS, Mechanical, Civil. Expert guidance, small batches, and proven results since 2010. Book your free demo today!",
+  description: "Shettys Engineering Classes - Best Engineering Classes in Pune. Leading engineering coaching institute offering personalized coaching for E&TC, Computer, Electrical, AI&DS, Mechanical, Civil engineering. Expert guidance, small batches, proven results since 2010. Book your free demo today!",
   keywords: [
+    "Shettys Engineering Classes",
+    "Shetty's Engineering Classes",
+    "Shettys Engineering Classes Pune",
+    "Shettys Engineering Classes Shivajinagar",
+    "Shettys Engineering Classes FC Road",
+    "Shettys Engineering Classes Ghole Road",
+    "Shettys Engineering Classes near me",
+    "Shettys Engineering Classes contact",
+    "Shettys Engineering Classes phone number",
+    "Shettys Engineering Classes address",
+    "Shettys Engineering Classes reviews",
+    "Shettys Engineering Classes fees",
+    "Shettys Engineering Classes courses",
+    "Shettys Engineering Classes branches",
+    "Shettys Engineering Classes E&TC",
+    "Shettys Engineering Classes Computer",
+    "Shettys Engineering Classes Electrical",
+    "Shettys Engineering Classes AI&DS",
+    "Shettys Engineering Classes Mechanical",
+    "Shettys Engineering Classes Civil",
+    "Shettys Engineering Classes first year",
+    "Shettys Engineering Classes coaching",
+    "Shettys Engineering Classes tuition",
+    "Shettys Engineering Classes classes",
+    "Shettys Engineering Classes institute",
+    "Shettys Engineering Classes Pune Maharashtra",
+    "Shettys Engineering Classes best",
+    "Shettys Engineering Classes top",
+    "Shettys Engineering Classes leading",
+    "Shettys Engineering Classes expert",
+    "Shettys Engineering Classes faculty",
+    "Shettys Engineering Classes batches",
+    "Shettys Engineering Classes one-to-one",
+    "Shettys Engineering Classes demo",
+    "Shettys Engineering Classes counseling",
+    "Shettys Engineering Classes study material",
+    "Shettys Engineering Classes exam preparation",
     "engineering coaching",
     "Pune engineering classes",
     "SEC Pune",
-    "Shetty's Engineering Classes",
     "engineering coaching institute",
     "engineering tuition",
     "engineering classes Pune",
@@ -68,10 +104,10 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Best Engineering Classes in Pune - Shetty's Engineering Classes Since 2010",
-    description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute in Pune offering personalized coaching for all engineering branches. Expert guidance, small batches, and proven results since 2010.",
+    title: "Shettys Engineering Classes - Best Engineering Classes in Pune Since 2010",
+    description: "Shettys Engineering Classes - Best Engineering Classes in Pune. Leading engineering coaching institute offering personalized coaching for E&TC, Computer, Electrical, AI&DS, Mechanical, Civil engineering. Expert guidance, small batches, proven results since 2010.",
     url: 'https://shettysengineeringclasses.com',
-    siteName: "Shetty's Engineering Classes",
+    siteName: "Shettys Engineering Classes",
     images: [
       {
         url: '/logo-sec-icon.svg',
@@ -85,8 +121,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Best Engineering Classes in Pune - Shetty's Engineering Classes",
-    description: "Best First Year Engineering Class in Pune. Leading engineering coaching institute in Pune offering personalized coaching for all engineering branches since 2010.",
+    title: "Shettys Engineering Classes - Best Engineering Classes in Pune",
+    description: "Shettys Engineering Classes - Best Engineering Classes in Pune. Leading engineering coaching institute offering personalized coaching for E&TC, Computer, Electrical, AI&DS, Mechanical, Civil engineering since 2010.",
     images: ['/logo-sec-icon.svg'],
     creator: '@SEC_Pune',
   },
@@ -158,6 +194,22 @@ export default function RootLayout({
         <meta name="msapplication-TileImage" content="/logo-sec-icon.svg" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'GA_MEASUREMENT_ID', {
+                page_title: document.title,
+                page_location: window.location.href,
+              });
+            `,
+          }}
+        />
+        
         {/* Structured Data */}
         <script
           type="application/ld+json"
@@ -165,9 +217,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "EducationalOrganization",
-              "name": "Shetty's Engineering Classes",
-              "alternateName": "SEC Pune",
-              "description": "Best Engineering Classes in Pune - Leading engineering coaching institute",
+              "name": "Shettys Engineering Classes",
+              "alternateName": ["SEC Pune", "Shetty's Engineering Classes"],
+              "description": "Shettys Engineering Classes - Best Engineering Classes in Pune - Leading engineering coaching institute",
               "url": "https://shettysengineeringclasses.com",
               "logo": "https://shettysengineeringclasses.com/logo-sec-icon.svg",
               "image": "https://shettysengineeringclasses.com/logo-sec-icon.svg",

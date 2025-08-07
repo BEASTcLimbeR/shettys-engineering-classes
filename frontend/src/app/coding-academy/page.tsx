@@ -60,7 +60,9 @@ const CodingAcademyPage: React.FC = () => {
       console.log('Audio play failed:', error);
     });
     
+    // Immediately update the toggle state for visual feedback
     setIsMainMode(!isMainMode);
+    
     setTimeout(() => {
       router.push('/');
     }, 500);
@@ -307,6 +309,8 @@ const CodingAcademyPage: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleToggle}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.2 }}
             sx={{
               cursor: 'pointer',
               position: 'relative',
@@ -318,6 +322,18 @@ const CodingAcademyPage: React.FC = () => {
               transition: 'all 0.3s ease',
               '&:hover': {
                 boxShadow: '0 0 20px rgba(0, 255, 0, 0.3)',
+              },
+              animation: isMainMode ? 'pulse 1s infinite' : 'none',
+              '@keyframes pulse': {
+                '0%': {
+                  boxShadow: '0 0 20px rgba(0, 255, 0, 0.3)',
+                },
+                '50%': {
+                  boxShadow: '0 0 30px rgba(0, 255, 0, 0.5)',
+                },
+                '100%': {
+                  boxShadow: '0 0 20px rgba(0, 255, 0, 0.3)',
+                },
               },
             }}
           >

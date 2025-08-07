@@ -12,6 +12,7 @@ import MissionOfferSection from '../components/MissionOfferSection';
 import ContactSection from '../components/ContactSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import FAQSection from '../components/FAQSection';
+import SocialMediaSEO from '../components/SocialMediaSEO';
 import Footer from '../components/Footer';
 import { Box } from '@mui/material';
 
@@ -39,6 +40,7 @@ export default function Home() {
       <Header />
       <Box sx={{ pt: '70px' }}> {/* Add top padding to account for fixed header */}
         <section id="home"><HeroSection /></section>
+        <section id="seo"><SocialMediaSEO /></section>
         <section id="about"><WhyUsSection /></section>
         <section id="courses"><CoursesSection /></section>
         <section id="track-record"><TrackRecordSection /></section>
@@ -51,7 +53,6 @@ export default function Home() {
       </Box>
       <Footer />
 
-      {/* Custom Scrollbar Styles */}
       <style jsx global>{`
         /* Webkit browsers (Chrome, Safari, Edge) */
         ::-webkit-scrollbar {

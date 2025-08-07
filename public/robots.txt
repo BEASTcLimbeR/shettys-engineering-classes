@@ -4,5 +4,16 @@ Allow: /
 # Sitemap
 Sitemap: https://shettysengineeringclasses.com/sitemap.xml
 
-# Crawl-delay
+# Disallow admin or private areas (if any)
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Allow all other content
+Allow: /coding-academy/
+Allow: /gallery/
+Allow: /youtube/
+Allow: /public/
+
+# Crawl-delay for respectful crawling
 Crawl-delay: 1 

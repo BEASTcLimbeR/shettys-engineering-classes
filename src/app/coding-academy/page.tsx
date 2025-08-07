@@ -60,7 +60,9 @@ const CodingAcademyPage: React.FC = () => {
       console.log('Audio play failed:', error);
     });
     
+    // Immediately update the toggle state for visual feedback
     setIsMainMode(!isMainMode);
+    
     setTimeout(() => {
       router.push('/');
     }, 500);

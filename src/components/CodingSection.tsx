@@ -20,10 +20,12 @@ const CodingSection: React.FC = () => {
       console.log('Audio play failed:', error);
     });
     
+    // Immediately update the toggle state for visual feedback
+    setIsDeveloperMode(!isDeveloperMode);
+    
     // Keep original animation timing but optimize routing
     setLoading(true);
     setTimeout(() => {
-      setIsDeveloperMode(!isDeveloperMode);
       setLoading(false);
       // Fast routing without delays
       if (!isDeveloperMode) {
@@ -138,6 +140,8 @@ const CodingSection: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleToggle}
+              animate={{ scale: loading ? 0.95 : 1 }}
+              transition={{ duration: 0.2 }}
               sx={{
                 cursor: 'pointer',
                 position: 'relative',
@@ -145,10 +149,14 @@ const CodingSection: React.FC = () => {
                 height: '82px', // 2x the original size
                 borderRadius: '41px',
                 background: 'white',
-                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                boxShadow: loading 
+                  ? '0 4px 20px rgba(25, 118, 210, 0.3)' 
+                  : '0 4px 20px rgba(0, 0, 0, 0.15)',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.2)',
+                  boxShadow: loading 
+                    ? '0 8px 30px rgba(25, 118, 210, 0.4)' 
+                    : '0 8px 30px rgba(0, 0, 0, 0.2)',
                 },
               }}
             >
