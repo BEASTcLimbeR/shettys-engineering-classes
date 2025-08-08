@@ -1,0 +1,101 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/chunks/app/_not-found/page-4c2aaffa52ba9a8d.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/css/a8894bc02f72dd55.css",
+      "static/chunks/458-a36a23cdefb9f598.js",
+      "static/chunks/433-30120d8e703fb1c9.js",
+      "static/chunks/638-3dc3460c8c1f4a1b.js",
+      "static/chunks/app/layout-896a64aa80b3a251.js"
+    ],
+    "/gallery/page": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/chunks/458-a36a23cdefb9f598.js",
+      "static/chunks/118-60230727ac53b257.js",
+      "static/chunks/433-30120d8e703fb1c9.js",
+      "static/chunks/894-78e82a509d5871d6.js",
+      "static/chunks/969-6f01e20b18fe4746.js",
+      "static/chunks/app/gallery/page-4ea499b3603513f6.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/chunks/458-a36a23cdefb9f598.js",
+      "static/chunks/118-60230727ac53b257.js",
+      "static/chunks/545-1a146e9b1ec95a8e.js",
+      "static/chunks/433-30120d8e703fb1c9.js",
+      "static/chunks/894-78e82a509d5871d6.js",
+      "static/chunks/516-4bd84d8f21fc041b.js",
+      "static/chunks/638-3dc3460c8c1f4a1b.js",
+      "static/chunks/676-1ff52b0a765057e7.js",
+      "static/chunks/256-891c35b186e422d1.js",
+      "static/chunks/262-8dc48c75fb05f4d2.js",
+      "static/chunks/app/page-c0832761f0af931e.js"
+    ],
+    "/youtube/layout": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/chunks/app/youtube/layout-6ccfd46860603d7a.js"
+    ],
+    "/youtube/page": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/chunks/458-a36a23cdefb9f598.js",
+      "static/chunks/118-60230727ac53b257.js",
+      "static/chunks/545-1a146e9b1ec95a8e.js",
+      "static/chunks/663-be0e9e359e31425a.js",
+      "static/chunks/app/youtube/page-da8ed0273a7bdd16.js"
+    ],
+    "/coding-academy/layout": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/chunks/app/coding-academy/layout-6ccfd46860603d7a.js"
+    ],
+    "/coding-academy/page": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/chunks/458-a36a23cdefb9f598.js",
+      "static/chunks/118-60230727ac53b257.js",
+      "static/chunks/545-1a146e9b1ec95a8e.js",
+      "static/chunks/676-1ff52b0a765057e7.js",
+      "static/chunks/21-8b859754046fc3a4.js",
+      "static/chunks/app/coding-academy/page-b7b293a4c684f391.js"
+    ],
+    "/coding-academy/basics/page": [
+      "static/chunks/webpack-fc30979e10596376.js",
+      "static/chunks/c7879cf7-a41b851b46b3cb77.js",
+      "static/chunks/508-9cbc3804d573e81b.js",
+      "static/chunks/main-app-64e666366706360b.js",
+      "static/chunks/458-a36a23cdefb9f598.js",
+      "static/chunks/118-60230727ac53b257.js",
+      "static/chunks/545-1a146e9b1ec95a8e.js",
+      "static/chunks/433-30120d8e703fb1c9.js",
+      "static/chunks/516-4bd84d8f21fc041b.js",
+      "static/chunks/262-8dc48c75fb05f4d2.js",
+      "static/chunks/app/coding-academy/basics/page-69b43c234dc7ee1f.js"
+    ]
+  }
+}

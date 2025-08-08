@@ -1,0 +1,28 @@
+{
+  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
+    "id": 83588,
+    "files": [
+      "static/chunks/588.bd410e447e316828.js"
+    ]
+  },
+  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
+    "id": 27401,
+    "files": [
+      "static/chunks/401.b62ffecc160a31e2.js"
+    ]
+  },
+  "app\\gallery\\page.tsx -> lottie-react": {
+    "id": 18942,
+    "files": [
+      "static/chunks/c07e5374.4e3a467d1f84b976.js",
+      "static/chunks/942.d25c4a0a1011ee15.js"
+    ]
+  },
+  "components\\Loader.tsx -> lottie-react": {
+    "id": 18942,
+    "files": [
+      "static/chunks/c07e5374.4e3a467d1f84b976.js",
+      "static/chunks/942.d25c4a0a1011ee15.js"
+    ]
+  }
+}

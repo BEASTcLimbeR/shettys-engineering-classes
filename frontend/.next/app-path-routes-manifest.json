@@ -1,0 +1,9 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/gallery/page": "/gallery",
+  "/page": "/",
+  "/youtube/page": "/youtube",
+  "/coding-academy/page": "/coding-academy",
+  "/coding-academy/basics/page": "/coding-academy/basics"
+}
