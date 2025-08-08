@@ -1,0 +1,10 @@
+[33m3047717[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix deployment from frontend directory
+[33m96a3f59[m Fix deployment structure
+[33m31650cf[m Fix development server and restore custom scrollbar styles - Fixed Internal Server Error by cleaning build cache and restarting server - Restored original custom scrollbar styles with enhanced hover effects - Updated mobile responsiveness for navigation tabs - Added tap-to-navigate functionality for subject search - Enhanced SEO optimizations with proper metadata and sitemap
+[33mdc0224e[m Update address to new location: Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004
+[33m79e7b5a[m Implement 500+ targeted keywords for maximum SEO optimization - Add comprehensive keyword strategy covering location, branches, services, quality, and academic terms
+[33m2760b94[m Implement Core Web Vitals optimizations - Add performance monitoring, resource hints, image optimization, and Core Web Vitals tracking for better SEO and user experience
+[33mf3ac11a[m Update location text in About section to complete address - Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004
+[33mb70418e[m Update address with complete Google Maps location - Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004
+[33m1bcc6a3[m Change Why Us cards layout to 3+3 grid (2 rows of 3 cards each)
+[33m187df33[m Remove timing section from footer - clock icon and business hours

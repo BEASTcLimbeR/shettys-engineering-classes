@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/database');
 const emailRoutes = require('./routes/emailRoutes');
+const mongoose = require('mongoose'); // Added for health check
 
 const app = express();
 
@@ -69,23 +70,27 @@ app.use('/api/email', emailRoutes);
 
 // Health check route
 app.get('/health', (req, res) => {
+  const mongodbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  
   res.status(200).json({
     success: true,
     message: 'Server is running',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
-    mongodb: 'connected'
+    mongodb: mongodbStatus
   });
 });
 
 // API health check route
 app.get('/api/health', (req, res) => {
+  const mongodbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  
   res.status(200).json({
     success: true,
     message: 'API is running',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
-    mongodb: 'connected'
+    mongodb: mongodbStatus
   });
 });
 
@@ -163,12 +168,23 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📧 Email API ready at http://localhost:${PORT}`);
-  console.log(`🔍 Health check: http://localhost:${PORT}/health`);
-  console.log(`🧪 Test email: POST http://localhost:${PORT}/test-email`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
-});
+const startServer = (port) => {
+  app.listen(port, () => {
+    console.log(`🚀 Server running on port ${port}`);
+    console.log(`📧 Email API ready at http://localhost:${port}`);
+    console.log(`🔍 Health check: http://localhost:${port}/health`);
+    console.log(`🧪 Test email: POST http://localhost:${port}/test-email`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  }).on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`⚠️ Port ${port} is already in use, trying port ${port + 1}`);
+      startServer(port + 1);
+    } else {
+      console.error('❌ Server error:', err);
+    }
+  });
+};
+
+startServer(PORT);
 
 module.exports = app; 

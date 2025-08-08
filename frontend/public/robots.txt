@@ -4,5 +4,51 @@ Allow: /
 # Sitemap
 Sitemap: https://shettysengineeringclasses.com/sitemap.xml
 
-# Crawl-delay
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all important pages
+Allow: /coding-academy
+Allow: /coding-academy/basics
+Allow: /gallery
+Allow: /youtube
+
+# Allow all static assets
+Allow: /logo-sec-icon.svg
+Allow: /logo.svg
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /*.jpg
+Allow: /*.png
+Allow: /*.svg
+Allow: /*.webp
+
+# Disallow admin or private areas (if any)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Specific instructions for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
 Crawl-delay: 1 
