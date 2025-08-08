@@ -108,15 +108,7 @@ const Header: React.FC = () => {
       <Toolbar sx={{ minHeight: scrolled ? '56px' : '70px', transition: 'min-height 0.3s cubic-bezier(.4,2,.3,1)' }}>
         {/* Logo and Brand Name */}
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-          <Image 
-          src="/logo-sec-icon.svg" 
-          alt="Shetty's Engineering Classes Logo" 
-          width={40} 
-          height={40} 
-          style={{ marginRight: 12 }}
-          priority
-          loading="eager"
-        />
+          <Image src="/logo-sec-icon.svg" alt="Shetty's Engineering Classes Logo" width={40} height={40} style={{ marginRight: 12 }} />
           <Box>
             <Typography 
               variant="h6" 
@@ -130,7 +122,7 @@ const Header: React.FC = () => {
                 lineHeight: 1.2,
               }}
             >
-              Shetty's Engineering Classes
+              Shetty&apos;s Engineering Classes
             </Typography>
             <Typography 
               variant="caption" 
@@ -252,7 +244,7 @@ const Header: React.FC = () => {
                 link.href.startsWith('#') ? (
                   <MenuItem
                     key={link.label}
-                    onClick={e => { handleNavClick(e as any, link.href); handleClose(); }}
+                    onClick={e => { handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement, MouseEvent>, link.href); handleClose(); }}
                     sx={{
                       color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
                       fontWeight: 500,
@@ -282,7 +274,7 @@ const Header: React.FC = () => {
                   </Link>
                 )
               ))}
-              <MenuItem onClick={e => { handleNavClick(e as any, '#contact'); handleClose(); }} sx={{ mt: 1 }}>
+              <MenuItem onClick={e => { handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement, MouseEvent>, '#contact'); handleClose(); }} sx={{ mt: 1 }}>
                 <Button 
                   variant="contained" 
                   fullWidth

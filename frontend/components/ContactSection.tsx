@@ -13,11 +13,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import MapIcon from '@mui/icons-material/Map';
 
 const contact = {
-  address: "Shetty's Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004",
+  address: "Shettys Engineering Classes, 3rd Floor Besides Namaskar Restaurant, Ghole Rd, opposite MJM Hospital, Sud Nagar, Shivajinagar, Pune, Maharashtra 411004",
   phone: '+91 99234 60156',
   email: 'shettyseng@gmail.com',
   instagram: 'https://instagram.com/shettys_engineering_classes',
   whatsapp: 'https://wa.me/919923460156',
+  name: "Shettys Engineering Classes",
+  description: "Best Engineering Classes in Pune - Leading engineering coaching institute since 2010",
 };
 
 // Common subject suggestions for contact form
@@ -67,28 +69,17 @@ const ContactSection: React.FC = () => {
     setError('');
     setSuccess(false);
 
-    // Use environment variable for API URL with fallback
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://shettys-engineering-classes.onrender.com';
+    // Use environment variable for API URL
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
     try {
-      // Create AbortController for timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
       const response = await fetch(`${API_URL}/api/email/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
-        signal: controller.signal
+        body: JSON.stringify(formData)
       });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
 
       const result = await response.json();
       
@@ -100,13 +91,7 @@ const ContactSection: React.FC = () => {
       }
     } catch (error) {
       console.error('Error:', error);
-      console.error('API URL:', API_URL);
-      
-      if (error instanceof Error && error.name === 'AbortError') {
-        setError('Request timed out. Please try again.');
-      } else {
-        setError('Failed to send email. Please try again.');
-      }
+      setError('Failed to send email. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -119,7 +104,7 @@ const ContactSection: React.FC = () => {
     });
   };
 
-  const handleSubjectChange = (event: any, newValue: any) => {
+  const handleSubjectChange = (event: React.SyntheticEvent<Element, Event>, newValue: string | null) => {
     setFormData({
       ...formData,
       subject: newValue || ''
@@ -205,20 +190,20 @@ const ContactSection: React.FC = () => {
                 <Stack direction="row" spacing={2} alignItems="center">
                   <LocationOnIcon color="primary" />
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                      <Link
-                    href="https://maps.google.com/?q=Shetty%27s+Engineering+Classes+3rd+Floor+Besides+Namaskar+Restaurant+Ghole+Rd+opposite+MJM+Hospital+Sud+Nagar+Shivajinagar+Pune+Maharashtra+411004"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    underline="hover"
-                    sx={{ 
-                      fontWeight: 500, 
-                      color: '#333',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        color: '#1976d2',
-                      },
-                    }}
-                  >
+                    <Link
+                      href="https://maps.google.com/?q=Shetty%27s+Engineering+Classes+3rd+Floor+Besides+Namaskar+Restaurant+Ghole+Rd+opposite+MJM+Hospital+Sud+Nagar+Shivajinagar+Pune+Maharashtra+411004"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="hover"
+                      sx={{ 
+                        fontWeight: 500, 
+                        color: '#333',
+                        cursor: 'pointer',
+                        '&:hover': {
+                          color: '#1976d2',
+                        },
+                      }}
+                    >
                       {contact.address}
                     </Link>
                     <MapIcon sx={{ fontSize: 16, color: '#1976d2', cursor: 'pointer' }} />
@@ -326,7 +311,7 @@ const ContactSection: React.FC = () => {
               )}
 
               <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-                <Stack spacing={3}>
+                <Stack spacing={{ xs: 2.5, sm: 3 }}>
                   <TextField
                     name="name"
                     label="Your Name"
@@ -335,6 +320,18 @@ const ContactSection: React.FC = () => {
                     required
                     fullWidth
                     variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        height: { xs: 56, sm: 48 },
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                      },
+                    }}
                   />
                   <TextField
                     name="email"
@@ -345,6 +342,18 @@ const ContactSection: React.FC = () => {
                     required
                     fullWidth
                     variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        height: { xs: 56, sm: 48 },
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                      },
+                    }}
                   />
                   <TextField
                     name="phone"
@@ -353,6 +362,18 @@ const ContactSection: React.FC = () => {
                     onChange={handleInputChange}
                     fullWidth
                     variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        height: { xs: 56, sm: 48 },
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                      },
+                    }}
                   />
                   
                   {/* Subject Autocomplete */}
@@ -400,6 +421,11 @@ const ContactSection: React.FC = () => {
                         }}
                         sx={{
                           '& .MuiOutlinedInput-root': {
+                            height: { xs: 56, sm: 48 },
+                            fontSize: { xs: '1rem', sm: '0.875rem' },
+                            '& .MuiOutlinedInput-input': {
+                              padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                            },
                             '&:hover': {
                               '& .MuiOutlinedInput-notchedOutline': {
                                 borderColor: '#1976d2',
@@ -410,6 +436,9 @@ const ContactSection: React.FC = () => {
                                 borderColor: '#1976d2',
                               },
                             },
+                          },
+                          '& .MuiInputLabel-root': {
+                            fontSize: { xs: '1rem', sm: '0.875rem' },
                           },
                         }}
                       />
@@ -455,35 +484,42 @@ const ContactSection: React.FC = () => {
                     multiline
                     rows={4}
                     variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        fontSize: { xs: '1rem', sm: '0.875rem' },
+                      },
+                    }}
                   />
-                                     <Button
-                     type="submit"
-                     variant="contained"
-                     disabled={loading}
-                     startIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
-                     sx={{
-                       px: 4,
-                       py: 1.5,
-                       fontWeight: 600,
-                       borderRadius: '25px',
-                       fontSize: '1rem',
-                       background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                       boxShadow: '0 4px 15px rgba(25, 118, 210, 0.3)',
-                       '&:hover': {
-                         background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)',
-                         transform: 'translateY(-1px)',
-                         boxShadow: '0 6px 20px rgba(25, 118, 210, 0.4)',
-                       },
-                       transition: 'all 0.3s ease',
-                       '&:disabled': {
-                         background: 'linear-gradient(135deg, #9e9e9e 0%, #757575 100%)',
-                         transform: 'none',
-                         boxShadow: '0 2px 8px rgba(158, 158, 158, 0.3)',
-                       },
-                     }}
-                   >
-                     {loading ? 'Sending Message...' : 'Send Message'}
-                   </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={loading}
+                    startIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
+                    sx={{
+                      px: { xs: 3, sm: 4 },
+                      py: { xs: 2, sm: 1.5 },
+                      fontWeight: 600,
+                      borderRadius: '25px',
+                      fontSize: { xs: '1.1rem', sm: '1rem' },
+                      height: { xs: 56, sm: 48 },
+                      background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
+                      boxShadow: '0 4px 15px rgba(25, 118, 210, 0.3)',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)',
+                        transform: 'translateY(-1px)',
+                        boxShadow: '0 6px 20px rgba(25, 118, 210, 0.4)',
+                      },
+                      transition: 'all 0.3s ease',
+                    }}
+                  >
+                    {loading ? 'Sending...' : 'Send Message'}
+                  </Button>
                 </Stack>
               </Box>
             </Paper>

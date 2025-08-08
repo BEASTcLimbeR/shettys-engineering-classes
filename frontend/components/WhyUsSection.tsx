@@ -3,7 +3,7 @@
 import React from 'react';
 import { Box, Typography, Container, Grid, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
-import { CheckCircle, School, Groups, VideoCall, Assessment, Home } from '@mui/icons-material';
+import { CheckCircle, School, Groups, VideoCall, Assessment } from '@mui/icons-material';
 
 const WhyUsSection: React.FC = () => {
   const promises = [
@@ -28,7 +28,7 @@ const WhyUsSection: React.FC = () => {
       description: "Unit tests, past-year questions, and performance insights"
     },
     {
-      icon: <Home sx={{ fontSize: 40, color: '#1976d2' }} />,
+      icon: <Groups sx={{ fontSize: 40, color: '#1976d2' }} />,
       title: "Home Tuition",
       description: "Convenient one-to-one coaching at your doorstep"
     },
@@ -186,7 +186,7 @@ const WhyUsSection: React.FC = () => {
                       textAlign: 'center',
                     }}
                   >
-                    Welcome to <span style={{ color: '#1976d2', fontWeight: 900 }}>SHETTY's Engineering Classes (SEC)</span> — Pune's trusted hub for engineering academic excellence!
+                    Welcome to <span style={{ color: '#1976d2', fontWeight: 900 }}>SHETTY&apos;s Engineering Classes (SEC)</span> — Pune&apos;s trusted hub for engineering academic excellence!
                   </Typography>
 
                   <Box sx={{ 
@@ -208,7 +208,7 @@ const WhyUsSection: React.FC = () => {
                           fontWeight: 500,
                         }}
                       >
-                        Founded over a decade ago by <strong>Prof. Sukumara Shetty</strong>, SEC has grown into one of Pune's most sought-after coaching institutes, empowering thousands of engineering students across <strong>12+ top universities</strong> including SPPU, Mumbai University, and other institutions across India and abroad.
+                        Founded over a decade ago by <strong>Prof. Sukumara Shetty</strong>, SEC has grown into one of Pune&apos;s most sought-after coaching institutes, empowering thousands of engineering students across <strong>12+ top universities</strong> including SPPU, Mumbai University, and other institutions across India and abroad.
                       </Typography>
                     </Box>
                     <Box sx={{ 
@@ -380,7 +380,7 @@ const WhyUsSection: React.FC = () => {
                       zIndex: 1,
                     }}
                   >
-                    Whether you're aiming to ace your semester, clear backlogs, or simply build a strong foundation, we're committed to your success — <strong>every step of the way</strong>.
+                    Whether you're aiming to ace your semester, clear backlogs, or simply build a strong foundation, we&apos;re committed to your success — <strong>every step of the way</strong>.
                   </Typography>
                 </Box>
               </Box>
@@ -542,7 +542,7 @@ const WhyUsSection: React.FC = () => {
                 }}
               >
                 Studies show personalized coaching with frequent feedback directly boosts academic performance and satisfaction. 
-                We've embedded these proven methods in every module.
+                We&apos;ve embedded these proven methods in every module.
               </Typography>
             </Box>
           </Box>

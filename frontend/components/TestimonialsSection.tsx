@@ -62,6 +62,7 @@ const testimonials: Testimonial[] = [
 const loopedTestimonials = [...testimonials, ...testimonials];
 
 const SLIDE_WIDTH = 320;
+const MOBILE_SLIDE_WIDTH = 280;
 
 const TestimonialsSection: React.FC = () => {
   const controls = useAnimation();
@@ -180,10 +181,10 @@ const TestimonialsSection: React.FC = () => {
               <Paper
                 key={index}
                 sx={{
-                  minWidth: { xs: 280, sm: 320 },
-                  maxWidth: { xs: 280, sm: 320 },
-                  mx: 1,
-                  p: 4,
+                  minWidth: { xs: 260, sm: 320 },
+                  maxWidth: { xs: 260, sm: 320 },
+                  mx: { xs: 0.5, sm: 1 },
+                  p: { xs: 2.5, sm: 3, md: 4 },
                   textAlign: 'center',
                   background: 'rgba(255, 255, 255, 0.95)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
@@ -195,23 +196,56 @@ const TestimonialsSection: React.FC = () => {
                   flexDirection: 'column',
                   justifyContent: 'center',
                   '&:hover': {
-                    transform: 'translateY(-8px) scale(1.04)',
+                    transform: { xs: 'translateY(-4px) scale(1.02)', sm: 'translateY(-8px) scale(1.04)' },
                     boxShadow: '0 20px 40px rgba(255, 107, 53, 0.12)',
                   },
                 }}
               >
-                <Stack alignItems="center" spacing={2}>
+                <Stack alignItems="center" spacing={{ xs: 1.5, sm: 2 }}>
                   <Avatar
                     src={t.avatar}
-                    sx={{ width: 64, height: 64, bgcolor: '#1976d2', fontWeight: 700, fontSize: 32 }}
+                    sx={{ 
+                      width: { xs: 48, sm: 64 }, 
+                      height: { xs: 48, sm: 64 }, 
+                      bgcolor: '#1976d2', 
+                      fontWeight: 700, 
+                      fontSize: { xs: 24, sm: 32 } 
+                    }}
                   >
                     {t.name[0]}
                   </Avatar>
-                  <Rating value={t.rating} readOnly size="small" sx={{ color: '#ffb400' }} />
-                  <Typography variant="body1" sx={{ color: '#444', fontWeight: 400, mb: 2, minHeight: 80 }}>
-                    “{t.text}”
+                  <Rating 
+                    value={t.rating} 
+                    readOnly 
+                    size="small" 
+                    sx={{ 
+                      color: '#ffb400',
+                      '& .MuiRating-icon': {
+                        fontSize: { xs: '1rem', sm: '1.25rem' }
+                      }
+                    }} 
+                  />
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      color: '#444', 
+                      fontWeight: 400, 
+                      mb: 2, 
+                      minHeight: { xs: 60, sm: 80 },
+                      fontSize: { xs: '0.875rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
+                    "{t.text}"
                   </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#1976d2' }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      fontWeight: 700, 
+                      color: '#1976d2',
+                      fontSize: { xs: '1rem', sm: '1.25rem' }
+                    }}
+                  >
                     {t.name}
                   </Typography>
                 </Stack>
