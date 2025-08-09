@@ -6,14 +6,29 @@ const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/database');
 const emailRoutes = require('./routes/emailRoutes');
 const mongoose = require('mongoose'); // Added for health check
+const { 
+  apiLimiter, 
+  emailLimiter, 
+  securityHeaders, 
+  sanitizeInput, 
+  validateEnvironment 
+} = require('./middleware/security');
 
 const app = express();
+
+// Validate environment variables on startup
+if (!validateEnvironment()) {
+  console.error('❌ Environment validation failed. Please check your .env file.');
+  process.exit(1);
+}
 
 // Connect to MongoDB
 connectDB();
 
 // Security middleware
 app.use(helmet());
+app.use(securityHeaders);
+app.use(sanitizeInput);
 
 // CORS configuration for production and development
 const allowedOrigins = [
@@ -65,8 +80,9 @@ const globalRateLimit = rateLimit({
 
 app.use(globalRateLimit);
 
-// Routes
-app.use('/api/email', emailRoutes);
+// Routes with enhanced security
+app.use('/api/email', emailLimiter, emailRoutes);
+app.use('/api', apiLimiter);
 
 // Health check route
 app.get('/health', (req, res) => {

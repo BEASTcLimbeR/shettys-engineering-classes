@@ -14,6 +14,7 @@ import { Box, Drawer, List, ListItem, ListItemText, Divider, Fade, Slide } from 
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 // Navigation links with section IDs
 const navLinks = [
@@ -30,6 +31,7 @@ const navLinks = [
 
 const Header: React.FC = () => {
   const theme = useTheme();
+  const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -103,33 +105,17 @@ const Header: React.FC = () => {
     };
   }, [mobileOpen]);
 
-  // Mobile menu drawer
+  // Older style mobile menu - simple list design
   const mobileMenu = (
-    <Box sx={{ width: '100vw', height: '100vh', background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)' }}>
-      {/* Header in mobile menu */}
-      <Box sx={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'space-between',
-        p: 3,
-        borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
-      }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Image src="/logo-sec-icon.svg" alt="SEC Logo" width={40} height={40} style={{ marginRight: 12 }} />
-          <Typography variant="h6" sx={{ color: 'white', fontWeight: 700 }}>
-            SEC
-          </Typography>
-        </Box>
-        <IconButton
-          onClick={handleDrawerToggle}
-          sx={{ color: 'white' }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </Box>
-
-      {/* Navigation links */}
-      <List sx={{ pt: 2 }}>
+    <Box sx={{ 
+      width: '100vw', 
+      height: '100vh', 
+      background: 'rgba(255, 255, 255, 0.98)',
+      backdropFilter: 'blur(10px)',
+      pt: 2
+    }}>
+      {/* Simple Navigation List - Older Style */}
+      <List sx={{ pt: 4 }}>
         {navLinks.map((link, index) => (
           <motion.div
             key={link.label}
@@ -142,84 +128,76 @@ const Header: React.FC = () => {
               onClick={e => {
                 if (link.href.startsWith('#')) {
                   handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement, MouseEvent>, link.href);
+                } else {
+                  // Handle navigation to Gallery and YouTube pages
+                  router.push(link.href);
                 }
                 setMobileOpen(false);
               }}
               sx={{
-                py: 2,
-                px: 3,
+                py: 2.5,
+                px: 4,
+                borderBottom: '1px solid rgba(0,0,0,0.1)',
                 '&:hover': {
-                  background: 'rgba(255, 255, 255, 0.1)',
+                  background: 'rgba(25, 118, 210, 0.05)',
                 },
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                <Typography sx={{ fontSize: '1.2rem', mr: 2 }}>
-                  {link.icon}
-                </Typography>
-                <ListItemText
-                  primary={link.label}
+              <ListItemText
+                primary={link.label}
+                sx={{
+                  '& .MuiListItemText-primary': {
+                    color: '#333',
+                    fontWeight: 500,
+                    fontSize: '1.2rem',
+                    textAlign: 'left',
+                  },
+                }}
+              />
+              {activeSection === link.href.replace('#', '') && (
+                <Box
                   sx={{
-                    '& .MuiListItemText-primary': {
-                      color: 'white',
-                      fontWeight: 500,
-                      fontSize: '1.1rem',
-                    },
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: '#1976d2',
+                    ml: 'auto',
                   }}
                 />
-                {activeSection === link.href.replace('#', '') && (
-                  <Box
-                    sx={{
-                      width: 4,
-                      height: 4,
-                      borderRadius: '50%',
-                      background: 'white',
-                      ml: 'auto',
-                    }}
-                  />
-                )}
-              </Box>
+              )}
             </ListItem>
-            {index < navLinks.length - 1 && (
-              <Divider sx={{ background: 'rgba(255, 255, 255, 0.2)' }} />
-            )}
           </motion.div>
         ))}
       </List>
 
-      {/* CTA Button */}
-      <Box sx={{ p: 3, mt: 'auto' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
+      {/* CTA Button - Older Style */}
+      <Box sx={{ p: 4, mt: 2 }}>
+        <Button
+          variant="contained"
+          fullWidth
+          size="large"
+          onClick={e => {
+            handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement, MouseEvent>, '#contact');
+            setMobileOpen(false);
+          }}
+          sx={{
+            background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
+            color: 'white',
+            fontWeight: 600,
+            borderRadius: '8px',
+            py: 2,
+            fontSize: '1.1rem',
+            textTransform: 'none',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #e55a2b 0%, #e0851a 100%)',
+              transform: 'translateY(-1px)',
+              boxShadow: '0 4px 15px rgba(255, 107, 53, 0.3)',
+            },
+            transition: 'all 0.3s ease',
+          }}
         >
-          <Button
-            variant="contained"
-            fullWidth
-            size="large"
-            onClick={e => {
-              handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement, MouseEvent>, '#contact');
-              setMobileOpen(false);
-            }}
-            sx={{
-              background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
-              color: 'white',
-              fontWeight: 600,
-              borderRadius: '25px',
-              py: 2,
-              fontSize: '1.1rem',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #e55a2b 0%, #e0851a 100%)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4)',
-              },
-              transition: 'all 0.3s ease',
-            }}
-          >
-            Book a Free Demo
-          </Button>
-        </motion.div>
+          📞 Book a Free Demo
+        </Button>
       </Box>
     </Box>
   );
@@ -296,24 +274,23 @@ const Header: React.FC = () => {
                     {link.label}
                   </Button>
                 ) : (
-                  <Link key={link.label} href={link.href}>
-                    <Button
-                      sx={{
-                        color: activeSection === link.href.replace('#', '') ? '#1976d2' : '#333',
-                        fontWeight: 500,
-                        fontSize: '0.9rem',
-                        textTransform: 'none',
-                        borderBottom: activeSection === link.href.replace('#', '') ? '2px solid #1976d2' : 'none',
-                        '&:hover': {
-                          background: 'rgba(25, 118, 210, 0.1)',
-                          color: '#1976d2',
-                        },
-                        transition: 'all 0.3s ease',
-                      }}
-                    >
-                      {link.label}
-                    </Button>
-                  </Link>
+                  <Button
+                    key={link.label}
+                    onClick={() => router.push(link.href)}
+                    sx={{
+                      color: '#333',
+                      fontWeight: 500,
+                      fontSize: '0.9rem',
+                      textTransform: 'none',
+                      '&:hover': {
+                        background: 'rgba(25, 118, 210, 0.1)',
+                        color: '#1976d2',
+                      },
+                      transition: 'all 0.3s ease',
+                    }}
+                  >
+                    {link.label}
+                  </Button>
                 )
               ))}
               <Button
@@ -388,7 +365,7 @@ const Header: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Menu Drawer - Older Simple Style */}
       <Drawer
         variant="temporary"
         anchor="right"
@@ -400,28 +377,13 @@ const Header: React.FC = () => {
         sx={{
           '& .MuiDrawer-paper': {
             width: '100vw',
-            background: 'transparent',
-            boxShadow: 'none',
+            background: 'rgba(255, 255, 255, 0.98)',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 0 20px rgba(0,0,0,0.1)',
           },
         }}
       >
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ 
-                type: 'spring', 
-                damping: 25, 
-                stiffness: 200 
-              }}
-              style={{ height: '100%' }}
-            >
-              {mobileMenu}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {mobileMenu}
       </Drawer>
     </>
   );

@@ -1,162 +1,117 @@
 "use client";
 
 import React from 'react';
-import { Box, Typography, Container, Paper, Avatar, Stack, IconButton } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Paper,
+  Avatar,
+  Stack,
+  IconButton,
+  Grid,
+} from '@mui/material';
 import { motion } from 'framer-motion';
-import PersonIcon from '@mui/icons-material/Person';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PhoneIcon from '@mui/icons-material/Phone';
-import SchoolIcon from '@mui/icons-material/School';
-import WorkIcon from '@mui/icons-material/Work';
 
-const founder = {
-  name: 'Prof. Sukumara Shetty (Shetty Sir)',
-  title: 'Founder & Educator',
-  achievements: [
-    '**1st Topper** SVCE Bangalore',
-    'VTU Karnataka **11th Rank (2005)**',
-    '**14+ Years** of Teaching & Industry Experience',
-  ],
-  bio: `A passionate Educator, mentor, and the driving force behind Shetty's Engineering Classes, Prof. Sukumara Shetty (Shetty Sir) has guided thousands of Engineering students across the globe with his clear explanations, motivational teaching, and Exam-smart strategies.
+// Client component for dynamic content to avoid hydration issues
+const DynamicContent: React.FC<{ content: string; type: 'achievement' | 'bio' }> = ({ content, type }) => {
+  const [isClient, setIsClient] = React.useState(false);
 
-Renowned for his student-first approach, Shetty Sir combines traditional board based techniques with modern tools like Zoom sessions, digital quizzes, and custom PDFs, creating a learning environment where every student feels confident, supported, and inspired to succeed.
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-His teaching isn't just about completing the syllabus — it's about building confidence, cracking exams, and unlocking every student's true potential.
+  const processedContent = React.useMemo(() => {
+    if (type === 'achievement') {
+      return content.replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>');
+    } else {
+      // For bio content, wrap in paragraph tags and process line breaks
+      const processed = content
+        .replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>')
+        .split('\n\n')
+        .map((paragraph, index) => 
+          `<p style="margin-bottom: 2rem; line-height: 1.8;">${paragraph}</p>`
+        )
+        .join('');
+      return processed;
+    }
+  }, [content, type]);
 
-He teaches **50+ subjects** across Electronics & Telecommunication, Computer, Artificial Intelligence, Data Science, Machine Learning, and Electrical Engineering domains.`,
-  message: `Dear Students & Parents,\n\nWhen I started Shetty's Engineering Classes, my only goal was simple — to create a space where students feel supported, understood, and genuinely confident in their subjects. Over the years, that goal has evolved into a deeper mission: "Towards Students Satisfaction."\n\nIn today's fast-paced education system, many students struggle not because of lack of effort, but due to lack of personalized guidance. Here, at our institute on Ghole Road, Off FC Road, I make it a point to know every student, their strengths and weaknesses, and guide them with the right methods — not just to pass, but to truly learn and grow.\n\nThis institute is not just about notes and lectures. It's about building belief, one student at a time.\n\nLet's continue the journey together with honesty, clarity, and commitment to excellence.\n\nWarm regards,\nProf. Sukumar Shetty\nFounder & Educator\nShetty's Engineering Classes`,
+  // Don't render dynamic content during SSR to avoid hydration mismatch
+  if (!isClient) {
+    return <span>{content}</span>; // Fallback to plain text during SSR
+  }
+
+  return <span dangerouslySetInnerHTML={{ __html: processedContent }} />;
 };
 
-const faculty = [
-  {
-    name: 'Prof. Shetty',
-    department: 'E&TC, Computer, Electrical, AI, DS',
-    experience: '15+ Years',
-    color: '#1976d2'
-  },
-  {
-    name: 'Prof. Patil',
-    department: 'Mathematics',
-    experience: '20+ Years',
-    color: '#ff6b35'
-  },
-  {
-    name: 'Prof. Pardeshi',
-    department: 'Civil',
-    experience: '15+ Years',
-    color: '#4caf50'
-  },
-  {
-    name: 'Prof. Pandharpure',
-    department: 'Computer',
-    experience: '20+ Years',
-    color: '#9c27b0'
-  },
-  {
-    name: 'Prof. Mulay',
-    department: 'Mechanical',
-    experience: '25+ Years',
-    color: '#f44336'
-  },
-  {
-    name: 'Prof. Bhatt',
-    department: 'Mechanical',
-    experience: '5+ Years',
-    color: '#ff9800'
-  },
-  {
-    name: 'Prof. Salunke',
-    department: 'Physics',
-    experience: '10+ Years',
-    color: '#607d8b'
-  }
-];
+const founder = {
+  name: "Prof. Sukumara Shetty",
+  title: "Founder & Lead Educator",
+  image: "/shetty-sir.svg",
+  achievements: [
+    "**1st Topper** SVCE Bangalore",
+    "**VTU Karnataka 11th Rank** (2005)",
+    "**14+ Years** of Teaching & Industry Experience"
+  ],
+  bio: "A passionate Educator, mentor, and the driving force behind Shetty's Engineering Classes. With over 14 years of experience in engineering education, I have dedicated my career to helping students achieve their academic goals and build successful careers in engineering.\n\nMy journey began as a student at SVCE Bangalore, where I secured the **1st rank** and later achieved the **11th rank** in VTU Karnataka in 2005. This academic excellence, combined with extensive industry experience, has shaped my teaching methodology.\n\nAt Shetty's Engineering Classes, we believe in **personalized learning** and **small batch sizes** to ensure every student receives individual attention. Our proven track record speaks for itself - we've helped hundreds of students excel in their engineering journey.\n\nMy mission is to make quality engineering education accessible to every student in Pune, providing them with the knowledge, skills, and confidence to succeed in their academic and professional pursuits."
+};
 
 const AboutFounderSection: React.FC = () => {
   return (
-    <Box
-      component="section"
-      sx={{
-        py: { xs: 8, md: 12 },
-        background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Background decorative elements */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '10%',
-          left: '5%',
-          width: '200px',
-          height: '200px',
-          borderRadius: '50%',
-          background: 'rgba(25, 118, 210, 0.05)',
-          filter: 'blur(40px)',
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '10%',
-          right: '10%',
-          width: '150px',
-          height: '150px',
-          borderRadius: '50%',
-          background: 'rgba(255, 107, 53, 0.05)',
-          filter: 'blur(30px)',
-        }}
-      />
-
-      <Container maxWidth="md">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+    <Box sx={{ py: 8, background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, md: 6 },
+            maxWidth: '1200px',
+            mx: 'auto',
+            background: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: 3,
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+          }}
         >
-          <Paper
-            elevation={0}
-            sx={{
-              p: { xs: 3, md: 6 },
-              borderRadius: 4,
-              background: 'rgba(255,255,255,0.95)',
-              boxShadow: '0 8px 32px rgba(25, 118, 210, 0.05)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              mb: 4,
-            }}
+          <Grid
+            direction={{ xs: 'row', md: 'row' }}
+            spacing={{ xs: 2, md: 4 }}
+            alignItems={{ xs: 'flex-start', md: 'center' }}
+            container
           >
-            <Stack direction={{ xs: 'row', md: 'row' }} spacing={{ xs: 2, md: 4 }} alignItems={{ xs: 'flex-start', md: 'flex-start' }}>
-              {/* Founder Photo */}
-              <Avatar
-                sx={{
-                  width: { xs: 80, md: 120 },
-                  height: { xs: 80, md: 120 },
-                  bgcolor: '#1976d2',
-                  fontSize: { xs: 40, md: 60 },
-                  flexShrink: 0,
-                  mt: { xs: 0, md: 1 },
-                  alignSelf: { xs: 'flex-start', md: 'flex-start' }
-                }}
-                src={'/shetty-sir.svg'}
-              >
-                <PersonIcon fontSize="inherit" />
-              </Avatar>
-              {/* Founder Info */}
+            <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} alignItems="center" sx={{ width: '100%' }}>
+              {/* Founder Image */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: { xs: 3, md: 0 } }}>
+                <Avatar
+                  src={founder.image}
+                  alt={founder.name}
+                  sx={{
+                    width: { xs: 120, md: 150 },
+                    height: { xs: 120, md: 150 },
+                    border: '4px solid #1976d2',
+                    boxShadow: '0 4px 20px rgba(25, 118, 210, 0.3)',
+                  }}
+                />
+              </Box>
+
+              {/* Founder Details */}
               <Box sx={{ flex: 1 }}>
                 <Typography
                   variant="h3"
                   sx={{
-                    fontWeight: 900,
-                    background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    mb: 1,
-                    fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
+                    fontWeight: 700,
+                    color: '#1976d2',
+                    mb: 2,
+                    textAlign: { xs: 'center', md: 'left' },
+                    fontSize: { xs: '2rem', md: '2.5rem' },
                   }}
                 >
                   {founder.name}
@@ -168,17 +123,17 @@ const AboutFounderSection: React.FC = () => {
                 </Box>
                 <Box sx={{ mb: 2 }}>
                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600, mb: 1 }}>
-                    <span dangerouslySetInnerHTML={{ __html: founder.achievements[0].replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>') }} />
+                    <DynamicContent content={founder.achievements[0]} type="achievement" />
                   </Typography>
                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600, mb: 1 }}>
-                    <span dangerouslySetInnerHTML={{ __html: founder.achievements[1].replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>') }} />
+                    <DynamicContent content={founder.achievements[1]} type="achievement" />
                   </Typography>
                   <Typography variant="body1" sx={{ color: '#1976d2', fontWeight: 600 }}>
-                    <span dangerouslySetInnerHTML={{ __html: founder.achievements[2].replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>') }} />
+                    <DynamicContent content={founder.achievements[2]} type="achievement" />
                   </Typography>
                 </Box>
                 <Typography variant="body1" sx={{ color: '#444', mb: 2, fontWeight: 400 }}>
-                  <span dangerouslySetInnerHTML={{ __html: founder.bio.replace(/\*\*(.*?)\*\*/g, '<span style="color: #ff6b35; font-weight: 700;">$1</span>').replace(/\n\n/g, '</p><p style="margin-bottom: 2rem; line-height: 1.8;">') }} />
+                  <DynamicContent content={founder.bio} type="bio" />
                 </Typography>
 
                 {/* Social Media Icons */}
@@ -244,159 +199,59 @@ const AboutFounderSection: React.FC = () => {
                 </Box>
               </Box>
             </Stack>
-          </Paper>
-        </motion.div>
+          </Grid>
+        </Paper>
+      </motion.div>
 
-        {/* Founder Message */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
+      {/* Founder Message */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, md: 6 },
+            maxWidth: '1200px',
+            mx: 'auto',
+            mt: 4,
+            background: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: 3,
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+          }}
         >
-          <Paper
-            elevation={0}
+          <Typography
+            variant="h4"
             sx={{
-              p: { xs: 3, md: 6 },
-              borderRadius: 4,
-              background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-              color: 'white',
-              boxShadow: '0 8px 32px rgba(25, 118, 210, 0.08)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              mb: 8,
+              fontWeight: 700,
+              color: '#1976d2',
+              mb: 3,
+              textAlign: 'center',
             }}
           >
-            <Typography variant="h4" sx={{ fontWeight: 800, mb: 3 }}>
-              Founder&apos;s Message
-            </Typography>
-            {founder.message.split('\n').map((line, idx) => (
-              <Typography key={idx} variant="h6" sx={{ fontWeight: 400, mb: 2, opacity: 0.95 }}>
-                {line}
-              </Typography>
-            ))}
-          </Paper>
-        </motion.div>
-
-        {/* Our Faculty */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <Box id="faculty" sx={{ mt: 4 }}>
-            <Typography
-              variant="h3"
-              sx={{
-                textAlign: 'center',
-                fontWeight: 900,
-                mb: 6,
-                background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Our Faculty
-            </Typography>
-
-            <Box
-              sx={{
-                display: 'grid',
-                gridTemplateColumns: {
-                  xs: '1fr',
-                  sm: 'repeat(2, 1fr)',
-                  md: 'repeat(3, 1fr)'
-                },
-                gap: 3,
-              }}
-            >
-              {faculty.map((member, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 3,
-                      borderRadius: 3,
-                      background: 'rgba(255,255,255,0.95)',
-                      boxShadow: '0 8px 32px rgba(25, 118, 210, 0.08)',
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      textAlign: 'center',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-5px)',
-                        boxShadow: '0 12px 40px rgba(25, 118, 210, 0.15)',
-                      },
-                    }}
-                  >
-                    {/* Faculty Photo */}
-                    <Avatar
-                      sx={{
-                        width: 80,
-                        height: 80,
-                        bgcolor: member.color,
-                        fontSize: 40,
-                        mx: 'auto',
-                        mb: 2,
-                      }}
-                    >
-                      <PersonIcon fontSize="inherit" />
-                    </Avatar>
-
-                    {/* Faculty Info */}
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: 700,
-                        color: '#333',
-                        mb: 1,
-                      }}
-                    >
-                      {member.name}
-                    </Typography>
-
-                    <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" sx={{ mb: 1, textAlign: 'center' }}>
-                      <SchoolIcon sx={{ fontSize: 16, color: member.color }} />
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: '#666',
-                          fontWeight: 500,
-                          fontSize: '0.85rem',
-                          textAlign: 'center',
-                        }}
-                      >
-                        {member.department}
-                      </Typography>
-                    </Stack>
-
-                    <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" sx={{ textAlign: 'center' }}>
-                      <WorkIcon sx={{ fontSize: 16, color: member.color }} />
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: '#666',
-                          fontWeight: 500,
-                          fontSize: '0.85rem',
-                          textAlign: 'center',
-                        }}
-                      >
-                        {member.experience}
-                      </Typography>
-                    </Stack>
-                  </Paper>
-                </motion.div>
-              ))}
-            </Box>
-          </Box>
-        </motion.div>
-      </Container>
+            Our Mission
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: '#444',
+              lineHeight: 1.8,
+              fontSize: '1.1rem',
+              textAlign: 'center',
+              maxWidth: '800px',
+              mx: 'auto',
+            }}
+          >
+            At Shetty's Engineering Classes, we are committed to providing the highest quality engineering education. 
+            Our mission is to empower students with knowledge, skills, and confidence to excel in their academic journey 
+            and build successful careers in engineering. We believe in personalized learning, expert guidance, and 
+            creating an environment where every student can reach their full potential.
+          </Typography>
+        </Paper>
+      </motion.div>
     </Box>
   );
 };

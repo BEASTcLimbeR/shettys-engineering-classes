@@ -12,9 +12,12 @@ import {
   Box,
   Chip,
   Paper,
+  IconButton,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { PlayArrow, YouTube, Visibility } from '@mui/icons-material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Correct import for ArrowBackIcon
+import { useRouter } from 'next/navigation';
 
 // YouTube video data from SEC Pune channel
 const youtubeVideos = [
@@ -279,6 +282,7 @@ const categories = [
 ];
 
 const YouTubePage: React.FC = () => {
+  const router = useRouter(); // For navigation
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -471,6 +475,25 @@ const YouTubePage: React.FC = () => {
         overflow: 'hidden',
       }}
     >
+      {/* Back Button */}
+      <IconButton
+        onClick={() => router.back()}
+        sx={{
+          position: 'absolute',
+          top: { xs: 8, md: 16 },
+          left: { xs: 8, md: 16 },
+          zIndex: 2,
+          background: 'rgba(255,255,255,0.85)',
+          boxShadow: '0 2px 8px rgba(44,62,80,0.10)',
+          '&:hover': {
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color: 'white',
+          },
+        }}
+        aria-label="Back"
+      >
+        <ArrowBackIcon />
+      </IconButton>
       {/* Background decorative elements */}
       <Box
         sx={{

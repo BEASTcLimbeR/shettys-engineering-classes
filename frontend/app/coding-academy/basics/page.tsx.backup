@@ -19,33 +19,6 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Loader from '../../../components/Loader';
 import programersWorking from '../../../../public/programers-working.json';
 
-// Client component for dynamic code syntax highlighting to avoid hydration issues
-const DynamicCodeContent: React.FC<{ code: string }> = ({ code }) => {
-  const [isClient, setIsClient] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const processedCode = React.useMemo(() => {
-    return code
-      .replace(/\b(int|void|return|if|else|for|while|printf|include|main|class|public|private|protected|virtual|template|typename|vector|map|stack|queue|struct|new|delete|cout|cin|endl|using|namespace|std|def|import|from|as|True|False|None|self|__init__|print|range|len|append|remove|add|pop|fit|predict|transform|reshape|array|plt|show|scatter|plot|legend|xlabel|ylabel|title|cmap|alpha|random_state|test_size|n_clusters|n_samples|n_features|n_informative|n_redundant|epochs|batch_size|verbose|optimizer|loss|metrics|accuracy|binary_crossentropy|adam|relu|sigmoid|Sequential|Dense|KMeans|LinearRegression|make_classification|StandardScaler|train_test_split|static|String|System|out|println|args|HelloWorld|Variables|ControlStructures|Functions|Arrays|Pointers)\b/g, '<span class="keyword">$1</span>')
-      .replace(/"([^"]*)"/g, '<span class="string">"$1"</span>')
-      .replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>')
-      .replace(/\b(\d+\.?\d*)\b/g, '<span class="number">$1</span>')
-      .replace(/\b(printf|cout|cin|endl|print|fit|predict|transform|reshape|append|remove|add|pop|show|scatter|plot|legend|xlabel|ylabel|title|System\.out\.println)\b/g, '<span class="function">$1</span>')
-      .replace(/\b(Student|Person|Shape|Circle|Rectangle|Node|TreeNode|Graph|LinkedList|BinaryTree|CustomStack|Person|LinearRegression|KMeans|Sequential|Dense|StandardScaler|HelloWorld|Variables|ControlStructures|Functions|Arrays|Pointers)\b/g, '<span class="class">$1</span>')
-      .replace(/#.*$/gm, '<span class="comment">$&</span>');
-  }, [code]);
-
-  // Don't render dynamic content during SSR to avoid hydration mismatch
-  if (!isClient) {
-    return <span>{code}</span>; // Fallback to plain text during SSR
-  }
-
-  return <span dangerouslySetInnerHTML={{ __html: processedCode }} />;
-};
-
 const BasicsPage: React.FC = () => {
   const router = useRouter();
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -513,7 +486,7 @@ printf("New value: %d\\n", number);`,
 using namespace std;
 
 int main() {
-    cout << "Hello, World!" << endl;
+    cout << "Hello, World!"<< endl;
     return 0;
 }`,
       explanation: "C++ is an extension of C with object-oriented features. The iostream library provides input/output functionality."
@@ -537,7 +510,7 @@ public:
     }
     
     void display() {
-        cout << "Name: " << name << ", Age: " << age << endl;
+        cout << "Name: "<< name << ", Age: "<< age << endl;
     }
 };
 
@@ -561,7 +534,7 @@ protected:
 public:
     Person(string n) : name(n) {}
     virtual void display() {
-        cout << "Name: " << name << endl;
+        cout << "Name: "<< name << endl;
     }
 };
 
@@ -571,7 +544,7 @@ private:
 public:
     Student(string n, int r) : Person(n), rollNo(r) {}
     void display() override {
-        cout << "Student: " << name << ", Roll: " << rollNo << endl;
+        cout << "Student: "<< name << ", Roll: "<< rollNo << endl;
     }
 };`,
       explanation: "Inheritance allows a class to inherit properties from another class, promoting code reuse and hierarchy."
@@ -592,14 +565,14 @@ public:
 class Circle : public Shape {
 public:
     void draw() override {
-        cout << "Drawing Circle" << endl;
+        cout << "Drawing Circle"<< endl;
     }
 };
 
 class Rectangle : public Shape {
 public:
     void draw() override {
-        cout << "Drawing Rectangle" << endl;
+        cout << "Drawing Rectangle"<< endl;
     }
 };`,
       explanation: "Polymorphism allows different classes to be treated as instances of the same base class through virtual functions."
@@ -655,7 +628,7 @@ sort(numbers.begin(), numbers.end());
     
     // Iterating
     for (const auto& pair : scores) {
-        cout << pair.first << ": " << pair.second << endl;
+        cout << pair.first << ": "<< pair.second << endl;
     }
     return 0;
 }`,
@@ -680,7 +653,7 @@ struct Node {
 
 // Array implementation
 int arr[5] = {1, 2, 3, 4, 5};
-cout << "Array element: " << arr[2] << endl;`,
+cout << "Array element: "<< arr[2] << endl;`,
       explanation: "Data structures are ways of organizing and storing data for efficient access and modification."
     },
     {
@@ -1474,7 +1447,7 @@ class LinkedList:
         while current:
             elements.append(str(current.data))
             current = current.next
-        return " -> ".join(elements)
+        return " ->".join(elements)
     
     def search(self, key):
         current = self.head
@@ -1964,7 +1937,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
     }
   };
 
-  const renderTopics = (topics: { title: string; description: string; code?: string; icon?: string; difficulty?: string; definition?: string; keyConcepts?: string[]; explanation?: string; }[], language: string) => (
+  const renderTopics = (topics: { title: string; description: string; code?: string; }[], language: string) => (
     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
       {topics.map((topic, index) => (
         <motion.div
@@ -2074,7 +2047,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                   🎯 Key Concepts
               </Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-                  {topic.keyConcepts?.map((concept: string, idx: number) => (
+                  {topic.keyConcepts.map((concept: string, idx: number) => (
                     <Chip
                       key={idx}
                       label={concept}
@@ -2122,7 +2095,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                                       <Box sx={{ display: 'flex', gap: 1 }}>
                       <IconButton
                         size="small"
-                        onClick={() => copyToClipboard(topic.code || '', index)}
+                        onClick={() => copyToClipboard(topic.code, index)}
                         sx={{
                           color: copiedIndex === index ? '#4caf50' : '#888',
                           '&:hover': { color: '#00d4ff' },
@@ -2132,7 +2105,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                       </IconButton>
                       <IconButton
                         size="small"
-                        onClick={() => runningCode === index ? stopCode(index) : runCode(index, topic.code || '', language)}
+                        onClick={() => runningCode === index ? stopCode(index) : runCode(index, topic.code, language)}
                         sx={{
                           color: runningCode === index ? '#f44336' : '#888',
                           '&:hover': { color: runningCode === index ? '#ff4444' : '#00d4ff' },
@@ -2161,9 +2134,17 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                     '& .number': { color: '#b5cea8' },
                     '& .class': { color: '#4ec9b0' },
                   }}
-                >
-                  <DynamicCodeContent code={topic.code || ''} />
-                </Box>
+                  dangerouslySetInnerHTML={{
+                    __html: topic.code
+                      .replace(/\b(int|void|return|if|else|for|while|printf|include|main|class|public|private|protected|virtual|template|typename|vector|map|stack|queue|struct|new|delete|cout|cin|endl|using|namespace|std|def|import|from|as|True|False|None|self|__init__|print|range|len|append|remove|add|pop|fit|predict|transform|reshape|array|plt|show|scatter|plot|legend|xlabel|ylabel|title|cmap|alpha|random_state|test_size|n_clusters|n_samples|n_features|n_informative|n_redundant|epochs|batch_size|verbose|optimizer|loss|metrics|accuracy|binary_crossentropy|adam|relu|sigmoid|Sequential|Dense|KMeans|LinearRegression|make_classification|StandardScaler|train_test_split|static|String|System|out|println|args|HelloWorld|Variables|ControlStructures|Functions|Arrays|Pointers)\b/g, '<span class="keyword">$1</span>')
+                      .replace(/"([^"]*)"/g, '<span class="string">"$1"</span>')
+                      .replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>')
+                      .replace(/\b(\d+\.?\d*)\b/g, '<span class="number">$1</span>')
+                      .replace(/\b(printf|cout|cin|endl|print|fit|predict|transform|reshape|append|remove|add|pop|show|scatter|plot|legend|xlabel|ylabel|title|System\.out\.println)\b/g, '<span class="function">$1</span>')
+                      .replace(/\b(Student|Person|Shape|Circle|Rectangle|Node|TreeNode|Graph|LinkedList|BinaryTree|CustomStack|Person|LinearRegression|KMeans|Sequential|Dense|StandardScaler|HelloWorld|Variables|ControlStructures|Functions|Arrays|Pointers)\b/g, '<span class="class">$1</span>')
+                      .replace(/#.*$/gm, '<span class="comment">$&</span>')
+                  }}
+                />
 
                 {/* Input Prompt */}
                 {showInputPrompt === index && (
@@ -2205,7 +2186,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                         onChange={(e) => handleInputChange(e.target.value)}
                         onKeyPress={(e) => {
                           if (e.key === 'Enter') {
-                            handleInputSubmit(index, topic.code || '', language);
+                            handleInputSubmit(index, topic.code, language);
                           }
                         }}
                         style={{
@@ -2224,7 +2205,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                       <Button
                         size="small"
                         variant="contained"
-                        onClick={() => handleInputSubmit(index, topic.code || '', language)}
+                        onClick={() => handleInputSubmit(index, topic.code, language)}
                     sx={{
                           background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
                           color: '#fff',
@@ -2409,7 +2390,7 @@ print(f"Maximum value: {knapsack(weights, values, capacity)}")`,
                     whiteSpace: 'pre-line',
                   }}
                 >
-                  SHETTY_SIR's_CODING_ACADEMY
+                  SHETTY_SIR's{'\n'}CODING_ACADEMY
                             </Typography>
                           <Typography
                   variant="caption"

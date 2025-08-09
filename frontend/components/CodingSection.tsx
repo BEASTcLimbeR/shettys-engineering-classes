@@ -5,55 +5,35 @@ import { Box, Typography, Container, Button } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import Loader from './Loader';
-// Import animation data from public directory
-import programersWorking from '../../public/programers-working.json';
-import clockLoading from '../../public/clock-loading.json';
+import programersWorking from '../public/programers-working.json';
+import clockLoading from '../public/clock-loading.json';
 
 const CodingSection: React.FC = () => {
   const [isDeveloperMode, setIsDeveloperMode] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [nextMode, setNextMode] = useState<null | boolean>(null); // Track next mode for preloader
   const router = useRouter();
 
-  // Debug: Check if animation files are loaded (only on client)
-  React.useEffect(() => {
-    console.log('Animation files loaded:', { 
-      programersWorking: !!programersWorking, 
-      clockLoading: !!clockLoading,
-      programersWorkingKeys: programersWorking ? Object.keys(programersWorking) : null,
-      clockLoadingKeys: clockLoading ? Object.keys(clockLoading) : null
-    });
-  }, []);
-
-  // Play toggle sound
-  const playToggleSound = () => {
-    console.log('Playing toggle sound...');
+  const handleToggle = () => {
+    // Play toggle sound
     const audio = new Audio('/toggle.mp3');
     audio.play().catch(error => {
       console.log('Audio play failed:', error);
     });
-  };
-
-  const handleToggle = () => {
-    console.log('Toggle clicked! Current mode:', isDeveloperMode);
-    playToggleSound();
-    const newDeveloperMode = !isDeveloperMode;
-    console.log('Switching to mode:', newDeveloperMode);
-    console.log('Setting nextMode to:', newDeveloperMode);
-    setNextMode(newDeveloperMode); // Track the next mode for the preloader
-    setIsDeveloperMode(newDeveloperMode);
+    
+    // Immediately update the toggle state for visual feedback
+    setIsDeveloperMode(!isDeveloperMode);
+    
+    // Keep original animation timing but optimize routing
     setLoading(true);
-    console.log('Loading started with animation:', newDeveloperMode ? 'programers-working' : 'clock-loading');
     setTimeout(() => {
-      console.log('Loading finished, navigating...');
       setLoading(false);
-      setNextMode(null); // Reset after loading
-      if (newDeveloperMode) {
+      // Fast routing without delays
+      if (!isDeveloperMode) {
         router.push('/coding-academy');
       } else {
         router.push('/');
       }
-    }, 1500);
+    }, 1500); // Keep original animation time for beautiful preloader
   };
 
   const handleTitleClick = () => {
@@ -63,22 +43,6 @@ const CodingSection: React.FC = () => {
       console.log('Audio play failed:', error);
     });
   };
-
-  // Show preloader when loading
-  if (loading) {
-    // Use nextMode if set, otherwise fallback to isDeveloperMode
-    const mode = nextMode !== null ? nextMode : isDeveloperMode;
-    console.log('=== PRELOADER DEBUG ===');
-    console.log('loading:', loading);
-    console.log('nextMode:', nextMode);
-    console.log('isDeveloperMode:', isDeveloperMode);
-    console.log('calculated mode:', mode);
-    console.log('animation choice:', mode ? 'programers-working' : 'clock-loading');
-    console.log('programersWorking available:', !!programersWorking);
-    console.log('clockLoading available:', !!clockLoading);
-    console.log('=== END DEBUG ===');
-    return <Loader animationData={mode ? programersWorking : clockLoading} overlay />;
-  }
 
   return (
     <Box
@@ -90,6 +54,12 @@ const CodingSection: React.FC = () => {
         overflow: 'hidden',
       }}
     >
+      {loading && (
+        <Loader
+          animationData={isDeveloperMode ? programersWorking : clockLoading}
+          overlay
+        />
+      )}
       {/* Background decorative elements */}
       <Box
         sx={{
