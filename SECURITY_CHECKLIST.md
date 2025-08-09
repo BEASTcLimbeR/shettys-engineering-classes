@@ -33,7 +33,7 @@ git log -p --all -S "mongodb+srv://" | grep -i "mongodb+srv"
 #### Backend (.env)
 ```bash
 # Database
-MONGODB_URI=mongodb+srv://NEW_USERNAME:NEW_PASSWORD@cluster.mongodb.net/database?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/YOUR_DATABASE?retryWrites=true&w=majority
 
 # Email Configuration
 EMAIL_HOST=smtp.gmail.com
