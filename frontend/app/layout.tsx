@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'your-google-verification-code', // Replace with your actual verification code from Google Search Console
   },
   category: 'education',
   classification: 'engineering coaching institute',
