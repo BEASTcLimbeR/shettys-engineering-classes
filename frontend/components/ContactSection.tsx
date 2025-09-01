@@ -489,10 +489,51 @@ const ContactSection: React.FC = () => {
                         fontSize: { xs: '1rem', sm: '0.875rem' },
                         '& .MuiOutlinedInput-input': {
                           padding: { xs: '16px 14px', sm: '16.5px 14px' },
+                          textAlign: 'left !important',
+                          textAlignLast: 'left !important',
+                          direction: 'ltr !important',
+                          textIndent: '0 !important',
+                          '&::placeholder': {
+                            textAlign: 'left !important',
+                          },
+                          '&::-webkit-input-placeholder': {
+                            textAlign: 'left !important',
+                          },
+                          '&::-moz-placeholder': {
+                            textAlign: 'left !important',
+                          },
+                          '&:-ms-input-placeholder': {
+                            textAlign: 'left !important',
+                          },
+                        },
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'rgba(0, 0, 0, 0.23)',
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'rgba(0, 0, 0, 0.4)',
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#1976d2',
+                          borderWidth: '2px',
                         },
                       },
                       '& .MuiInputLabel-root': {
                         fontSize: { xs: '1rem', sm: '0.875rem' },
+                        '&.Mui-focused': {
+                          color: '#1976d2',
+                        },
+                      },
+                      '& .MuiFormHelperText-root': {
+                        marginLeft: 0,
+                      },
+                      // Force text alignment for all browsers
+                      '& textarea': {
+                        textAlign: 'left !important',
+                        textAlignLast: 'left !important',
+                        direction: 'ltr !important',
+                        textIndent: '0 !important',
+                        paddingLeft: '14px !important',
+                        paddingRight: '14px !important',
                       },
                     }}
                   />

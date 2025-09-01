@@ -59,3 +59,35 @@ body > div[style*="position: fixed"][style*="bottom: 16px"][style*="left: 16px"]
   pointer-events: none !important;
   opacity: 0 !important;
 }
+
+/* Fix textarea text alignment and cursor positioning */
+textarea,
+.MuiInputBase-input,
+.MuiOutlinedInput-input {
+  text-align: left !important;
+  text-align-last: left !important;
+  direction: ltr !important;
+  text-indent: 0 !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+}
+
+/* Ensure textarea cursor starts from the left */
+textarea:focus,
+.MuiInputBase-input:focus,
+.MuiOutlinedInput-input:focus {
+  text-align: left !important;
+  text-align-last: left !important;
+  direction: ltr !important;
+  text-indent: 0 !important;
+}
+
+/* Fix for Material-UI multiline textarea */
+.MuiInputBase-root textarea {
+  text-align: left !important;
+  text-align-last: left !important;
+  direction: ltr !important;
+  text-indent: 0 !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+}
