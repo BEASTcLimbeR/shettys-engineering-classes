@@ -14,12 +14,13 @@ import TestimonialsSection from '../components/TestimonialsSection';
 import FAQSection from '../components/FAQSection';
 import Footer from '../components/Footer';
 import { Box } from '@mui/material';
+import ClientLayout from './components/ClientLayout';
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  return (
+  const pageContent = (
     <>
       {/* Progress Bar */}
       <motion.div
@@ -50,70 +51,12 @@ export default function Home() {
         <section id="faq"><FAQSection /></section>
       </Box>
       <Footer />
-
-      <style jsx global>{`
-        /* Webkit browsers (Chrome, Safari, Edge) */
-        ::-webkit-scrollbar {
-          width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: rgba(25, 118, 210, 0.1);
-          border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: linear-gradient(135deg, #1976d2, #42a5f5);
-          border-radius: 5px;
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          transition: all 0.3s ease;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(135deg, #1565c0, #1976d2);
-          transform: scale(1.05);
-        }
-        
-        ::-webkit-scrollbar-corner {
-          background: rgba(25, 118, 210, 0.1);
-        }
-        
-        /* Firefox */
-        * {
-          scrollbar-width: thin;
-          scrollbar-color: #1976d2 rgba(25, 118, 210, 0.1);
-        }
-        
-        /* Smooth scrolling for the entire page */
-        html {
-          scroll-behavior: smooth;
-        }
-        
-        /* Custom scrollbar for specific elements */
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: #1976d2 rgba(25, 118, 210, 0.1);
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(25, 118, 210, 0.05);
-          border-radius: 4px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(135deg, #1976d2, #42a5f5);
-          border-radius: 4px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(135deg, #1565c0, #1976d2);
-        }
-      `}</style>
     </>
+  );
+
+  return (
+    <ClientLayout>
+      {pageContent}
+    </ClientLayout>
   );
 }

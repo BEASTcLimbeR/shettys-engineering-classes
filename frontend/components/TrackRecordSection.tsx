@@ -152,9 +152,12 @@ const TrackRecordSection: React.FC = () => {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' },
-            gap: 4,
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+            gap: { xs: 3, sm: 4, md: 3 },
             justifyContent: 'center',
+            alignItems: 'stretch',
+            maxWidth: '100%',
+            overflow: 'hidden'
           }}
         >
           {stats.map((stat, index) => (
@@ -168,41 +171,64 @@ const TrackRecordSection: React.FC = () => {
               <Paper
                 elevation={0}
                 sx={{
-                  p: 4,
+                  p: { xs: 3, sm: 3.5, md: 4 },
                   textAlign: 'center',
                   background: 'rgba(255, 255, 255, 0.95)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: 4,
                   boxShadow: '0 8px 32px rgba(25, 118, 210, 0.05)',
                   transition: 'all 0.3s ease',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                   '&:hover': {
-                    transform: 'translateY(-8px) scale(1.04)',
+                    transform: 'translateY(-8px) scale(1.02)',
                     boxShadow: '0 20px 40px rgba(255, 107, 53, 0.12)',
                   },
                 }}
               >
-                <Box sx={{ mb: 2 }}>{stat.icon}</Box>
+                <Box sx={{ 
+                  mb: 2, 
+                  display: 'flex', 
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  minHeight: '60px'
+                }}>
+                  {stat.icon}
+                </Box>
                 <Typography
                   variant="h3"
                   sx={{
                     fontWeight: 900,
-                    fontSize: { xs: '2.5rem', sm: '3rem' },
+                    fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                     color: '#222',
                     mb: 1,
+                    lineHeight: 1.2,
+                    minHeight: { xs: '2.4rem', sm: '3rem', md: '3.6rem' },
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }}
                 >
-                                     {stat.label === 'across Computer, ENTC, Electrical, AI, IT, Mechanical and Civil branches' ? (
-                     stat.value
-                   ) : (
-                     <Counter value={stat.value} />
-                   )}
+                  {stat.label === 'across Computer, ENTC, Electrical, AI, IT, Mechanical and Civil branches' ? (
+                    stat.value
+                  ) : (
+                    <Counter value={stat.value} />
+                  )}
                 </Typography>
                 <Typography
                   variant="h6"
                   sx={{
                     color: '#666',
                     fontWeight: 500,
-                    fontSize: '1.1rem',
+                    fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+                    lineHeight: 1.4,
+                    minHeight: { xs: '2.8rem', sm: '3.2rem', md: '3.6rem' },
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center'
                   }}
                 >
                   {stat.label}

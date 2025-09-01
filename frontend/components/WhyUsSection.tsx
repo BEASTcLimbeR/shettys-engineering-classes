@@ -283,8 +283,20 @@ const WhyUsSection: React.FC = () => {
                     Why Students Choose SEC:
                   </Typography>
 
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mb: 4 }}>
-                    <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%' } }}>
+                  <Box sx={{ 
+                    display: 'grid', 
+                    gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, 
+                    gap: 3, 
+                    mb: 4,
+                    maxWidth: '100%'
+                  }}>
+                    {/* Left Column */}
+                    <Box sx={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      gap: 3,
+                      alignItems: 'stretch'
+                    }}>
                       {[
                         { icon: '✨', text: 'Student-First Philosophy', color: '#4caf50' },
                         { icon: '🔍', text: 'Focus on Concept Clarity', color: '#2196f3' },
@@ -295,28 +307,32 @@ const WhyUsSection: React.FC = () => {
                           key={index}
                           sx={{ 
                             display: 'flex', 
-                            alignItems: 'flex-start', 
-                            mb: 3,
-                            p: 2,
+                            alignItems: 'center', 
+                            p: 2.5,
                             borderRadius: 2,
-                            background: 'rgba(255, 255, 255, 0.7)',
-                            border: '1px solid rgba(0, 0, 0, 0.05)',
+                            background: 'rgba(255, 255, 255, 0.8)',
+                            border: '1px solid rgba(0, 0, 0, 0.08)',
                             transition: 'all 0.3s ease',
+                            minHeight: '80px',
                             '&:hover': {
-                              transform: 'translateX(8px)',
-                              background: 'rgba(255, 255, 255, 0.9)',
-                              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                              transform: 'translateY(-2px)',
+                              background: 'rgba(255, 255, 255, 0.95)',
+                              boxShadow: '0 6px 20px rgba(0, 0, 0, 0.12)',
                             }
                           }}
                         >
-                          <Typography sx={{ mr: 3, fontSize: '1.5rem' }}>{item.icon}</Typography>
+                          <Typography sx={{ mr: 3, fontSize: '2rem', minWidth: '40px', textAlign: 'center' }}>
+                            {item.icon}
+                          </Typography>
                           <Typography 
                             variant="body1" 
                             sx={{ 
                               color: '#37474f', 
-                              lineHeight: 1.6,
+                              lineHeight: 1.5,
                               fontWeight: 600,
                               fontSize: '1.05rem',
+                              flex: 1,
+                              textAlign: 'left'
                             }}
                           >
                             {item.text}
@@ -324,7 +340,14 @@ const WhyUsSection: React.FC = () => {
                         </Box>
                       ))}
                     </Box>
-                    <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%' } }}>
+                    
+                    {/* Right Column */}
+                    <Box sx={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      gap: 3,
+                      alignItems: 'stretch'
+                    }}>
                       {[
                         { icon: '🎯', text: 'Result-Oriented Exam Preparation', color: '#f44336' },
                         { icon: '✅', text: 'Strong Concept Building + Exam-Focused Coaching', color: '#4caf50' },
@@ -335,28 +358,32 @@ const WhyUsSection: React.FC = () => {
                           key={index}
                           sx={{ 
                             display: 'flex', 
-                            alignItems: 'flex-start', 
-                            mb: 3,
-                            p: 2,
+                            alignItems: 'center', 
+                            p: 2.5,
                             borderRadius: 2,
-                            background: 'rgba(255, 255, 255, 0.7)',
-                            border: '1px solid rgba(0, 0, 0, 0.05)',
+                            background: 'rgba(255, 255, 255, 0.8)',
+                            border: '1px solid rgba(0, 0, 0, 0.08)',
                             transition: 'all 0.3s ease',
+                            minHeight: '80px',
                             '&:hover': {
-                              transform: 'translateX(8px)',
-                              background: 'rgba(255, 255, 255, 0.9)',
-                              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                              transform: 'translateY(-2px)',
+                              background: 'rgba(255, 255, 255, 0.95)',
+                              boxShadow: '0 6px 20px rgba(0, 0, 0, 0.12)',
                             }
                           }}
                         >
-                          <Typography sx={{ mr: 3, fontSize: '1.5rem' }}>{item.icon}</Typography>
+                          <Typography sx={{ mr: 3, fontSize: '2rem', minWidth: '40px', textAlign: 'center' }}>
+                            {item.icon}
+                          </Typography>
                           <Typography 
                             variant="body1" 
                             sx={{ 
                               color: '#37474f', 
-                              lineHeight: 1.6,
+                              lineHeight: 1.5,
                               fontWeight: 600,
                               fontSize: '1.05rem',
+                              flex: 1,
+                              textAlign: 'left'
                             }}
                           >
                             {item.text}

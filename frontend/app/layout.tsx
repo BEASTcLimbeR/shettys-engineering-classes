@@ -50,11 +50,18 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/logo-sec-icon.svg', type: 'image/svg+xml' }
+      { url: '/logo-sec-icon.svg', type: 'image/svg+xml' },
+      { url: '/logo-sec-icon.svg', sizes: '16x16', type: 'image/svg+xml' },
+      { url: '/logo-sec-icon.svg', sizes: '32x32', type: 'image/svg+xml' },
+      { url: '/logo-sec-icon.svg', sizes: '48x48', type: 'image/svg+xml' },
+      { url: '/logo-sec-icon.svg', sizes: '96x96', type: 'image/svg+xml' },
+      { url: '/logo-sec-icon.svg', sizes: '192x192', type: 'image/svg+xml' },
+      { url: '/logo-sec-icon.svg', sizes: '512x512', type: 'image/svg+xml' }
     ],
     shortcut: '/logo-sec-icon.svg',
-    apple: '/logo-sec-icon.svg',
+    apple: [
+      { url: '/logo-sec-icon.svg', sizes: '180x180', type: 'image/svg+xml' }
+    ],
   },
   manifest: '/manifest.json',
   robots: {
@@ -83,8 +90,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/logo-sec-icon.svg" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=2" />
+        <link rel="icon" type="image/svg+xml" sizes="16x16" href="/logo-sec-icon.svg?v=2" />
+        <link rel="icon" type="image/svg+xml" sizes="32x32" href="/logo-sec-icon.svg?v=2" />
+        <link rel="icon" type="image/svg+xml" sizes="48x48" href="/logo-sec-icon.svg?v=2" />
+        <link rel="icon" type="image/svg+xml" sizes="96x96" href="/logo-sec-icon.svg?v=2" />
+        <link rel="icon" type="image/svg+xml" sizes="192x192" href="/logo-sec-icon.svg?v=2" />
+        <link rel="icon" type="image/svg+xml" sizes="512x512" href="/logo-sec-icon.svg?v=2" />
+        <link rel="shortcut icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=2" />
+        <link rel="apple-touch-icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=2" />
         <link rel="canonical" href="https://shettysengineeringclasses.com" />
         <meta name="theme-color" content="#1976d2" />
         <meta name="msapplication-TileColor" content="#1976d2" />
