@@ -90,23 +90,38 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=2" />
-        <link rel="icon" type="image/svg+xml" sizes="16x16" href="/logo-sec-icon.svg?v=2" />
-        <link rel="icon" type="image/svg+xml" sizes="32x32" href="/logo-sec-icon.svg?v=2" />
-        <link rel="icon" type="image/svg+xml" sizes="48x48" href="/logo-sec-icon.svg?v=2" />
-        <link rel="icon" type="image/svg+xml" sizes="96x96" href="/logo-sec-icon.svg?v=2" />
-        <link rel="icon" type="image/svg+xml" sizes="192x192" href="/logo-sec-icon.svg?v=2" />
-        <link rel="icon" type="image/svg+xml" sizes="512x512" href="/logo-sec-icon.svg?v=2" />
-        <link rel="shortcut icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=2" />
-        <link rel="apple-touch-icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=2" />
+        {/* Primary favicon with aggressive cache-busting */}
+        <link rel="icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=3" />
+        <link rel="icon" type="image/svg+xml" sizes="16x16" href="/logo-sec-icon.svg?v=3" />
+        <link rel="icon" type="image/svg+xml" sizes="32x32" href="/logo-sec-icon.svg?v=3" />
+        <link rel="icon" type="image/svg+xml" sizes="48x48" href="/logo-sec-icon.svg?v=3" />
+        <link rel="icon" type="image/svg+xml" sizes="96x96" href="/logo-sec-icon.svg?v=3" />
+        <link rel="icon" type="image/svg+xml" sizes="192x192" href="/logo-sec-icon.svg?v=3" />
+        <link rel="icon" type="image/svg+xml" sizes="512x512" href="/logo-sec-icon.svg?v=3" />
+        
+        {/* Shortcut and Apple touch icons */}
+        <link rel="shortcut icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=3" />
+        <link rel="apple-touch-icon" type="image/svg+xml" href="/logo-sec-icon.svg?v=3" />
+        <link rel="apple-touch-icon" type="image/svg+xml" sizes="180x180" href="/logo-sec-icon.svg?v=3" />
+        
+        {/* Microsoft tile icon */}
+        <meta name="msapplication-TileImage" content="/logo-sec-icon.svg?v=3" />
+        <meta name="msapplication-TileColor" content="#1976d2" />
+        
+        {/* Force favicon refresh */}
+        <link rel="icon" href="/logo-sec-icon.svg?v=3" />
+        
+        {/* Additional formats for better compatibility */}
+        <link rel="icon" type="image/png" href="/logo-sec-icon.svg?v=3" />
+        
+        {/* Preload favicon to ensure it loads first */}
+        <link rel="preload" href="/logo-sec-icon.svg?v=3" as="image" type="image/svg+xml" />
         <link rel="canonical" href="https://shettysengineeringclasses.com" />
         <meta name="theme-color" content="#1976d2" />
-        <meta name="msapplication-TileColor" content="#1976d2" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="SEC Pune" />
         <meta name="application-name" content="Shettys Engineering Classes" />
-        <meta name="msapplication-TileImage" content="/logo-sec-icon.svg" />
       </head>
       <body className={inter.className}>
         <ClientParallaxProvider>

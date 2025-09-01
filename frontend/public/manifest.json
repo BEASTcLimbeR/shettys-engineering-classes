@@ -1,6 +1,6 @@
 {
   "name": "Shettys Engineering Classes",
-  "short_name": "SEC Pune",
+  "short_name": "SEC",
   "description": "Leading engineering coaching institute in Pune since 2010",
   "start_url": "/",
   "display": "standalone",
@@ -9,22 +9,34 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/logo-sec-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "/logo-sec-icon.svg?v=3",
+      "sizes": "16x16",
+      "type": "image/svg+xml"
     },
     {
-      "src": "/logo-sec-icon.svg",
+      "src": "/logo-sec-icon.svg?v=3",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/logo-sec-icon.svg?v=3",
+      "sizes": "48x48",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/logo-sec-icon.svg?v=3",
+      "sizes": "96x96",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/logo-sec-icon.svg?v=3",
       "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any"
+      "type": "image/svg+xml"
     },
     {
-      "src": "/logo-sec-icon.svg",
+      "src": "/logo-sec-icon.svg?v=3",
       "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any"
+      "type": "image/svg+xml"
     }
   ],
   "categories": ["education", "productivity"],
