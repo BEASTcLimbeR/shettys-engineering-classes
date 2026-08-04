@@ -1,11 +1,22 @@
 "use client";
 
 import React from 'react';
-import { Box, Typography, Button, Container, Stack } from '@mui/material';
+import { Box, Typography, Container } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Parallax } from 'react-scroll-parallax';
+import { Montserrat } from 'next/font/google';
 import HeroHeadline from './HeroHeadline';
 import HeroCTAButtons from './HeroCTAButtons';
+
+// Clean tracked sans-serif — matches ACADEMICS | CODING | GATE banner line
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['500', '600'],
+  display: 'swap',
+});
+
+const GOLD = '#C9A227';
+const NAVY = '#0B1D36';
 
 const HeroSection: React.FC = () => {
   return (
@@ -68,6 +79,38 @@ const HeroSection: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <HeroHeadline />
+          </motion.div>
+
+          {/* Focus areas — uppercase, wide tracking, gold separators */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+          >
+            <Typography
+              variant="h3"
+              className={montserrat.className}
+              sx={{
+                fontSize: { xs: '0.95rem', sm: '1.15rem', md: '1.35rem' },
+                fontWeight: 600,
+                color: NAVY,
+                letterSpacing: { xs: '0.18em', sm: '0.28em', md: '0.35em' },
+                textTransform: 'uppercase',
+                mb: 3,
+                maxWidth: '900px',
+                mx: 'auto',
+              }}
+            >
+              Academics{' '}
+              <Box component="span" sx={{ color: GOLD, fontWeight: 500 }}>
+                |
+              </Box>{' '}
+              Coding{' '}
+              <Box component="span" sx={{ color: GOLD, fontWeight: 500 }}>
+                |
+              </Box>{' '}
+              GATE
+            </Typography>
           </motion.div>
 
           {/* Subheadline */}
