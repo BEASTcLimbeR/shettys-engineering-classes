@@ -78,19 +78,6 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Typography
-              className={montserrat.className}
-              sx={{
-                fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1.05rem' },
-                fontWeight: 600,
-                color: GOLD,
-                letterSpacing: { xs: '0.2em', sm: '0.28em' },
-                textTransform: 'uppercase',
-                mb: { xs: 1.5, md: 2 },
-              }}
-            >
-              16 Years Completed
-            </Typography>
             <HeroHeadline />
           </motion.div>
 
