@@ -13,6 +13,7 @@ import ContactSection from '../components/ContactSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import FAQSection from '../components/FAQSection';
 import Footer from '../components/Footer';
+import WelcomePosterPopup from '../components/WelcomePosterPopup';
 import { Box } from '@mui/material';
 import ClientLayout from './components/ClientLayout';
 
@@ -22,6 +23,9 @@ export default function Home() {
 
   const pageContent = (
     <>
+      {/* GATE results poster — shows once per browser session */}
+      <WelcomePosterPopup />
+
       {/* Progress Bar */}
       <motion.div
         style={{
