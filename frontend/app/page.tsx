@@ -7,6 +7,7 @@ import WhyUsSection from '../components/WhyUsSection';
 import CoursesSection from '../components/CoursesSection';
 import TrackRecordSection from '../components/TrackRecordSection';
 import CodingSection from '../components/CodingSection';
+import GateSection from '../components/GateSection';
 import AboutFounderSection from '../components/AboutFounderSection';
 import MissionOfferSection from '../components/MissionOfferSection';
 import ContactSection from '../components/ContactSection';
@@ -48,6 +49,7 @@ export default function Home() {
         <section id="courses"><CoursesSection /></section>
         <section id="track-record"><TrackRecordSection /></section>
         <section id="coding"><CodingSection /></section>
+        <section id="gate"><GateSection /></section>
         <section id="founder"><AboutFounderSection /></section>
         <section id="mission"><MissionOfferSection /></section>
         <section id="testimonials"><TestimonialsSection /></section>

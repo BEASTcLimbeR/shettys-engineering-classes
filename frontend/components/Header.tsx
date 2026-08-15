@@ -19,8 +19,9 @@ import Link from 'next/link';
 const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
-  { label: 'Courses', href: '#courses' },
-  { label: 'Coding', href: '#coding' }, // Placeholder, not implemented
+  { label: 'Academics', href: '#courses' },
+  { label: 'Coding', href: '#coding' },
+  { label: 'GATE', href: '#gate' },
   { label: 'Our Faculty', href: '#faculty' },
   { label: 'Testimonials', href: '#testimonials' },
   { label: 'Contact Us', href: '#contact' },

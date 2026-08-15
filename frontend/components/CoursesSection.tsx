@@ -435,7 +435,7 @@ const CoursesSection = (): React.JSX.Element => {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              Our Courses
+              Our Academics
             </Typography>
             <Typography
               variant="h5"
