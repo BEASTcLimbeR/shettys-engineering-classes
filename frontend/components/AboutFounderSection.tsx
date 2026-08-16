@@ -49,7 +49,7 @@ const founder = {
   achievements: [
     '**1st Topper** SVCE Bangalore',
     'VTU Karnataka **11th Rank (2005)**',
-    '**14+ Years** of Teaching & Industry Experience',
+    '**16+ Years** of Teaching & Industry Experience',
   ],
   bio: `A passionate Educator, mentor, and the driving force behind Shetty's Engineering Classes, Prof. Sukumara Shetty (Shetty Sir) has guided thousands of Engineering students across the globe with his clear explanations, motivational teaching, and Exam-smart strategies.
 
@@ -65,7 +65,7 @@ const faculty = [
   {
     name: 'Prof. Shetty',
     department: 'E&TC, Computer, Electrical, AI, DS',
-    experience: '15+ Years',
+    experience: '16+ Years',
     color: '#1976d2'
   },
   {
@@ -77,7 +77,7 @@ const faculty = [
   {
     name: 'Prof. Pardeshi',
     department: 'Civil',
-    experience: '15+ Years',
+    experience: '16+ Years',
     color: '#4caf50'
   },
   {

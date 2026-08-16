@@ -31,7 +31,7 @@ const WhyUsSection: React.FC = () => {
   const promises = [
     {
       icon: <School sx={{ fontSize: 40, color: '#1976d2' }} />,
-      title: "15+ Years Specialization",
+      title: "16+ Years Specialization",
       description: "Specializing in Pune University and 25+ other University syllabus"
     },
     {

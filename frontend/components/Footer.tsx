@@ -143,7 +143,7 @@ const Footer: React.FC = () => {
                   mb: 3,
                 }}
               >
-                Empowering engineering students with personalized coaching, expert guidance, and proven academic excellence for over 15+ years.
+                Empowering engineering students with personalized coaching, expert guidance, and proven academic excellence for over 16+ years.
               </Typography>
 
               {/* Social Links */}
