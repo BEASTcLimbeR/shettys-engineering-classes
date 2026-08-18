@@ -32,7 +32,7 @@ const WhyUsSection: React.FC = () => {
     {
       icon: <School sx={{ fontSize: 40, color: '#1976d2' }} />,
       title: "16+ Years Specialization",
-      description: "Specializing in Pune University and 25+ other University syllabus"
+      description: "Specializing in Pune University and 32 other University syllabus"
     },
     {
       icon: <Groups sx={{ fontSize: 40, color: '#1976d2' }} />,
@@ -230,7 +230,7 @@ const WhyUsSection: React.FC = () => {
                           fontWeight: 500,
                         }}
                       >
-                        Founded over a decade ago by <strong>Prof. Sukumara Shetty</strong>, SEC has grown into one of Pune&apos;s most sought-after coaching institutes, empowering thousands of engineering students across <strong>12+ top universities</strong> including SPPU, Mumbai University, and other institutions across India and abroad.
+                        Founded over a decade ago by <strong>Prof. Sukumara Shetty</strong>, SEC has grown into one of Pune&apos;s most sought-after coaching institutes, empowering thousands of engineering students across <strong>32 top universities</strong> including SPPU, Mumbai University, and other institutions across India and abroad.
                       </Typography>
                     </Box>
                     <Box sx={{ 

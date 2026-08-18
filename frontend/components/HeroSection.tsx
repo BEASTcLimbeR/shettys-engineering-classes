@@ -130,7 +130,7 @@ const HeroSection: React.FC = () => {
                 mx: 'auto',
               }}
             >
-              One Institute & More Than 12 Universities
+              One Institute & More Than 32 Universities
             </Typography>
           </motion.div>
 
@@ -170,3 +170,4 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
+
